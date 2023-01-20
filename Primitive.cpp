@@ -1,9 +1,8 @@
 
 #include "Globals.h"
-#include <gl/GL.h>
-#include <gl/GLU.h>
 #include "Primitive.h"
-#include "glut/glut.h"
+
+
 
 #pragma comment (lib, "glut/glut32.lib")
 
@@ -274,4 +273,50 @@ void Plane::InnerRender() const
 	}
 
 	glEnd();
+}
+
+
+PlaneV::PlaneV(const glm::vec3& v1, const glm::vec3& v2, const glm::vec3& v3, const glm::vec3& v4) : Primitive(), vertices({ v1, v2, v3, v4 })
+{
+	type = PrimitiveTypes::Primitive_Planea;
+
+	glm::vec3 edge1 = v2 - v1;
+	glm::vec3 edge2 = v3 - v1;
+	normal = glm::normalize(glm::cross(edge1, edge2));
+	constant = -glm::dot(normal, v1);
+}
+
+void PlaneV::InnerRender() const
+{
+	glColor3f(color.r, color.g, color.b); 
+	//glBegin(GL_TRIANGLES);
+	//// Dibujar el primer triángulo del plano utilizando los vértices 0, 1 y 2
+	//glVertex3f(vertices[0].x, vertices[0].y, vertices[0].z);
+	//glVertex3f(vertices[1].x, vertices[1].y, vertices[1].z);
+	//glVertex3f(vertices[2].x, vertices[2].y, vertices[2].z);
+	//// Dibujar el segundo triángulo del plano utilizando los vértices 2, 3 y 0
+	//glVertex3f(vertices[2].x, vertices[2].y, vertices[2].z);
+	//glVertex3f(vertices[3].x, vertices[3].y, vertices[3].z);
+	//glVertex3f(vertices[0].x, vertices[0].y, vertices[0].z);
+
+	glEnable(GL_CULL_FACE);
+	glCullFace(GL_BACK);
+	glBegin(GL_QUADS);
+	// Dibujar el plano utilizando los vértices 0, 1, 2 y 3
+	glVertex3f(vertices[0].x, vertices[0].y, vertices[0].z);
+	glVertex3f(vertices[1].x, vertices[1].y, vertices[1].z);
+	glVertex3f(vertices[2].x, vertices[2].y, vertices[2].z);
+	glVertex3f(vertices[3].x, vertices[3].y, vertices[3].z);
+	glEnd();
+	glDisable(GL_CULL_FACE);
+}
+
+float PlaneV::GetConstant() const
+{
+	return constant;
+}
+
+glm::vec3 PlaneV::GetNormal() const
+{
+	return normal;
 }

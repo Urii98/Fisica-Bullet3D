@@ -2,6 +2,15 @@
 #pragma once
 #include "glmath.h"
 #include "Color.h"
+#define GL_GLEXT_PROTOTYPES 1
+#define GL3_PROTOTYPES 1
+#include <gl/GL.h>
+#include <gl/GLU.h>
+#include<glm/glm.hpp>
+#include<vector>
+#include "glut/glut.h"
+#include"SDL/include/SDL_opengl_glext.h"
+
 
 enum PrimitiveTypes
 {
@@ -10,7 +19,8 @@ enum PrimitiveTypes
 	Primitive_Plane,
 	Primitive_Cube,
 	Primitive_Sphere,
-	Primitive_Cylinder
+	Primitive_Cylinder,
+	Primitive_Planea
 };
 
 class Primitive
@@ -91,5 +101,23 @@ public:
 	void InnerRender() const;
 public:
 	vec3 normal;
+	float constant;
+};
+
+class PlaneV : public Primitive
+{
+public:
+	//v1: inferior derecha
+	//v2: superior derecha
+	//v3: superior izquierda
+	//v4: inferior izquierda
+	PlaneV(const glm::vec3& v1, const glm::vec3& v2, const glm::vec3& v3, const glm::vec3& v4);
+	void InnerRender() const;
+	glm::vec3 GetNormal() const;
+	float GetConstant() const;
+
+private:
+	std::vector<glm::vec3> vertices;
+	glm::vec3 normal;
 	float constant;
 };
