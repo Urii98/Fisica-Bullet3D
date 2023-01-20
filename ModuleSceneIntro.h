@@ -22,6 +22,7 @@ public:
 	void OnCollision(PhysBody3D* body1, PhysBody3D* body2);
 
 public:
+	// No se que es aixo jaja no ho toco no vull espatllar res :D
 	/*
 	PhysBody3D* pb_snake[MAX_SNAKE];
 	Sphere s_snake[MAX_SNAKE];
@@ -29,6 +30,9 @@ public:
 	PhysBody3D* pb_snake2[MAX_SNAKE];
 	Sphere s_snake2[MAX_SNAKE];
 	*/
+
+	PhysBody3D* sensor;
+
 
 	PhysBody3D* pb_chassis;
 	Cube p_chassis;

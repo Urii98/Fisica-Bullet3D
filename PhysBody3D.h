@@ -19,11 +19,15 @@ public:
 	void SetTransform(const float* matrix) const;
 	void SetPos(float x, float y, float z);
 
+	// Added functions
+	void SetAsSensor(bool is_sensor);
+
 private:
 	btRigidBody* body = nullptr;
 
 public:
 	p2List<Module*> collision_listeners;
+	bool is_sensor = false;
 };
 
 #endif // __PhysBody3D_H__

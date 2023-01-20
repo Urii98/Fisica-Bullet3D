@@ -97,7 +97,9 @@ bool ModulePlayer::Start()
 	car.wheels[3].steering = false;
 
 	vehicle = App->physics->AddVehicle(car);
-	vehicle->SetPos(0, 12, 10);
+	vehicle->SetPos(0, 15, 10);
+	vehicle->collision_listeners.add(App->scene_intro);
+	vehicle->collision_listeners.add(this);
 	
 	return true;
 }
@@ -148,6 +150,11 @@ update_status ModulePlayer::Update(float dt)
 	App->window->SetTitle(title);
 
 	return UPDATE_CONTINUE;
+}
+
+void ModulePlayer::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
+{
+	printf("ASDF");
 }
 
 
