@@ -33,7 +33,7 @@ bool ModuleSceneIntro::Start()
 
 	//primitives.emplace_back(std::make_unique<PlaneV>(v1, v2, v3, v4));
 
-	CreateSpiralRoad(25, 75, 50);
+	CreateSpiralRoad(75, 120, 25, 4);
 	
 	// ======================================================
 	//						Test Code
@@ -186,9 +186,8 @@ void ModuleSceneIntro::AddPlaneV(glm::vec3 v1, glm::vec3 v2, glm::vec3 v3, glm::
 }
 
 
-void ModuleSceneIntro::CreateSpiralRoad(float radius, float height, int sections)
+void ModuleSceneIntro::CreateSpiralRoad(float radius, float height, int sections, int size)
 {
-	float prev_x = 0, prev_y = 0, prev_z = 0, next_x = 0, next_y = 0, next_z = 0;
 	glm::vec3 prevV1, prevV2, prevV3, prevV4;
 	glm::vec3 aV1, aV2, aV3, aV4;
 	glm::vec3 center(0, 0, 0); // center of the spiral
@@ -196,23 +195,25 @@ void ModuleSceneIntro::CreateSpiralRoad(float radius, float height, int sections
 	float angleStep = 2 * PI / sections;
 	float heightStep = height / sections;
 
+	int sizePlane = size;
+
 	for (int i = 0; i < sections; i++) {
 		// calculate the position of each vertex
 		float x = center.x + radius * cos(angle);
 		float z = center.z + radius * sin(angle);
 		float y = center.y + i * heightStep;
-		glm::vec3 v1 = glm::vec3(x - 1, y, z - 1);
-		glm::vec3 v2 = glm::vec3(x + 1, y, z - 1);
-		glm::vec3 v3 = glm::vec3(x + 1, y, z + 1);
-		glm::vec3 v4 = glm::vec3(x - 1, y, z + 1);
+		glm::vec3 v1 = glm::vec3(x - size, y, z - size);
+		glm::vec3 v2 = glm::vec3(x + size, y, z - size);
+		glm::vec3 v3 = glm::vec3(x + size, y, z + size);
+		glm::vec3 v4 = glm::vec3(x - size, y, z + size);
 
 		//create the plan
 		bool rotateX = false; //example rotate value
 		bool rotateY = true; //example rotate value
 		bool rotateZ = false; //example rotate value
+
 		//add it to the scene
-		
-		//AddPlaneV(v1, v2, v3, v4, angle, rotateX, rotateY, rotateZ);
+		//AddPlaneV(v1, v2, v3, v4, angle, rotateX, rotateY, rotateZ); 
 
 		if (i > 0) {
 			//connect to the previous section
@@ -255,12 +256,5 @@ void ModuleSceneIntro::CreateSpiralRoad(float radius, float height, int sections
 		prevV2 = v2;
 		prevV3 = v3; 
 		prevV4 = v4;
-
-		prev_x = x;
-		prev_y = y;
-		prev_z = z;
-		next_x = center.x + (radius + angleStep) * cos(angle + angleStep);
-		next_y = y + heightStep;
-		next_z = center.z + (radius + angleStep) * sin(angle + angleStep);
 	}
 }

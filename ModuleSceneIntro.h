@@ -27,7 +27,7 @@ public:
 	void AddCylinder(vec3 position, float radius, float height, Color RGB, int angle, bool rotateX, bool rotateY, bool rotateZ);
 	
 	void AddPlaneV(glm::vec3 v1, glm::vec3 v2, glm::vec3 v3, glm::vec3 v4, int angle, bool rotateX, bool rotateY, bool rotateZ);
-	void CreateSpiralRoad(float radius, float height, int sections);
+	void CreateSpiralRoad(float radius, float height, int sections, int size);
 
 public:
 	// No se que es aixo jaja no ho toco no vull espatllar res :D
