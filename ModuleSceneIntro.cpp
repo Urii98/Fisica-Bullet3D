@@ -40,6 +40,11 @@ bool ModuleSceneIntro::Start()
 	// ======================================================
 	sensor = App->physics->AddBody(Cube(20, 10, 20), 0.0f);
 	sensor->SetAsSensor(true);
+	sensor->SetPos(30, 0, 0);
+
+	sensorCounter = 0;
+	raceState = BEFORESTART;
+	numOfLaps = 0;
 
 	// -----------------------------
 
@@ -68,8 +73,11 @@ update_status ModuleSceneIntro::Update(float dt)
 	//	primitive->Render();
 	//}
 
-	
-	//Render sensor
+	//DEBUG LAP VARIABLES:
+	printf("VARIABLES\n");
+	printf("SensorCounter: %d\n", sensorCounter);
+	printf("Race State %d\n", raceState);
+	printf("### Num of Laps %d\n", numOfLaps);
 
 
 	return UPDATE_CONTINUE;
@@ -158,6 +166,61 @@ void ModuleSceneIntro::AddCylinder(vec3 position, float radius, float height, Co
 
 void ModuleSceneIntro::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 {
+	if (body2 == sensor)
+	{
+		switch (sensorCounter)
+		{
+			// linia de meta
+		case 0:
+			sensor->SetPos(0, 0, 30);
+			sensorCounter++;
+			break;
+			// sensor en posicio 1
+		case 1:
+			sensor->SetPos(30, 0, 0);
+			sensorCounter += 1;
+			break;
+			// sensor en posicio 2
+		case 2:
+			sensor->SetPos(0, 0, -30);
+			sensorCounter += 1;
+			break;
+			// sensor en posicio 3
+		case 3:
+			sensor->SetPos(-30, 0, 0);
+			sensorCounter += 1;
+			break;
+		default:
+			break;
+		}
+
+		// si player passa l'ultim sensor, col·loca de nou el sensor a la meta i suma 1 lap
+		if (sensorCounter > 3)
+		{
+			sensorCounter = 0;
+			numOfLaps++;
+		}
+
+		switch (numOfLaps)
+		{
+		case 0:
+			raceState = BEFORESTART;
+			break;
+		case 1:
+			raceState = LAP1;
+			break;
+		case 2:
+			raceState = LAP2;
+			break;
+		case 3:
+			raceState = LAP3;
+			break;
+		case 4:
+			raceState = WIN;
+		default:
+			break;
+		}
+	}
 }
 
 void ModuleSceneIntro::AddPlaneV(glm::vec3 v1, glm::vec3 v2, glm::vec3 v3, glm::vec3 v4, int angle, bool rotateX, bool rotateY, bool rotateZ)

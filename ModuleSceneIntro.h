@@ -11,6 +11,16 @@
 struct PhysBody3D;
 struct PhysMotor3D;
 
+enum RaceStateEnum
+{
+	BEFORESTART,
+	LAP1,
+	LAP2,
+	LAP3,
+	WIN,
+	LOSE
+};
+
 class ModuleSceneIntro : public Module
 {
 public:
@@ -40,7 +50,10 @@ public:
 	*/
 
 	PhysBody3D* sensor;
-
+	// Contador per saber a on ha d'estar el sensor
+	int sensorCounter;
+	RaceStateEnum raceState;
+	int numOfLaps;
 
 	PhysBody3D* pb_chassis;
 	Cube p_chassis;

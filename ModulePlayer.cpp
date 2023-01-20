@@ -154,13 +154,7 @@ update_status ModulePlayer::Update(float dt)
 
 void ModulePlayer::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 {
-	if (body2 == App->scene_intro->sensor)
-	{
-		// change sensor position
-		// +1 sensor counter
-		// if sensor counter = 4: reset counter, +1 lap
-		// if lap = 3, Win
-	}
+
 }
 
 
