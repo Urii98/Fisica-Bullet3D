@@ -98,6 +98,30 @@ void Primitive::Scale(float x, float y, float z)
 	transform.scale(x, y, z);
 }
 
+float Primitive::GetX() const {
+	return transform.M[12];
+}
+
+float Primitive::GetY() const {
+	return transform.M[13];
+}
+
+float Primitive::GetZ() const {
+	return transform.M[14];
+}
+
+void Primitive::SetX(float x) {
+	transform.M[12] = x;
+}
+
+void Primitive::SetY(float y) {
+	transform.M[13] = y;
+}
+
+void Primitive::SetZ(float z) {
+	transform.M[14] = z;
+}
+
 // CUBE ============================================
 Cube::Cube() : Primitive(), size(1.0f, 1.0f, 1.0f)
 {

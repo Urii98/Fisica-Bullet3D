@@ -4,7 +4,7 @@
 #include "Primitive.h"
 #include "PhysBody3D.h"
 #include "Color.h"
-
+#include <iostream>
 ModuleSceneIntro::ModuleSceneIntro(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
 }
@@ -15,6 +15,7 @@ ModuleSceneIntro::~ModuleSceneIntro()
 // Load assets
 bool ModuleSceneIntro::Start()
 {
+	prueba = 0.0f;
 	LOG("Loading Intro assets");
 	bool ret = true;
 
@@ -24,16 +25,40 @@ bool ModuleSceneIntro::Start()
 	//vec3 position = { 0,0,0 };
 	//AddCube(vec3{ 0,0,0 }, vec3{ 10000,1,10000 }, Green, 0, 0, 0, 0);
 
-	glm::vec3 v1(-2, -2, 0);
-	glm::vec3 v2(-10, 10, 0);
-	glm::vec3 v3(10, 10, 0);
-	glm::vec3 v4(10, -10, 0);
+	//glm::vec3 v1(-2, -2, 0);
+	//glm::vec3 v2(-10, 10, 0);
+	//glm::vec3 v3(10, 10, 0);
+	//glm::vec3 v4(10, -10, 0);
 
-	AddPlaneV(v1, v2, v3, v4, 0, 0, 0, 0);
-
+	//AddPlaneV(v1, v2, v3, v4, 0, 0, 0, 0);
 	//primitives.emplace_back(std::make_unique<PlaneV>(v1, v2, v3, v4));
 
-	CreateSpiralRoad(75, 120, 25, 4);
+	int numCubes = 30;
+	float step = 2.0f / numCubes;
+	vec3 scale(20, 20, 20);
+	scalarSize = 7.5f;
+	scale *= step;
+	vec3 position(0, 0, 0);
+
+	for (int i = 0; i < numCubes; i++)
+	{
+		graphCubes.emplace_back(std::make_unique<Cube>(scale.x, scale.y, scale.z));
+		
+		float posX = ((i + 1.0f)*step - 1.0f) * scalarSize;
+		float posY = posX * posX;
+
+		graphCubes.at(i).get()->SetPos(posX, posY, 10);
+
+		float rate = 8.0 / numCubes;
+		float aux = i * rate;
+		
+		graphCubes.at(i).get()->color = GetColor(aux);
+
+		
+	}
+	
+
+	CreateSpiralRoad(125, 200, 15, 8);
 	
 	// ======================================================
 	//						Test Code
@@ -70,6 +95,21 @@ update_status ModuleSceneIntro::Update(float dt)
 	for(auto& planeV: vectorPlaneV)
 	{
 		planeV.Render();
+	}
+	prueba += dt;
+	
+	for (auto& graph : graphCubes)
+	{
+		float d = abs(graph.get()->GetX());
+
+		//float posY = sin(M_PI * (graph.get()->GetX()/ scalarSize) + prueba)*20;
+		
+		float posY = sin(M_PI*(4.0f * d - prueba)) * 20;
+		posY /= (1.0f + 10.0f * d);
+		
+		graph.get()->SetY(posY);
+
+		graph->Render();
 	}
 
 	//for (auto& cube : vectorCubes)
@@ -203,7 +243,7 @@ void ModuleSceneIntro::CreateSpiralRoad(float radius, float height, int sections
 	glm::vec3 aV1, aV2, aV3, aV4;
 	glm::vec3 center(0, 0, 0); // center of the spiral
 	float angle = 0.0;
-	float angleStep = 2 * PI / sections;
+	float angleStep = 4 * PI / sections;
 	float heightStep = height / sections;
 
 	int sizePlane = size;
@@ -268,4 +308,9 @@ void ModuleSceneIntro::CreateSpiralRoad(float radius, float height, int sections
 		prevV3 = v3; 
 		prevV4 = v4;
 	}
+}
+
+void ModuleSceneIntro::GraphMovement()
+{
+
 }

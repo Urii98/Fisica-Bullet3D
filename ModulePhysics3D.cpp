@@ -246,95 +246,6 @@ PhysBody3D* ModulePhysics3D::AddBody(const Cube& cube, float mass)
 	return pbody;
 }
 
-//PhysBody3D* ModulePhysics3D::AddBody(const PlaneV& plane, float mass)
-//{
-//	auto normal = plane.GetNormal();
-//	btCollisionShape* colShape = new btStaticPlaneShape(btVector3(normal.x, normal.y, normal.z), plane.GetConstant());
-//	shapes.add(colShape);
-//
-//	btTransform startTransform;
-//	startTransform.setIdentity();
-//
-//	btVector3 localInertia(0, 0, 0);
-//	if (mass != 0.f)
-//		colShape->calculateLocalInertia(mass, localInertia);
-//
-//	btDefaultMotionState* myMotionState = new btDefaultMotionState(startTransform);
-//	motions.add(myMotionState);
-//	btRigidBody::btRigidBodyConstructionInfo rbInfo(mass, myMotionState, colShape, localInertia);
-//
-//	btRigidBody* body = new btRigidBody(rbInfo);
-//	PhysBody3D* pbody = new PhysBody3D(body);
-//
-//	body->setUserPointer(pbody);
-//	world->addRigidBody(body);
-//	bodies.add(pbody);
-//
-//	return pbody;
-//}
-
-//PhysBody3D* ModulePhysics3D::AddBody(const PlaneV& plane, float mass)
-//{
-//	btCollisionShape* colShape = new btBoxShape(btVector3(abs(plane.GetVertices()[0].x - plane.GetVertices()[2].x) / 2, abs(plane.GetVertices()[0].y - plane.GetVertices()[2].y) / 2, abs(plane.GetVertices()[0].z - plane.GetVertices()[2].z) / 2));
-//	//colShape->setLocalScaling(btVector3(1.0f, 0.1f, 1.0f));
-//	shapes.add(colShape);
-//
-//	btVector3 pos = btVector3((plane.GetVertices()[0].x + plane.GetVertices()[2].x) / 2, (plane.GetVertices()[0].y + plane.GetVertices()[2].y) / 2, (plane.GetVertices()[0].z + plane.GetVertices()[2].z) / 2);
-//	btTransform startTransform;
-//	startTransform.setIdentity();
-//	startTransform.setOrigin(pos);
-//
-//	btVector3 localInertia(0, 0, 0);
-//	if (mass != 0.f)
-//		colShape->calculateLocalInertia(mass, localInertia);
-//
-//	btDefaultMotionState* myMotionState = new btDefaultMotionState(startTransform);
-//	motions.add(myMotionState);
-//	btRigidBody::btRigidBodyConstructionInfo rbInfo(mass, myMotionState, colShape, localInertia);
-//
-//	btRigidBody* body = new btRigidBody(rbInfo);
-//	PhysBody3D* pbody = new PhysBody3D(body);
-//
-//	body->setUserPointer(pbody);
-//	world->addRigidBody(body);
-//	bodies.add(pbody);
-//
-//	return pbody;
-//}
-
-//PhysBody3D* ModulePhysics3D::AddBody(const PlaneV& plane, float mass)
-//{
-//	btCollisionShape* colShape = new btBoxShape(btVector3(abs(plane.GetVertices()[0].x - plane.GetVertices()[2].x) / 2, abs(plane.GetVertices()[0].y - plane.GetVertices()[2].y) / 2, abs(plane.GetVertices()[0].z - plane.GetVertices()[2].z) / 2));
-//	shapes.add(colShape);
-//
-//	btVector3 pos = btVector3((plane.GetVertices()[0].x + plane.GetVertices()[2].x) / 2, (plane.GetVertices()[0].y + plane.GetVertices()[2].y) / 2, (plane.GetVertices()[0].z + plane.GetVertices()[2].z) / 2);
-//	btTransform startTransform;
-//	startTransform.setIdentity();
-//	startTransform.setOrigin(pos);
-//
-//	// Agregar la rotación del plano al collider
-//	btQuaternion rotation;
-//	rotation.setRotation(btVector3(plane.GetNormal().x, plane.GetNormal().y, plane.GetNormal().z), plane.GetRotation());
-//	startTransform.setRotation(rotation);
-//
-//	btVector3 localInertia(0, 0, 0);
-//	if (mass != 0.f)
-//		colShape->calculateLocalInertia(mass, localInertia);
-//
-//	btDefaultMotionState* myMotionState = new btDefaultMotionState(startTransform);
-//	motions.add(myMotionState);
-//	btRigidBody::btRigidBodyConstructionInfo rbInfo(mass, myMotionState, colShape, localInertia);
-//
-//	btRigidBody* body = new btRigidBody(rbInfo);
-//	PhysBody3D* pbody = new PhysBody3D(body);
-//
-//	body->setUserPointer(pbody);
-//	world->addRigidBody(body);
-//	bodies.add(pbody);
-//
-//	return pbody;
-//}
-
 PhysBody3D* ModulePhysics3D::AddBody(const PlaneV& plane, float mass)
 {
 	auto vertices = plane.GetVertices();
@@ -515,3 +426,92 @@ int	 DebugDrawer::getDebugMode() const
 {
 	return mode;
 }
+
+//PhysBody3D* ModulePhysics3D::AddBody(const PlaneV& plane, float mass)
+//{
+//	auto normal = plane.GetNormal();
+//	btCollisionShape* colShape = new btStaticPlaneShape(btVector3(normal.x, normal.y, normal.z), plane.GetConstant());
+//	shapes.add(colShape);
+//
+//	btTransform startTransform;
+//	startTransform.setIdentity();
+//
+//	btVector3 localInertia(0, 0, 0);
+//	if (mass != 0.f)
+//		colShape->calculateLocalInertia(mass, localInertia);
+//
+//	btDefaultMotionState* myMotionState = new btDefaultMotionState(startTransform);
+//	motions.add(myMotionState);
+//	btRigidBody::btRigidBodyConstructionInfo rbInfo(mass, myMotionState, colShape, localInertia);
+//
+//	btRigidBody* body = new btRigidBody(rbInfo);
+//	PhysBody3D* pbody = new PhysBody3D(body);
+//
+//	body->setUserPointer(pbody);
+//	world->addRigidBody(body);
+//	bodies.add(pbody);
+//
+//	return pbody;
+//}
+
+//PhysBody3D* ModulePhysics3D::AddBody(const PlaneV& plane, float mass)
+//{
+//	btCollisionShape* colShape = new btBoxShape(btVector3(abs(plane.GetVertices()[0].x - plane.GetVertices()[2].x) / 2, abs(plane.GetVertices()[0].y - plane.GetVertices()[2].y) / 2, abs(plane.GetVertices()[0].z - plane.GetVertices()[2].z) / 2));
+//	//colShape->setLocalScaling(btVector3(1.0f, 0.1f, 1.0f));
+//	shapes.add(colShape);
+//
+//	btVector3 pos = btVector3((plane.GetVertices()[0].x + plane.GetVertices()[2].x) / 2, (plane.GetVertices()[0].y + plane.GetVertices()[2].y) / 2, (plane.GetVertices()[0].z + plane.GetVertices()[2].z) / 2);
+//	btTransform startTransform;
+//	startTransform.setIdentity();
+//	startTransform.setOrigin(pos);
+//
+//	btVector3 localInertia(0, 0, 0);
+//	if (mass != 0.f)
+//		colShape->calculateLocalInertia(mass, localInertia);
+//
+//	btDefaultMotionState* myMotionState = new btDefaultMotionState(startTransform);
+//	motions.add(myMotionState);
+//	btRigidBody::btRigidBodyConstructionInfo rbInfo(mass, myMotionState, colShape, localInertia);
+//
+//	btRigidBody* body = new btRigidBody(rbInfo);
+//	PhysBody3D* pbody = new PhysBody3D(body);
+//
+//	body->setUserPointer(pbody);
+//	world->addRigidBody(body);
+//	bodies.add(pbody);
+//
+//	return pbody;
+//}
+
+//PhysBody3D* ModulePhysics3D::AddBody(const PlaneV& plane, float mass)
+//{
+//	btCollisionShape* colShape = new btBoxShape(btVector3(abs(plane.GetVertices()[0].x - plane.GetVertices()[2].x) / 2, abs(plane.GetVertices()[0].y - plane.GetVertices()[2].y) / 2, abs(plane.GetVertices()[0].z - plane.GetVertices()[2].z) / 2));
+//	shapes.add(colShape);
+//
+//	btVector3 pos = btVector3((plane.GetVertices()[0].x + plane.GetVertices()[2].x) / 2, (plane.GetVertices()[0].y + plane.GetVertices()[2].y) / 2, (plane.GetVertices()[0].z + plane.GetVertices()[2].z) / 2);
+//	btTransform startTransform;
+//	startTransform.setIdentity();
+//	startTransform.setOrigin(pos);
+//
+//	// Agregar la rotación del plano al collider
+//	btQuaternion rotation;
+//	rotation.setRotation(btVector3(plane.GetNormal().x, plane.GetNormal().y, plane.GetNormal().z), plane.GetRotation());
+//	startTransform.setRotation(rotation);
+//
+//	btVector3 localInertia(0, 0, 0);
+//	if (mass != 0.f)
+//		colShape->calculateLocalInertia(mass, localInertia);
+//
+//	btDefaultMotionState* myMotionState = new btDefaultMotionState(startTransform);
+//	motions.add(myMotionState);
+//	btRigidBody::btRigidBodyConstructionInfo rbInfo(mass, myMotionState, colShape, localInertia);
+//
+//	btRigidBody* body = new btRigidBody(rbInfo);
+//	PhysBody3D* pbody = new PhysBody3D(body);
+//
+//	body->setUserPointer(pbody);
+//	world->addRigidBody(body);
+//	bodies.add(pbody);
+//
+//	return pbody;
+//}

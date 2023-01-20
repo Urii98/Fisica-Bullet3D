@@ -28,6 +28,7 @@ public:
 	
 	void AddPlaneV(glm::vec3 v1, glm::vec3 v2, glm::vec3 v3, glm::vec3 v4, int angle, bool rotateX, bool rotateY, bool rotateZ, bool collider=true);
 	void CreateSpiralRoad(float radius, float height, int sections, int size);
+	void GraphMovement();
 
 public:
 	// No se que es aixo jaja no ho toco no vull espatllar res :D
@@ -55,6 +56,8 @@ public:
 	PhysMotor3D* right_wheel;
 
 	std::vector<Cube> vectorCubes;
-	//std::vector<std::unique_ptr<Primitive>> primitives; 
+	std::vector<std::unique_ptr<Cube>> graphCubes;
 	std::vector<PlaneV> vectorPlaneV;
+	float prueba;
+	int scalarSize;
 };

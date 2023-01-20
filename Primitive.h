@@ -34,6 +34,12 @@ public:
 	void			SetPos(float x, float y, float z);
 	void			SetRotation(float angle, const vec3 &u);
 	void			Scale(float x, float y, float z);
+	float			GetX() const;
+	float			GetY() const;
+	float			GetZ() const;
+	void			SetX(float x);
+	void			SetY(float y);
+	void			SetZ(float z);
 	PrimitiveTypes	GetType() const;
 
 public:

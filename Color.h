@@ -25,6 +25,21 @@ struct Color
 	}
 };
 
+enum Coloor {
+	RED,
+	ORANGE,
+	YELLOW,
+	GREEN,
+	BLUE,
+	MAGENTA,
+	WHITE,
+	CYAN,
+	GREY,
+	BLACK,
+};
+
+struct Color GetColor(int color);
+
 extern Color Red;
 extern Color Green;
 extern Color Blue;
