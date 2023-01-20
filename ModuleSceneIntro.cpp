@@ -24,12 +24,12 @@ bool ModuleSceneIntro::Start()
 	//vec3 position = { 0,0,0 };
 	//AddCube(vec3{ 0,0,0 }, vec3{ 10000,1,10000 }, Green, 0, 0, 0, 0);
 
-	/*glm::vec3 v1(-2, -2, 0);
+	glm::vec3 v1(-2, -2, 0);
 	glm::vec3 v2(-10, 10, 0);
 	glm::vec3 v3(10, 10, 0);
 	glm::vec3 v4(10, -10, 0);
 
-	AddPlaneV(v1, v2, v3, v4, 0, 0, 0, 0);*/
+	AddPlaneV(v1, v2, v3, v4, 0, 0, 0, 0);
 
 	//primitives.emplace_back(std::make_unique<PlaneV>(v1, v2, v3, v4));
 
@@ -43,6 +43,14 @@ bool ModuleSceneIntro::Start()
 
 	// -----------------------------
 
+
+	btCollisionShape* colShape = new btStaticPlaneShape(btVector3(0, 1, 0), 0);
+
+	btDefaultMotionState* myMotionState = new btDefaultMotionState();
+	btRigidBody::btRigidBodyConstructionInfo rbInfo(0.0f, myMotionState, colShape);
+
+	btRigidBody* body = new btRigidBody(rbInfo);
+	
 
 	return ret;
 }
@@ -165,7 +173,7 @@ void ModuleSceneIntro::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 {
 }
 
-void ModuleSceneIntro::AddPlaneV(glm::vec3 v1, glm::vec3 v2, glm::vec3 v3, glm::vec3 v4, int angle, bool rotateX, bool rotateY, bool rotateZ)
+void ModuleSceneIntro::AddPlaneV(glm::vec3 v1, glm::vec3 v2, glm::vec3 v3, glm::vec3 v4, int angle, bool rotateX, bool rotateY, bool rotateZ, bool collider)
 {
 	PlaneV planeVToAdd(v1, v2, v3, v4);
 
@@ -181,7 +189,10 @@ void ModuleSceneIntro::AddPlaneV(glm::vec3 v1, glm::vec3 v2, glm::vec3 v3, glm::
 	}
 
 	//Aqui deberias llamar a la funcion AddBody para agregar el collider al plano y agregarlo al mundo de fisica 
+	if (collider)
+	{
 	App->physics->AddBody(planeVToAdd, 0);
+	}
 	vectorPlaneV.push_back(planeVToAdd);
 }
 

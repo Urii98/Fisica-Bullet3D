@@ -116,7 +116,7 @@ public:
 	glm::vec3 GetNormal() const;
 	std::vector<glm::vec3> GetVertices() const;
 	float GetConstant() const;
-
+	float GetRotation() const;
 private:
 	std::vector<glm::vec3> vertices;
 	glm::vec3 normal;

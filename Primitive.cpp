@@ -289,15 +289,6 @@ PlaneV::PlaneV(const glm::vec3& v1, const glm::vec3& v2, const glm::vec3& v3, co
 void PlaneV::InnerRender() const
 {
 	glColor3f(color.r, color.g, color.b); 
-	//glBegin(GL_TRIANGLES);
-	//// Dibujar el primer triángulo del plano utilizando los vértices 0, 1 y 2
-	//glVertex3f(vertices[0].x, vertices[0].y, vertices[0].z);
-	//glVertex3f(vertices[1].x, vertices[1].y, vertices[1].z);
-	//glVertex3f(vertices[2].x, vertices[2].y, vertices[2].z);
-	//// Dibujar el segundo triángulo del plano utilizando los vértices 2, 3 y 0
-	//glVertex3f(vertices[2].x, vertices[2].y, vertices[2].z);
-	//glVertex3f(vertices[3].x, vertices[3].y, vertices[3].z);
-	//glVertex3f(vertices[0].x, vertices[0].y, vertices[0].z);
 
 	glEnable(GL_CULL_FACE);
 	glCullFace(GL_BACK);
@@ -323,4 +314,11 @@ glm::vec3 PlaneV::GetNormal() const
 std::vector<glm::vec3> PlaneV::GetVertices() const
 {
 	return vertices;
+}
+
+float PlaneV::GetRotation() const
+{
+	glm::vec3 referenceVector(0.0f, 1.0f, 0.0f); // vector de referencia para comparar con el vector normal
+	float angle = acos(glm::dot(referenceVector, normal)); // cálculo del ángulo entre los dos vectores
+	return angle;
 }
