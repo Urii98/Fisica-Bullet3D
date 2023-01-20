@@ -33,7 +33,7 @@ bool ModuleSceneIntro::Start()
 
 	//primitives.emplace_back(std::make_unique<PlaneV>(v1, v2, v3, v4));
 
-	CreateSpiralRoad(25, 75, 50);
+	//CreateSpiralRoad(25, 75, 50);
 	
 	// ======================================================
 	//						Test Code
