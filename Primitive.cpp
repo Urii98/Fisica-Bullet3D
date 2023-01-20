@@ -320,3 +320,7 @@ glm::vec3 PlaneV::GetNormal() const
 {
 	return normal;
 }
+std::vector<glm::vec3> PlaneV::GetVertices() const
+{
+	return vertices;
+}

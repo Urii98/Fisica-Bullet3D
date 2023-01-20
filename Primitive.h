@@ -114,6 +114,7 @@ public:
 	PlaneV(const glm::vec3& v1, const glm::vec3& v2, const glm::vec3& v3, const glm::vec3& v4);
 	void InnerRender() const;
 	glm::vec3 GetNormal() const;
+	std::vector<glm::vec3> GetVertices() const;
 	float GetConstant() const;
 
 private:
