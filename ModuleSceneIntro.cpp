@@ -33,7 +33,7 @@ bool ModuleSceneIntro::Start()
 	//AddPlaneV(v1, v2, v3, v4, 0, 0, 0, 0);
 	//primitives.emplace_back(std::make_unique<PlaneV>(v1, v2, v3, v4));
 
-	int numCubes = 30;
+	int numCubes = 100;
 	float step = 2.0f / numCubes;
 	vec3 scale(20, 20, 20);
 	scalarSize = 7.5f;
@@ -58,7 +58,7 @@ bool ModuleSceneIntro::Start()
 	}
 	
 
-	CreateSpiralRoad(125, 200, 15, 8);
+	CreateSpiralRoad(125, 200, 50, 8);
 	
 	// ======================================================
 	//						Test Code
