@@ -102,10 +102,10 @@ update_status ModuleSceneIntro::Update(float dt)
 	{
 		float d = abs(graph.get()->GetX());
 
-		//float posY = sin(M_PI * (graph.get()->GetX()/ scalarSize) + prueba)*20;
+		float posY = sin(M_PI * (graph.get()->GetX()/ scalarSize) + prueba*2)*20;
 		
-		float posY = sin(M_PI*(4.0f * d - prueba)) * 20;
-		posY /= (1.0f + 10.0f * d);
+	/*	float posY = sin(M_PI*(4.0f * d - prueba)) * 20;
+		posY /= (1.0f + 10.0f * d);*/
 		
 		graph.get()->SetY(posY);
 
