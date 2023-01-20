@@ -3,6 +3,7 @@
 #include "ModuleSceneIntro.h"
 #include "Primitive.h"
 #include "PhysBody3D.h"
+#include "Color.h"
 
 ModuleSceneIntro::ModuleSceneIntro(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -34,6 +35,14 @@ bool ModuleSceneIntro::Start()
 
 	CreateSpiralRoad(25, 75, 50);
 	
+	// ======================================================
+	//						Test Code
+	// ======================================================
+	sensor = App->physics->AddBody(Cube(20, 10, 20), 0.0f);
+	sensor->SetAsSensor(true);
+
+	// -----------------------------
+
 
 	return ret;
 }
@@ -60,6 +69,9 @@ update_status ModuleSceneIntro::Update(float dt)
 	//}
 
 	
+	//Render sensor
+
+
 	return UPDATE_CONTINUE;
 }
 

@@ -97,7 +97,9 @@ bool ModulePlayer::Start()
 	car.wheels[3].steering = false;
 
 	vehicle = App->physics->AddVehicle(car);
-	vehicle->SetPos(0, 12, 10);
+	vehicle->SetPos(0, 15, 10);
+	vehicle->collision_listeners.add(App->scene_intro);
+	vehicle->collision_listeners.add(this);
 	
 	return true;
 }
@@ -148,6 +150,17 @@ update_status ModulePlayer::Update(float dt)
 	App->window->SetTitle(title);
 
 	return UPDATE_CONTINUE;
+}
+
+void ModulePlayer::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
+{
+	if (body2 == App->scene_intro->sensor)
+	{
+		// change sensor position
+		// +1 sensor counter
+		// if sensor counter = 4: reset counter, +1 lap
+		// if lap = 3, Win
+	}
 }
 
 
