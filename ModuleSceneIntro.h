@@ -28,6 +28,8 @@ public:
 	
 	void AddPlaneV(glm::vec3 v1, glm::vec3 v2, glm::vec3 v3, glm::vec3 v4, int angle, bool rotateX, bool rotateY, bool rotateZ, bool collider=true);
 	void CreateSpiralRoad(float radius, float height, int sections, int size);
+	void CreateRoad(const glm::vec3& v1, const glm::vec3& v2, const glm::vec3& v3, const glm::vec3& v4);
+	
 	void GraphMovement();
 
 public:
@@ -58,6 +60,8 @@ public:
 	std::vector<Cube> vectorCubes;
 	std::vector<std::unique_ptr<Cube>> graphCubes;
 	std::vector<PlaneV> vectorPlaneV;
+	std::vector<Road> vectorRoad;
+
 	float prueba;
 	int scalarSize;
 };

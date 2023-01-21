@@ -20,7 +20,8 @@ enum PrimitiveTypes
 	Primitive_Cube,
 	Primitive_Sphere,
 	Primitive_Cylinder,
-	Primitive_Planea
+	Primitive_Planea,
+	Primitive_Road
 };
 
 class Primitive
@@ -128,3 +129,18 @@ private:
 	glm::vec3 normal;
 	float constant;
 };
+
+class Road : public Primitive
+{
+public:
+	Road();
+	Road(const glm::vec3& v1, const glm::vec3& v2, const glm::vec3& v3, const glm::vec3& v4);
+	void InnerRender() const;
+	std::vector<glm::vec3> GetVertices() const;
+	//float GetRotation() const;
+	//void CalculateRotation();
+
+private:
+	std::vector<glm::vec3> vertices;
+	//float rotation;
+}; 

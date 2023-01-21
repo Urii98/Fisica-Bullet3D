@@ -275,6 +275,35 @@ PhysBody3D* ModulePhysics3D::AddBody(const PlaneV& plane, float mass)
 	return pbody;
 }
 
+PhysBody3D* ModulePhysics3D::AddBody(const Road& road, float mass)
+{
+	auto vertices = road.GetVertices();
+	btConvexHullShape* colShape = new btConvexHullShape();
+	for (auto vertex : vertices)
+		colShape->addPoint(btVector3(vertex.x, vertex.y, vertex.z));
+	shapes.add(colShape);
+
+	btTransform startTransform;
+	startTransform.setIdentity();
+
+	btVector3 localInertia(0, 0, 0);
+	if (mass != 0.f)
+		colShape->calculateLocalInertia(mass, localInertia);
+
+	btDefaultMotionState* myMotionState = new btDefaultMotionState(startTransform);
+	motions.add(myMotionState);
+	btRigidBody::btRigidBodyConstructionInfo rbInfo(mass, myMotionState, colShape, localInertia);
+
+	btRigidBody* body = new btRigidBody(rbInfo);
+	PhysBody3D* pbody = new PhysBody3D(body);
+
+	body->setUserPointer(pbody);
+	world->addRigidBody(body);
+	bodies.add(pbody);
+
+	return pbody;
+}
+
 
 // ---------------------------------------------------------
 PhysBody3D* ModulePhysics3D::AddBody(const Cylinder& cylinder, float mass)

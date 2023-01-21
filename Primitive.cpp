@@ -346,3 +346,35 @@ float PlaneV::GetRotation() const
 	float angle = acos(glm::dot(referenceVector, normal)); // cálculo del ángulo entre los dos vectores
 	return angle;
 }
+
+Road::Road() : Primitive()
+{
+	type = PrimitiveTypes::Primitive_Road;
+}
+
+Road::Road(const glm::vec3& v1, const glm::vec3& v2, const glm::vec3& v3, const glm::vec3& v4) : Primitive()
+{
+	type = PrimitiveTypes::Primitive_Road;
+	vertices = { v1, v2, v3, v4 };
+}
+
+void Road::InnerRender() const
+{
+	glColor3f(color.r, color.g, color.b);
+	glDisable(GL_CULL_FACE);
+	glCullFace(GL_BACK);
+	glBegin(GL_QUADS);
+	// Dibujar el plano utilizando los vértices 0, 1, 2 y 3
+	glVertex3f(vertices[0].x, vertices[0].y, vertices[0].z);
+	glVertex3f(vertices[1].x, vertices[1].y, vertices[1].z);
+	glVertex3f(vertices[2].x, vertices[2].y, vertices[2].z);
+	glVertex3f(vertices[3].x, vertices[3].y, vertices[3].z);
+	glEnd();
+	glEnable(GL_CULL_FACE);
+}
+
+
+std::vector<glm::vec3> Road::GetVertices() const
+{
+	return vertices;
+}

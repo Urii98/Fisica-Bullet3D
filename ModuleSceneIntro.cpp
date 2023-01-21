@@ -25,40 +25,42 @@ bool ModuleSceneIntro::Start()
 	//vec3 position = { 0,0,0 };
 	//AddCube(vec3{ 0,0,0 }, vec3{ 10000,1,10000 }, Green, 0, 0, 0, 0);
 
-	//glm::vec3 v1(-2, -2, 0);
-	//glm::vec3 v2(-10, 10, 0);
-	//glm::vec3 v3(10, 10, 0);
-	//glm::vec3 v4(10, -10, 0);
+	// ======================================================
+	//						SINUS GRAPH
+	// ======================================================
+	//int numCubes = 100;
+	//float step = 2.0f / numCubes;
+	//vec3 scale(20, 20, 20);
+	//scalarSize = 7.5f;
+	//scale *= step;
+	//vec3 position(0, 0, 0);
 
-	//AddPlaneV(v1, v2, v3, v4, 0, 0, 0, 0);
-	//primitives.emplace_back(std::make_unique<PlaneV>(v1, v2, v3, v4));
+	//for (int i = 0; i < numCubes; i++)
+	//{
+	//	graphCubes.emplace_back(std::make_unique<Cube>(scale.x, scale.y, scale.z));
+	//	
+	//	float posX = ((i + 1.0f)*step - 1.0f) * scalarSize;
+	//	float posY = posX * posX;
 
-	int numCubes = 100;
-	float step = 2.0f / numCubes;
-	vec3 scale(20, 20, 20);
-	scalarSize = 7.5f;
-	scale *= step;
-	vec3 position(0, 0, 0);
+	//	graphCubes.at(i).get()->SetPos(posX, posY, 10);
 
-	for (int i = 0; i < numCubes; i++)
-	{
-		graphCubes.emplace_back(std::make_unique<Cube>(scale.x, scale.y, scale.z));
-		
-		float posX = ((i + 1.0f)*step - 1.0f) * scalarSize;
-		float posY = posX * posX;
+	//	float rate = 8.0 / numCubes;
+	//	float aux = i * rate;
+	//	
+	//	graphCubes.at(i).get()->color = GetColor(aux);
 
-		graphCubes.at(i).get()->SetPos(posX, posY, 10);
-
-		float rate = 8.0 / numCubes;
-		float aux = i * rate;
-		
-		graphCubes.at(i).get()->color = GetColor(aux);
-
-		
-	}
+	//	
+	//}
 	
 
-	CreateSpiralRoad(125, 200, 50, 8);
+
+
+
+	// ======================================================
+	//						SPIRAL ROAD
+	// ======================================================
+	
+	//CreateSpiralRoad(125, 200, 50, 8);
 	
 	// ======================================================
 	//						Test Code
@@ -75,6 +77,31 @@ bool ModuleSceneIntro::Start()
 	btRigidBody::btRigidBodyConstructionInfo rbInfo(0.0f, myMotionState, colShape);
 
 	btRigidBody* body = new btRigidBody(rbInfo);
+
+
+	// Coordenadas de los vértices de la carretera
+	glm::vec3 v1(0, 0, 0);
+	glm::vec3 v2(10, 0, 0);
+	glm::vec3 v3(10, 0, 10);
+	glm::vec3 v4(0, 0, 10);
+
+	// Calculamos la inclinación de la subida
+	float inclinacion = 0.2f;
+
+	// Aplicamos la inclinación a los vértices
+	v1.y = inclinacion * v1.x;
+	v2.y = inclinacion * v2.x;
+	v3.y = inclinacion * v3.x;
+	v4.y = inclinacion * v4.x;
+	
+	//plano inclinado
+	CreateRoad(v1, v2, v3, v4);
+
+
+	CreateRoad(glm::vec3(-50, 0, -50), glm::vec3(-50, 0, 50), glm::vec3(0, 0, 50), glm::vec3(0, 0, -50));
+	CreateRoad(glm::vec3(0, 0, -50), glm::vec3(0, 0, 50), glm::vec3(50, 0, 50), glm::vec3(50, 0, -50));
+	CreateRoad(glm::vec3(-50, 0, 0), glm::vec3(-50, 0, 50), glm::vec3(50, 0, 50), glm::vec3(50, 0, 0));
+
 	
 
 	return ret;
@@ -91,13 +118,18 @@ bool ModuleSceneIntro::CleanUp()
 // Update
 update_status ModuleSceneIntro::Update(float dt)
 {
-	
+// ======================================================
+//						SPIRAL ROAD RENDER	
+// ======================================================
 	for(auto& planeV: vectorPlaneV)
 	{
 		planeV.Render();
 	}
 	prueba += dt;
 	
+// ======================================================
+//						SINUS GRAPH UPDATE
+// ======================================================
 	for (auto& graph : graphCubes)
 	{
 		float d = abs(graph.get()->GetX());
@@ -110,6 +142,11 @@ update_status ModuleSceneIntro::Update(float dt)
 		graph.get()->SetY(posY);
 
 		graph->Render();
+	}
+
+	for (auto& road : vectorRoad)
+	{
+		road.Render();
 	}
 
 	//for (auto& cube : vectorCubes)
@@ -298,6 +335,18 @@ void ModuleSceneIntro::CreateSpiralRoad(float radius, float height, int sections
 			AddPlaneV(aV1, aV2, aV3, aV4, 0, 0, 0, 0);
 		}
 
+		//std::cout << "V1 X:" << v1.x << " Y: " << v1.y << " Z: " << v1.z << std::endl;
+		//std::cout << "V2 X:" << v2.x << " Y: " << v2.y << " Z: " << v2.z << std::endl;
+		//std::cout << "V3 X:" << v3.x << " Y: " << v3.y << " Z: " << v3.z << std::endl;
+		//std::cout << "V4 X:" << v4.x << " Y: " << v4.y << " Z: " << v4.z << std::endl;
+
+		/* Ultimo vertice arriba del todo
+		V1 X:125.001 Y: 196 Z: -42.1483
+		V2 X:141.001 Y: 196 Z: -42.1483
+		V3 X:141.001 Y: 196 Z: -26.1483
+		V4 X:125.001 Y: 196 Z: -26.1483
+		*/
+
 		//update the angle for the next iteration
 		angle += angleStep;
 		//increment the radius for the next iteration
@@ -313,4 +362,11 @@ void ModuleSceneIntro::CreateSpiralRoad(float radius, float height, int sections
 void ModuleSceneIntro::GraphMovement()
 {
 
+}
+
+void ModuleSceneIntro::CreateRoad(const glm::vec3& v1, const glm::vec3& v2, const glm::vec3& v3, const glm::vec3& v4)
+{
+	Road road(v1, v2, v3, v4);
+	vectorRoad.push_back(road);
+	App->physics->AddBody(road, 0.0f);
 }
