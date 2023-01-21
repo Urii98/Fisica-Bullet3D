@@ -98,13 +98,20 @@ bool ModuleSceneIntro::Start()
 	CreateRoad(v1, v2, v3, v4);
 
 
-	CreateRoad(glm::vec3(-50, 0, -50), glm::vec3(-50, 0, 50), glm::vec3(0, 0, 50), glm::vec3(0, 0, -50));
-	CreateRoad(glm::vec3(0, 0, -50), glm::vec3(0, 0, 50), glm::vec3(50, 0, 50), glm::vec3(50, 0, -50));
-	CreateRoad(glm::vec3(-50, 0, 0), glm::vec3(-50, 0, 50), glm::vec3(50, 0, 50), glm::vec3(50, 0, 0));
-
+	CreateMarioKartMap();
 	
 
+
 	return ret;
+}
+
+void ModuleSceneIntro::CreateMarioKartMap()
+{
+
+	Map2dToMap3d(2, 57, 160, 62);
+	
+
+
 }
 
 // Load assets
@@ -370,3 +377,17 @@ void ModuleSceneIntro::CreateRoad(const glm::vec3& v1, const glm::vec3& v2, cons
 	vectorRoad.push_back(road);
 	App->physics->AddBody(road, 0.0f);
 }
+
+std::vector<glm::vec3> ModuleSceneIntro::Map2dToMap3d(float x, float y, float width, float height)
+{
+	std::vector<glm::vec3> vertices;
+	vertices.push_back(glm::vec3(x + width, 0, y + height));
+	vertices.push_back(glm::vec3(x + width, 0, y));
+	vertices.push_back(glm::vec3(x, 0, y));
+	vertices.push_back(glm::vec3(x, 0, y + height));
+	
+	CreateRoad(vertices[0], vertices[1], vertices[2], vertices[3]);
+
+	return vertices;
+}
+
