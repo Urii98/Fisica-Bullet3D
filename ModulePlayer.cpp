@@ -139,6 +139,14 @@ update_status ModulePlayer::Update(float dt)
 		brake = BRAKE_POWER;
 	}
 
+	if (App->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN)
+	{
+		// ... TP i Rotar
+		// Matriu rotació modificar forçadament
+		// Canviar velocitat manualment
+		/*auto matrixXaxi = vehicle->phys_vehicle->getChassisWorldTransform();*/
+	}
+
 	vehicle->ApplyEngineForce(acceleration);
 	vehicle->Turn(turn);
 	vehicle->Brake(brake);
