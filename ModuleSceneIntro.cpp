@@ -108,9 +108,66 @@ bool ModuleSceneIntro::Start()
 void ModuleSceneIntro::CreateMarioKartMap()
 {
 
-	Map2dToMap3d(2, 57, 160, 62);
-	
+	Map2dToMap3d(2, 57, 160, 66);
+	Map2dToMap3d(2, 122, 53, 359);
+	Map2dToMap3d(2, 481, 38, 130);
+	Map2dToMap3d(2, 610, 55, 41);
+	Map2dToMap3d(2, 650, 230, 40);
 
+	Map2dToMap3d(113, 122, 49, 272);
+	Map2dToMap3d(113, 393, 57, 45);
+	Map2dToMap3d(113, 435, 186, 54);
+	
+	Map2dToMap3d(229, 357, 98, 47);
+	Map2dToMap3d(229, 404, 72, 32);
+
+	Map2dToMap3d(278, 297, 109, 63);
+	Map2dToMap3d(387, 297, 178, 48);
+
+	Map2dToMap3d(489, 2, 307, 48);
+	Map2dToMap3d(489, 49, 33, 295);
+	Map2dToMap3d(519, 49, 24, 26);
+	Map2dToMap3d(519, 99, 20, 61);
+	Map2dToMap3d(519, 184, 20, 59);
+	Map2dToMap3d(519, 269, 20, 75);
+	Map2dToMap3d(538, 49, 29, 295);
+	Map2dToMap3d(387, 297, 180, 48);
+
+	Map2dToMap3d(745, 50, 51, 66);
+
+	Map2dToMap3d(721, 136, 93, 51);
+	Map2dToMap3d(721, 186, 34, 91);
+	Map2dToMap3d(746, 233, 46, 44);
+	Map2dToMap3d(780, 185, 34, 156);
+	Map2dToMap3d(741, 291, 44, 50);
+	Map2dToMap3d(718, 357, 46, 50);
+	Map2dToMap3d(775, 356, 43, 51);
+	Map2dToMap3d(734, 422, 84, 47);
+	Map2dToMap3d(776, 471, 42, 60);
+	Map2dToMap3d(734, 488, 59, 216);
+	Map2dToMap3d(655, 623, 79, 81);
+
+
+	Map2dToMap3d(134, 650, 97, 39);
+	Map2dToMap3d(230, 661, 25, 17);
+	Map2dToMap3d(249, 648, 68, 41);
+	Map2dToMap3d(313, 617, 344, 24);
+	Map2dToMap3d(313, 640, 38, 72);
+	Map2dToMap3d(346, 639, 15, 41);
+	Map2dToMap3d(346, 659, 78, 21);
+	Map2dToMap3d(346, 691, 312, 21);
+	Map2dToMap3d(395, 640, 28, 39);
+	Map2dToMap3d(423, 655, 111, 16);
+	Map2dToMap3d(423, 670, 12, 24);
+	Map2dToMap3d(434, 681, 53, 11);
+	Map2dToMap3d(470, 669, 64, 13);
+	Map2dToMap3d(501, 635, 33, 26);
+	Map2dToMap3d(534, 659, 16, 37);
+	Map2dToMap3d(547, 659, 52, 18);
+	Map2dToMap3d(565, 674, 36, 21);
+	Map2dToMap3d(574, 640, 81, 19);
+	Map2dToMap3d(598, 659, 59, 16);
+	Map2dToMap3d(623, 674, 33, 18);
 
 }
 
@@ -381,10 +438,10 @@ void ModuleSceneIntro::CreateRoad(const glm::vec3& v1, const glm::vec3& v2, cons
 std::vector<glm::vec3> ModuleSceneIntro::Map2dToMap3d(float x, float y, float width, float height)
 {
 	std::vector<glm::vec3> vertices;
-	vertices.push_back(glm::vec3(x + width, 0, y + height));
-	vertices.push_back(glm::vec3(x + width, 0, y));
-	vertices.push_back(glm::vec3(x, 0, y));
-	vertices.push_back(glm::vec3(x, 0, y + height));
+	vertices.push_back(glm::vec3(x/2 + width/2, 0, y/2 + height/2));
+	vertices.push_back(glm::vec3(x/2 + width/2, 0, y/2));
+	vertices.push_back(glm::vec3(x/2, 0, y/2));
+	vertices.push_back(glm::vec3(x/2, 0, y/2 + height/2));
 	
 	CreateRoad(vertices[0], vertices[1], vertices[2], vertices[3]);
 
