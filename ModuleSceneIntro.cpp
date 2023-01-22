@@ -77,315 +77,50 @@ bool ModuleSceneIntro::Start()
 
 
 	// Coordenadas de los vértices de la carretera
-	glm::vec3 v1(0, 0, 0);
-	glm::vec3 v2(10, 0, 0);
-	glm::vec3 v3(10, 0, 10);
-	glm::vec3 v4(0, 0, 10);
+	//glm::vec3 v1(0, 0, 0);
+	//glm::vec3 v2(10, 0, 0);
+	//glm::vec3 v3(10, 0, 10);
+	//glm::vec3 v4(0, 0, 10);
 
 	// Calculamos la inclinación de la subida
-	float inclinacion = 0.2f;
+	//float inclinacion = 0.3f;
 
+	//Rampa de Izquierda a Derecha
 	// Aplicamos la inclinación a los vértices
-	v1.y = inclinacion * v1.x;
-	v2.y = inclinacion * v2.x;
-	v3.y = inclinacion * v3.x;
-	v4.y = inclinacion * v4.x;
+	//v1.y = inclinacion * v1.x;
+	//v2.y = inclinacion * v2.x;
+	//v3.y = inclinacion * v3.x;
+	//v4.y = inclinacion * v4.x;
+	
+	//Rampa de Norte a Sur
+	//v4.y = inclinacion * v4.z;
+	//v3.y = inclinacion * v3.z;
+	//v2.y = inclinacion * v2.z;
+	//v1.y = inclinacion * v1.z;
+
+	//Rampa de Derecha a Izquierda
+	// Aplicamos la inclinación a los vértices
+	//v1.y = inclinacion * 10;
+	//v2.y = inclinacion * 0;
+	//v3.y = inclinacion * 0;
+	//v4.y = inclinacion * 10;
+
+	//Rampa de Sur a Norte
+	//v1.y = inclinacion * 10;
+	//v2.y = inclinacion * 10;
+	//v3.y = inclinacion * 0;
+	//v4.y = inclinacion * 0;
 	
 	//plano inclinado
-	CreateRoad(v1, v2, v3, v4, Red);
+	//CreateRoad(v1, v2, v3, v4, Red);
 
 
-	//CreateMarioKartMap();
-	CreateSpiralRoadX(1, 2, 20, 2, -2, 0, 0);
+	CreateMarioKartMap();
+	CreateRamps();
+	//CreateSpiralRamp(1, 2, 20, 2, -2, 0, 0);
 
 
 	return ret;
-}
-
-
-void ModuleSceneIntro::CreateSpiralRoadX(float radius, float height, int sections, int size, float heigthX, float heigthY, float heigthZ)
-{
-	glm::vec3 prevV1, prevV2, prevV3, prevV4;
-	glm::vec3 aV1, aV2, aV3, aV4;
-	glm::vec3 center(250, 0, 0); // center of the spiral
-	float angle = 0.0;
-	float angleStep = 2 * PI / sections;
-	float heightStep = height / sections;
-
-	int sizePlane = size;
-	float initialHeightX = 0;
-	float initialHeightY = 0;
-	float initialHeightZ = 0;
-
-
-	for (int i = 0; i < sections; i++) {
-		// calculate the position of each vertex
-		float y = center.y + radius * cos(angle) + initialHeightY;
-		float z = center.z + radius * sin(angle) + initialHeightZ;
-		float x = center.x + i * heightStep + initialHeightX;
-		glm::vec3 v1 = glm::vec3(x - size, y, z - size);
-		glm::vec3 v2 = glm::vec3(x + size, y, z - size);
-		glm::vec3 v3 = glm::vec3(x + size, y, z + size);
-		glm::vec3 v4 = glm::vec3(x - size, y, z + size);
-
-		//create the plan
-		bool rotateX = true; //example rotate value
-		bool rotateY = false; //example rotate value
-		bool rotateZ = false; //example rotate value
-
-		//add it to the scene
-		//AddPlaneV(v1, v2, v3, v4, angle, rotateX, rotateY, rotateZ); 
-
-		if (i > 0) {
-			//connect to the previous section
-
-			//v1 y v2
-			aV1 = prevV1;
-			aV2 = prevV2;
-			aV3 = v2;
-			aV4 = v1;
-			AddPlaneV(aV1, aV2, aV3, aV4, 0, 0, 0, 0);
-
-			//v2 y v3
-			aV1 = prevV2;
-			aV2 = prevV3;
-			aV3 = v3;
-			aV4 = v2;
-			AddPlaneV(aV1, aV2, aV3, aV4, 0, 0, 0, 0);
-
-			//v3 y v4
-			aV1 = prevV3;
-			aV2 = prevV4;
-			aV3 = v4;
-			aV4 = v3;
-			AddPlaneV(aV1, aV2, aV3, aV4, 0, 0, 0, 0);
-
-			//v4 y v1
-			aV1 = prevV4;
-			aV2 = prevV1;
-			aV3 = v1;
-			aV4 = v4;
-			AddPlaneV(aV1, aV2, aV3, aV4, 0, 0, 0, 0);
-		}
-
-		/* Ultimo vertice arriba del todo
-		V1 X:125.001 Y: 196 Z: -42.1483
-		V2 X:141.001 Y: 196 Z: -42.1483
-		V3 X:141.001 Y: 196 Z: -26.1483
-		V4 X:125.001 Y: 196 Z: -26.1483
-		*/
-
-		//update the angle for the next iteration
-		angle += angleStep;
-		//increment the radius for the next iteration
-		radius += angleStep;
-
-		initialHeightX += heigthX;
-		initialHeightY += heigthY;
-		initialHeightZ += heigthZ;
-
-		prevV1 = v1;
-		prevV2 = v2;
-		prevV3 = v3;
-		prevV4 = v4;
-	}
-}
-
-
-void ModuleSceneIntro::CreateMarioKartMap()
-{
-	float startX, startZ, endX, endZ;
-	Map2dToMap3d(2, 57, 160, 66);
-	Map2dToMap3d(2, 122, 53, 359);
-	Map2dToMap3d(2, 481, 38, 130);
-	GetWallCoordinates(2, 481, 38, 130, "right", startX, startZ, endX, endZ);
-	CreateWall(startX, startZ, endX, endZ, 1);
-
-	GetWallCoordinates(2+53, 122, 113-(53+2), 132, "top", startX, startZ, endX, endZ);
-	CreateWall(startX, startZ, endX, endZ, 1);
-
-	GetWallCoordinates(2 + 38, 481, (53+3)-(2+38), 130, "top", startX, startZ, endX, endZ);
-	CreateWall(startX, startZ, endX, endZ, 1);
-
-	Map2dToMap3d(2, 610, 55, 41);
-	GetWallCoordinates(2, 610, 55, 41, "right", startX, startZ, endX, endZ);
-	CreateWall(startX, startZ, endX, endZ, 1);
-	GetWallCoordinates(2+38, 610, (2+55)-(2+38), 41, "top", startX, startZ, endX, endZ);
-	CreateWall(startX, startZ, endX, endZ, 1);
-
-	
-	Map2dToMap3d(2, 650, 230, 40);
-	GetWallCoordinates(2, 650, 230, 40, "bottom", startX, startZ, endX, endZ);
-	CreateWall(startX, startZ, endX, endZ, 1);
-	GetWallCoordinates(2+55, 650, (2+230)-(2+55), 40, "top", startX, startZ, endX, endZ);
-	CreateWall(startX, startZ, endX, endZ, 1);
-
-	CreateWall(2, 57, 2, 690, 1);
-
-	
-	GetWallCoordinates(2, 57, 160, 66, "top", startX, startZ, endX, endZ);
-	CreateWall(startX, startZ, endX, endZ, 1);
-	GetWallCoordinates(2, 57, 160, 66, "right", startX, startZ, endX, endZ);
-	CreateWall(startX, startZ, endX, endZ, 1);
-	GetWallCoordinates(2, 122, 53, 359, "right", startX, startZ, endX, endZ);
-	CreateWall(startX, startZ, endX, endZ, 1);
-
-	Map2dToMap3d(113, 122, 49, 272);
-	GetWallCoordinates(113, 122, 49, 272, "right", startX, startZ, endX, endZ);
-	CreateWall(startX, startZ, endX, endZ, 1);
-	GetWallCoordinates(113, 122, 49, 272, "left", startX, startZ, endX, endZ);
-	CreateWall(startX, startZ, endX, endZ, 1);
-
-	Map2dToMap3d(113, 393, 57, 45);
-	GetWallCoordinates(113, 393, 57, 45, "left", startX, startZ, endX, endZ);
-	CreateWall(startX, startZ, endX, endZ, 1);
-	GetWallCoordinates(113, 393, 57, 45, "right", startX, startZ, endX, endZ);
-	CreateWall(startX, startZ, endX, endZ, 1);
-	GetWallCoordinates(113+51, 393, (113+57)-(113+51), 45, "top", startX, startZ, endX, endZ);
-	CreateWall(startX, startZ, endX, endZ, 1);
-
-	Map2dToMap3d(113, 435, 186, 54);
-	GetWallCoordinates(113, 435, 186, 54, "left", startX, startZ, endX, endZ);
-	CreateWall(startX, startZ, endX, endZ, 1);
-	GetWallCoordinates(113, 435, 186, 54, "right", startX, startZ, endX, endZ);
-	CreateWall(startX, startZ, endX, endZ, 1);
-	GetWallCoordinates(113, 435, 186, 54, "bottom", startX, startZ, endX, endZ);
-	CreateWall(startX, startZ, endX, endZ, 1);
-	GetWallCoordinates(113+57, 435,229-(115+54) , 54, "top", startX, startZ, endX, endZ);
-	CreateWall(startX, startZ, endX, endZ, 1);
-	
-	Map2dToMap3d(229, 357, 98, 47);
-	GetWallCoordinates(229, 357, 98, 48, "left", startX, startZ, endX, endZ);
-	CreateWall(startX, startZ, endX, endZ, 1);
-	GetWallCoordinates(229, 358, 98, 47, "right", startX, startZ, endX, endZ);
-	CreateWall(startX, startZ, endX, endZ, 1);
-	GetWallCoordinates(229, 357, (278 - 228), 47, "top", startX, startZ, endX, endZ);
-	CreateWall(startX, startZ, endX, endZ, 1);
-	GetWallCoordinates(229+72, 357, (229+98)-(229+70), 47, "bottom", startX, startZ, endX, endZ);
-	CreateWall(startX, startZ, endX, endZ, 1);
-	GetWallCoordinates(229+98, 358, (278+109)-(229+98), 47, "top", startX, startZ, endX, endZ);
-	CreateWall(startX, startZ, endX, endZ, 1);
-
-	Map2dToMap3d(229, 404, 72, 32);
-	GetWallCoordinates(229, 404, 72, 32, "right", startX, startZ, endX, endZ);
-	CreateWall(startX, startZ, endX, endZ, 1);
-	GetWallCoordinates(229, 404, 72, 32, "left", startX, startZ, endX, endZ);
-	CreateWall(startX, startZ, endX, endZ, 1);
-
-	Map2dToMap3d(278, 297, 109, 63);
-	GetWallCoordinates(278, 297, 109, 63, "left", startX, startZ, endX, endZ);
-	CreateWall(startX, startZ, endX, endZ, 1);
-	GetWallCoordinates(278, 297, 109, 63, "top", startX, startZ, endX, endZ);
-	CreateWall(startX, startZ, endX, endZ, 1);
-
-	Map2dToMap3d(387, 297, 178, 48);
-	GetWallCoordinates(387, 297, 181, 48, "bottom", startX, startZ, endX, endZ);
-	CreateWall(startX, startZ, endX, endZ, 1);
-	GetWallCoordinates(385, 297, (489-384), 48, "top", startX, startZ, endX, endZ);
-	CreateWall(startX, startZ, endX, endZ, 1);
-	GetWallCoordinates(387, 297+48, 178, (297+63)- (297 + 48), "left", startX, startZ, endX, endZ);
-	CreateWall(startX, startZ, endX, endZ, 1);
-
-	Map2dToMap3d(489, 2, 307, 48);
-	GetWallCoordinates(489, 2, 307, 48, "top", startX, startZ, endX, endZ);
-	CreateWall(startX, startZ, endX, endZ, 1);
-	GetWallCoordinates(489, 2, 307, 48, "right", startX, startZ, endX, endZ);
-	CreateWall(startX, startZ, endX, endZ, 1);
-	GetWallCoordinates(489, 2, 307, 48, "left", startX, startZ, endX, endZ);
-	CreateWall(startX, startZ, endX, endZ, 1);
-
-	Map2dToMap3d(489, 49, 33, 295);
-	GetWallCoordinates(489, 49, 33, (296-47), "left", startX, startZ, endX, endZ);
-	CreateWall(startX, startZ, endX, endZ, 1);
-
-	Map2dToMap3d(519, 49, 24, 26);
-	Map2dToMap3d(519, 99, 20, 61);
-	Map2dToMap3d(519, 184, 20, 59);
-	Map2dToMap3d(519, 269, 20, 75);
-
-	Map2dToMap3d(538, 49, 29, 295);
-	GetWallCoordinates(538,49, 29, 296, "right", startX, startZ, endX, endZ);
-	CreateWall(startX, startZ, endX, endZ, 1);
-
-	Map2dToMap3d(387, 297, 180, 48);
-
-	Map2dToMap3d(745, 50, 51, 66);
-	GetWallCoordinates(745, 50, 51, 66, "left", startX, startZ, endX, endZ);
-	CreateWall(startX, startZ, endX, endZ, 1);
-	GetWallCoordinates(745, 50, 51, 66, "right", startX, startZ, endX, endZ);
-	CreateWall(startX, startZ, endX, endZ, 1);
-
-	Map2dToMap3d(721, 136, 93, 51);
-	GetWallCoordinates(721, 136, 93, 51+91, "left", startX, startZ, endX, endZ);
-	CreateWall(startX, startZ, endX, endZ, 1);
-	GetWallCoordinates(721, 136, 93, 51 + 156, "right", startX, startZ, endX, endZ);
-	CreateWall(startX, startZ, endX, endZ, 1);
-
-	Map2dToMap3d(721, 186, 34, 91);
-	Map2dToMap3d(746, 233, 46, 44);
-	Map2dToMap3d(780, 185, 34, 156);
-	Map2dToMap3d(741, 291, 44, 50);
-	GetWallCoordinates(741, 291, 44, 50, "left", startX, startZ, endX, endZ);
-	CreateWall(startX, startZ, endX, endZ, 1);
-
-	Map2dToMap3d(718, 357, 46, 50);
-	GetWallCoordinates(718, 357, 46, 50, "left", startX, startZ, endX, endZ);
-	CreateWall(startX, startZ, endX, endZ, 1);
-	GetWallCoordinates(718, 357, 46, 50, "right", startX, startZ, endX, endZ);
-	CreateWall(startX, startZ, endX, endZ, 1);
-
-	Map2dToMap3d(775, 356, 43, 51);
-	GetWallCoordinates(775, 356, 43, 51, "left", startX, startZ, endX, endZ);
-	CreateWall(startX, startZ, endX, endZ, 1);
-	GetWallCoordinates(775, 356, 43, 51, "right", startX, startZ, endX, endZ);
-	CreateWall(startX, startZ, endX, endZ, 1);
-
-	Map2dToMap3d(734, 422, 84, 47);
-	GetWallCoordinates(734, 422, 84, 47, "left", startX, startZ, endX, endZ);
-	CreateWall(startX, startZ, endX, endZ, 1);
-	GetWallCoordinates(734, 422, 84, 47, "right", startX, startZ, endX, endZ);
-	CreateWall(startX, startZ, endX, endZ, 1);
-
-	Map2dToMap3d(776, 468, 42, 60);
-	GetWallCoordinates(776, 468, 42, 60, "right", startX, startZ, endX, endZ);
-	CreateWall(startX, startZ, endX, endZ, 1);
-
-	Map2dToMap3d(734, 488, 59, 216);
-	GetWallCoordinates(734, 488, 59, (623-488), "left", startX, startZ, endX, endZ);
-	CreateWall(startX, startZ, endX, endZ, 1);
-	GetWallCoordinates(734, 488+((468+60)-488), 59, 216-((468 + 60)-488), "right", startX, startZ, endX, endZ);
-	CreateWall(startX, startZ, endX, endZ, 1);
-	GetWallCoordinates(734, 488, 59, 216, "bottom", startX, startZ, endX, endZ);
-	CreateWall(startX, startZ, endX, endZ, 1);
-
-	Map2dToMap3d(655, 623, 79, 81);
-	GetWallCoordinates(657, 623, 79, 81, "bottom", startX, startZ, endX, endZ);
-	CreateWall(startX, startZ, endX, endZ, 1);
-
-
-	Map2dToMap3d(134, 650, 97, 39);
-	Map2dToMap3d(230, 661, 25, 17);
-	Map2dToMap3d(249, 648, 68, 41);
-	Map2dToMap3d(313, 617, 344, 24);
-	Map2dToMap3d(313, 640, 38, 72);
-	Map2dToMap3d(346, 639, 15, 41);
-	Map2dToMap3d(346, 659, 78, 21);
-	Map2dToMap3d(346, 691, 312, 21);
-	Map2dToMap3d(395, 640, 28, 39);
-	Map2dToMap3d(423, 655, 111, 16);
-	Map2dToMap3d(423, 670, 12, 24);
-	Map2dToMap3d(434, 681, 53, 11);
-	Map2dToMap3d(470, 669, 64, 13);
-	Map2dToMap3d(501, 635, 33, 26);
-	Map2dToMap3d(534, 659, 16, 37);
-	Map2dToMap3d(547, 659, 52, 18);
-	Map2dToMap3d(565, 674, 36, 21);
-	Map2dToMap3d(574, 640, 81, 19);
-	Map2dToMap3d(598, 659, 59, 16);
-	Map2dToMap3d(623, 674, 33, 18);
-
-
-
 }
 
 // Load assets
@@ -556,6 +291,468 @@ void ModuleSceneIntro::AddPlaneV(glm::vec3 v1, glm::vec3 v2, glm::vec3 v3, glm::
 	vectorPlaneV.push_back(planeVToAdd);
 }
 
+void ModuleSceneIntro::CreateRamps()
+{
+	glm::vec3 v1, v2, v3, v4;
+	float inclinacion = 0.15f;
+
+	v1 = glm::vec3(539 / 2, 0, 269 / 2);
+	v2 = glm::vec3(539 / 2, 0, 275 / 2);
+	v3 = glm::vec3(519 / 2, 0, 275 / 2);
+	v4 = glm::vec3(519 / 2, 0, 269 / 2);
+	v4.y = inclinacion * 10;
+	v1.y = inclinacion * 10;
+	CreateRoad(v1, v2, v3, v4, White);
+
+	v1 = glm::vec3(539 / 2, 0, 184 / 2);
+	v2 = glm::vec3(539 / 2, 0, 189 / 2);
+	v3 = glm::vec3(519 / 2, 0, 189 / 2);
+	v4 = glm::vec3(519 / 2, 0, 184 / 2);
+	v4.y = inclinacion * 10;
+	v1.y = inclinacion * 10;
+	CreateRoad(v1, v2, v3, v4, White);
+
+	v1 = glm::vec3(539 / 2, 0, 99 / 2);
+	v2 = glm::vec3(539 / 2, 0, 105 / 2);
+	v3 = glm::vec3(519 / 2, 0, 105 / 2);
+	v4 = glm::vec3(519 / 2, 0, 99 / 2);
+	v4.y = inclinacion * 10;
+	v1.y = inclinacion * 10;
+	CreateRoad(v1, v2, v3, v4, White);
+
+
+
+	v1 = glm::vec3(796 / 2, 0, 109 / 2);
+	v2 = glm::vec3(796 / 2, 0, 116 / 2);
+	v3 = glm::vec3(745 / 2, 0, 116 / 2);
+	v4 = glm::vec3(745 / 2, 0, 109 / 2);
+	v2.y = inclinacion * 10;
+	v3.y = inclinacion * 10;
+	CreateRoad(v1, v2, v3, v4, White);
+
+	v1 = glm::vec3(780 / 2, 0, 186 / 2);
+	v2 = glm::vec3(780 / 2, 0, 191 / 2);
+	v3 = glm::vec3(755 / 2, 0, 191 / 2);
+	v4 = glm::vec3(755 / 2, 0, 186 / 2);
+	v2.y = inclinacion * 10;
+	v3.y = inclinacion * 10;
+	CreateRoad(v1, v2, v3, v4, White);
+
+	v1 = glm::vec3(766 / 2, 0, 275 / 2);
+	v2 = glm::vec3(766 / 2, 0, 284 / 2);
+	v3 = glm::vec3(746 / 2, 0, 284 / 2);
+	v4 = glm::vec3(746 / 2, 0, 275 / 2);
+	v2.y = inclinacion * 10;
+	v3.y = inclinacion * 10;
+	CreateRoad(v1, v2, v3, v4, White);
+
+	v1 = glm::vec3(815 / 2, 0, 339 / 2);
+	v2 = glm::vec3(815 / 2, 0, 345 / 2);
+	v3 = glm::vec3(741 / 2, 0, 345 / 2);
+	v4 = glm::vec3(741 / 2, 0, 339 / 2);
+	v2.y = inclinacion * 10;
+	v3.y = inclinacion * 10;
+	CreateRoad(v1, v2, v3, v4, White);
+
+	v1 = glm::vec3(764 / 2, 0, 407 / 2);
+	v2 = glm::vec3(764 / 2, 0, 412 / 2);
+	v3 = glm::vec3(718 / 2, 0, 412 / 2);
+	v4 = glm::vec3(718 / 2, 0, 407 / 2);
+	v2.y = inclinacion * 10;
+	v3.y = inclinacion * 10;
+	CreateRoad(v1, v2, v3, v4, White);
+
+	v1 = glm::vec3(819 / 2, 0, 407 / 2);
+	v2 = glm::vec3(819 / 2, 0, 412 / 2);
+	v3 = glm::vec3(775 / 2, 0, 412 / 2);
+	v4 = glm::vec3(775 / 2, 0, 407 / 2);
+	v2.y = inclinacion * 10;
+	v3.y = inclinacion * 10;
+	CreateRoad(v1, v2, v3, v4, White);
+
+	v1 = glm::vec3(776 / 2, 0, 469 / 2);
+	v2 = glm::vec3(776 / 2, 0, 475 / 2);
+	v3 = glm::vec3(734 / 2, 0, 475 / 2);
+	v4 = glm::vec3(734 / 2, 0, 469 / 2);
+	v2.y = inclinacion * 10;
+	v3.y = inclinacion * 10;
+	CreateRoad(v1, v2, v3, v4, White);
+
+
+
+	v1 = glm::vec3(255 / 2, 0, 661 / 2);
+	v2 = glm::vec3(255 / 2, 0, 648 / 2);
+	v3 = glm::vec3(249 / 2, 0, 648 / 2);
+	v4 = glm::vec3(249 / 2, 0, 661 / 2);
+	v4.y = inclinacion * 10;
+	v3.y = inclinacion * 10;
+	CreateRoad(v1, v2, v3, v4, White);
+
+	v1 = glm::vec3(255 / 2, 0, 689 / 2);
+	v2 = glm::vec3(255 / 2, 0, 678 / 2);
+	v3 = glm::vec3(249 / 2, 0, 678 / 2);
+	v4 = glm::vec3(249 / 2, 0, 689 / 2);
+	v4.y = inclinacion * 10;
+	v3.y = inclinacion * 10;
+	CreateRoad(v1, v2, v3, v4, White);
+
+	v1 = glm::vec3(255 / 2, 0, 689 / 2);
+	v2 = glm::vec3(255 / 2, 0, 678 / 2);
+	v3 = glm::vec3(249 / 2, 0, 678 / 2);
+	v4 = glm::vec3(249 / 2, 0, 689 / 2);
+	v4.y = inclinacion * 10;
+	v3.y = inclinacion * 10;
+	CreateRoad(v1, v2, v3, v4, White);
+
+	v1 = glm::vec3(628 / 2, 0, 692 / 2);
+	v2 = glm::vec3(628 / 2, 0, 674 / 2);
+	v3 = glm::vec3(623 / 2, 0, 674 / 2);
+	v4 = glm::vec3(623 / 2, 0, 692 / 2);
+	v4.y = inclinacion * 10;
+	v3.y = inclinacion * 10;
+	CreateRoad(v1, v2, v3, v4, White);
+
+	v1 = glm::vec3(570 / 2, 0, 692 / 2);
+	v2 = glm::vec3(570 / 2, 0, 674 / 2);
+	v3 = glm::vec3(565 / 2, 0, 674 / 2);
+	v4 = glm::vec3(565 / 2, 0, 692 / 2);
+	v4.y = inclinacion * 10;
+	v3.y = inclinacion * 10;
+	CreateRoad(v1, v2, v3, v4, White);
+
+	v1 = glm::vec3(579 / 2, 0, 661 / 2);
+	v2 = glm::vec3(579 / 2, 0, 642 / 2);
+	v3 = glm::vec3(574 / 2, 0, 642 / 2);
+	v4 = glm::vec3(574 / 2, 0, 661 / 2);
+	v4.y = inclinacion * 10;
+	v3.y = inclinacion * 10;
+	CreateRoad(v1, v2, v3, v4, White);
+
+	v1 = glm::vec3(506 / 2, 0, 657 / 2);
+	v2 = glm::vec3(506 / 2, 0, 642 / 2);
+	v3 = glm::vec3(501 / 2, 0, 642 / 2);
+	v4 = glm::vec3(501 / 2, 0, 657 / 2);
+	v4.y = inclinacion * 10;
+	v3.y = inclinacion * 10;
+	CreateRoad(v1, v2, v3, v4, White);
+
+	v1 = glm::vec3(401 / 2, 0, 659 / 2);
+	v2 = glm::vec3(401 / 2, 0, 640 / 2);
+	v3 = glm::vec3(395 / 2, 0, 640 / 2);
+	v4 = glm::vec3(395 / 2, 0, 659 / 2);
+	v4.y = inclinacion * 10;
+	v3.y = inclinacion * 10;
+	CreateRoad(v1, v2, v3, v4, White);
+
+	v1 = glm::vec3(427 / 2, 0, 692 / 2);
+	v2 = glm::vec3(427 / 2, 0, 679 / 2);
+	v3 = glm::vec3(423 / 2, 0, 679 / 2);
+	v4 = glm::vec3(423 / 2, 0, 692 / 2);
+	v4.y = inclinacion * 10;
+	v3.y = inclinacion * 10;
+	CreateRoad(v1, v2, v3, v4, White);
+
+	v1 = glm::vec3(539 / 2, 0, 692 / 2);
+	v2 = glm::vec3(539 / 2, 0, 682 / 2);
+	v4 = glm::vec3(534 / 2, 0, 692 / 2);
+	v3 = glm::vec3(534 / 2, 0, 682 / 2);
+	v4.y = inclinacion * 10;
+	v3.y = inclinacion * 10;
+	CreateRoad(v1, v2, v3, v4, White);
+
+	v1 = glm::vec3(475 / 2, 0, 682 / 2);
+	v2 = glm::vec3(475 / 2, 0, 672 / 2);
+	v4 = glm::vec3(470 / 2, 0, 682 / 2);
+	v3 = glm::vec3(470 / 2, 0, 672 / 2);
+	v4.y = inclinacion * 10;
+	v3.y = inclinacion * 10;
+	CreateRoad(v1, v2, v3, v4, White);
+
+
+}
+
+
+void ModuleSceneIntro::CreateSpiralRamp(float radius, float height, int sections, int size, float heigthX, float heigthY, float heigthZ)
+{
+	glm::vec3 prevV1, prevV2, prevV3, prevV4;
+	glm::vec3 aV1, aV2, aV3, aV4;
+	glm::vec3 center(250, 0, 0); // center of the spiral
+	float angle = 0.0;
+	float angleStep = 2 * PI / sections;
+	float heightStep = height / sections;
+
+	int sizePlane = size;
+	float initialHeightX = 0;
+	float initialHeightY = 0;
+	float initialHeightZ = 0;
+
+
+	for (int i = 0; i < sections; i++) {
+		// calculate the position of each vertex
+		float y = center.y + radius * cos(angle) + initialHeightY;
+		float z = center.z + radius * sin(angle) + initialHeightZ;
+		float x = center.x + i * heightStep + initialHeightX;
+		glm::vec3 v1 = glm::vec3(x - size, y, z - size);
+		glm::vec3 v2 = glm::vec3(x + size, y, z - size);
+		glm::vec3 v3 = glm::vec3(x + size, y, z + size);
+		glm::vec3 v4 = glm::vec3(x - size, y, z + size);
+
+		//create the plan
+		bool rotateX = true; //example rotate value
+		bool rotateY = false; //example rotate value
+		bool rotateZ = false; //example rotate value
+
+		//add it to the scene
+		//AddPlaneV(v1, v2, v3, v4, angle, rotateX, rotateY, rotateZ); 
+
+		if (i > 0) {
+			//connect to the previous section
+
+			//v1 y v2
+			aV1 = prevV1;
+			aV2 = prevV2;
+			aV3 = v2;
+			aV4 = v1;
+			AddPlaneV(aV1, aV2, aV3, aV4, 0, 0, 0, 0);
+
+			//v2 y v3
+			aV1 = prevV2;
+			aV2 = prevV3;
+			aV3 = v3;
+			aV4 = v2;
+			AddPlaneV(aV1, aV2, aV3, aV4, 0, 0, 0, 0);
+
+			//v3 y v4
+			aV1 = prevV3;
+			aV2 = prevV4;
+			aV3 = v4;
+			aV4 = v3;
+			AddPlaneV(aV1, aV2, aV3, aV4, 0, 0, 0, 0);
+
+			//v4 y v1
+			aV1 = prevV4;
+			aV2 = prevV1;
+			aV3 = v1;
+			aV4 = v4;
+			AddPlaneV(aV1, aV2, aV3, aV4, 0, 0, 0, 0);
+		}
+
+		/* Ultimo vertice arriba del todo
+		V1 X:125.001 Y: 196 Z: -42.1483
+		V2 X:141.001 Y: 196 Z: -42.1483
+		V3 X:141.001 Y: 196 Z: -26.1483
+		V4 X:125.001 Y: 196 Z: -26.1483
+		*/
+
+		//update the angle for the next iteration
+		angle += angleStep;
+		//increment the radius for the next iteration
+		radius += angleStep;
+
+		initialHeightX += heigthX;
+		initialHeightY += heigthY;
+		initialHeightZ += heigthZ;
+
+		prevV1 = v1;
+		prevV2 = v2;
+		prevV3 = v3;
+		prevV4 = v4;
+	}
+}
+
+void ModuleSceneIntro::CreateMarioKartMap()
+{
+	float startX, startZ, endX, endZ;
+	Map2dToMap3d(2, 57, 160, 66);
+	Map2dToMap3d(2, 122, 53, 359);
+	Map2dToMap3d(2, 481, 38, 130);
+	GetWallCoordinates(2, 481, 38, 130, "right", startX, startZ, endX, endZ);
+	CreateWall(startX, startZ, endX, endZ, 1);
+
+	GetWallCoordinates(2 + 53, 122, 113 - (53 + 2), 132, "top", startX, startZ, endX, endZ);
+	CreateWall(startX, startZ, endX, endZ, 1);
+
+	GetWallCoordinates(2 + 38, 481, (53 + 3) - (2 + 38), 130, "top", startX, startZ, endX, endZ);
+	CreateWall(startX, startZ, endX, endZ, 1);
+
+	Map2dToMap3d(2, 610, 55, 41);
+	GetWallCoordinates(2, 610, 55, 41, "right", startX, startZ, endX, endZ);
+	CreateWall(startX, startZ, endX, endZ, 1);
+	GetWallCoordinates(2 + 38, 610, (2 + 55) - (2 + 38), 41, "top", startX, startZ, endX, endZ);
+	CreateWall(startX, startZ, endX, endZ, 1);
+
+
+	Map2dToMap3d(2, 650, 230, 40);
+	GetWallCoordinates(2, 650, 230, 40, "bottom", startX, startZ, endX, endZ);
+	CreateWall(startX, startZ, endX, endZ, 1);
+	GetWallCoordinates(2 + 55, 650, (2 + 230) - (2 + 55), 40, "top", startX, startZ, endX, endZ);
+	CreateWall(startX, startZ, endX, endZ, 1);
+
+	CreateWall(2, 57, 2, 690, 1);
+
+
+	GetWallCoordinates(2, 57, 160, 66, "top", startX, startZ, endX, endZ);
+	CreateWall(startX, startZ, endX, endZ, 1);
+	GetWallCoordinates(2, 57, 160, 66, "right", startX, startZ, endX, endZ);
+	CreateWall(startX, startZ, endX, endZ, 1);
+	GetWallCoordinates(2, 122, 53, 359, "right", startX, startZ, endX, endZ);
+	CreateWall(startX, startZ, endX, endZ, 1);
+
+	Map2dToMap3d(113, 122, 49, 272);
+	GetWallCoordinates(113, 122, 49, 272, "right", startX, startZ, endX, endZ);
+	CreateWall(startX, startZ, endX, endZ, 1);
+	GetWallCoordinates(113, 122, 49, 272, "left", startX, startZ, endX, endZ);
+	CreateWall(startX, startZ, endX, endZ, 1);
+
+	Map2dToMap3d(113, 393, 57, 45);
+	GetWallCoordinates(113, 393, 57, 45, "left", startX, startZ, endX, endZ);
+	CreateWall(startX, startZ, endX, endZ, 1);
+	GetWallCoordinates(113, 393, 57, 45, "right", startX, startZ, endX, endZ);
+	CreateWall(startX, startZ, endX, endZ, 1);
+	GetWallCoordinates(113 + 51, 393, (113 + 57) - (113 + 51), 45, "top", startX, startZ, endX, endZ);
+	CreateWall(startX, startZ, endX, endZ, 1);
+
+	Map2dToMap3d(113, 435, 186, 54);
+	GetWallCoordinates(113, 435, 186, 54, "left", startX, startZ, endX, endZ);
+	CreateWall(startX, startZ, endX, endZ, 1);
+	GetWallCoordinates(113, 435, 186, 54, "right", startX, startZ, endX, endZ);
+	CreateWall(startX, startZ, endX, endZ, 1);
+	GetWallCoordinates(113, 435, 186, 54, "bottom", startX, startZ, endX, endZ);
+	CreateWall(startX, startZ, endX, endZ, 1);
+	GetWallCoordinates(113 + 57, 435, 229 - (115 + 54), 54, "top", startX, startZ, endX, endZ);
+	CreateWall(startX, startZ, endX, endZ, 1);
+
+	Map2dToMap3d(229, 357, 98, 47);
+	GetWallCoordinates(229, 357, 98, 48, "left", startX, startZ, endX, endZ);
+	CreateWall(startX, startZ, endX, endZ, 1);
+	GetWallCoordinates(229, 358, 98, 47, "right", startX, startZ, endX, endZ);
+	CreateWall(startX, startZ, endX, endZ, 1);
+	GetWallCoordinates(229, 357, (278 - 228), 47, "top", startX, startZ, endX, endZ);
+	CreateWall(startX, startZ, endX, endZ, 1);
+	GetWallCoordinates(229 + 72, 357, (229 + 98) - (229 + 70), 47, "bottom", startX, startZ, endX, endZ);
+	CreateWall(startX, startZ, endX, endZ, 1);
+	GetWallCoordinates(229 + 98, 358, (278 + 109) - (229 + 98), 47, "top", startX, startZ, endX, endZ);
+	CreateWall(startX, startZ, endX, endZ, 1);
+
+	Map2dToMap3d(229, 404, 72, 32);
+	GetWallCoordinates(229, 404, 72, 32, "right", startX, startZ, endX, endZ);
+	CreateWall(startX, startZ, endX, endZ, 1);
+	GetWallCoordinates(229, 404, 72, 32, "left", startX, startZ, endX, endZ);
+	CreateWall(startX, startZ, endX, endZ, 1);
+
+	Map2dToMap3d(278, 297, 109, 63);
+	GetWallCoordinates(278, 297, 109, 63, "left", startX, startZ, endX, endZ);
+	CreateWall(startX, startZ, endX, endZ, 1);
+	GetWallCoordinates(278, 297, 109, 63, "top", startX, startZ, endX, endZ);
+	CreateWall(startX, startZ, endX, endZ, 1);
+
+	Map2dToMap3d(387, 297, 178, 48);
+	GetWallCoordinates(387, 297, 181, 48, "bottom", startX, startZ, endX, endZ);
+	CreateWall(startX, startZ, endX, endZ, 1);
+	GetWallCoordinates(385, 297, (489 - 384), 48, "top", startX, startZ, endX, endZ);
+	CreateWall(startX, startZ, endX, endZ, 1);
+	GetWallCoordinates(387, 297 + 48, 178, (297 + 63) - (297 + 48), "left", startX, startZ, endX, endZ);
+	CreateWall(startX, startZ, endX, endZ, 1);
+
+	Map2dToMap3d(489, 2, 307, 48);
+	GetWallCoordinates(489, 2, 307, 48, "top", startX, startZ, endX, endZ);
+	CreateWall(startX, startZ, endX, endZ, 1);
+	GetWallCoordinates(489, 2, 307, 48, "right", startX, startZ, endX, endZ);
+	CreateWall(startX, startZ, endX, endZ, 1);
+	GetWallCoordinates(489, 2, 307, 48, "left", startX, startZ, endX, endZ);
+	CreateWall(startX, startZ, endX, endZ, 1);
+
+	Map2dToMap3d(489, 49, 33, 295);
+	GetWallCoordinates(489, 49, 33, (296 - 47), "left", startX, startZ, endX, endZ);
+	CreateWall(startX, startZ, endX, endZ, 1);
+
+	Map2dToMap3d(519, 49, 24, 26);
+	Map2dToMap3d(519, 99, 20, 61);
+	Map2dToMap3d(519, 184, 20, 59);
+	Map2dToMap3d(519, 269, 20, 75);
+
+	Map2dToMap3d(538, 49, 29, 295);
+	GetWallCoordinates(538, 49, 29, 296, "right", startX, startZ, endX, endZ);
+	CreateWall(startX, startZ, endX, endZ, 1);
+
+	Map2dToMap3d(387, 297, 180, 48);
+
+	Map2dToMap3d(745, 50, 51, 66);
+	GetWallCoordinates(745, 50, 51, 66, "left", startX, startZ, endX, endZ);
+	CreateWall(startX, startZ, endX, endZ, 1);
+	GetWallCoordinates(745, 50, 51, 66, "right", startX, startZ, endX, endZ);
+	CreateWall(startX, startZ, endX, endZ, 1);
+
+	Map2dToMap3d(721, 136, 93, 51);
+	GetWallCoordinates(721, 136, 93, 51 + 91, "left", startX, startZ, endX, endZ);
+	CreateWall(startX, startZ, endX, endZ, 1);
+	GetWallCoordinates(721, 136, 93, 51 + 156, "right", startX, startZ, endX, endZ);
+	CreateWall(startX, startZ, endX, endZ, 1);
+
+	Map2dToMap3d(721, 186, 34, 91);
+	Map2dToMap3d(746, 233, 46, 44);
+	Map2dToMap3d(780, 185, 34, 156);
+	Map2dToMap3d(741, 291, 44, 50);
+	GetWallCoordinates(741, 291, 44, 50, "left", startX, startZ, endX, endZ);
+	CreateWall(startX, startZ, endX, endZ, 1);
+
+	Map2dToMap3d(718, 357, 46, 50);
+	GetWallCoordinates(718, 357, 46, 50, "left", startX, startZ, endX, endZ);
+	CreateWall(startX, startZ, endX, endZ, 1);
+	GetWallCoordinates(718, 357, 46, 50, "right", startX, startZ, endX, endZ);
+	CreateWall(startX, startZ, endX, endZ, 1);
+
+	Map2dToMap3d(775, 356, 43, 51);
+	GetWallCoordinates(775, 356, 43, 51, "left", startX, startZ, endX, endZ);
+	CreateWall(startX, startZ, endX, endZ, 1);
+	GetWallCoordinates(775, 356, 43, 51, "right", startX, startZ, endX, endZ);
+	CreateWall(startX, startZ, endX, endZ, 1);
+
+	Map2dToMap3d(734, 422, 84, 47);
+	GetWallCoordinates(734, 422, 84, 47, "left", startX, startZ, endX, endZ);
+	CreateWall(startX, startZ, endX, endZ, 1);
+	GetWallCoordinates(734, 422, 84, 47, "right", startX, startZ, endX, endZ);
+	CreateWall(startX, startZ, endX, endZ, 1);
+
+	Map2dToMap3d(776, 468, 42, 60);
+	GetWallCoordinates(776, 468, 42, 60, "right", startX, startZ, endX, endZ);
+	CreateWall(startX, startZ, endX, endZ, 1);
+
+	Map2dToMap3d(734, 488, 59, 216);
+	GetWallCoordinates(734, 488, 59, (623 - 488), "left", startX, startZ, endX, endZ);
+	CreateWall(startX, startZ, endX, endZ, 1);
+	GetWallCoordinates(734, 488 + ((468 + 60) - 488), 59, 216 - ((468 + 60) - 488), "right", startX, startZ, endX, endZ);
+	CreateWall(startX, startZ, endX, endZ, 1);
+	GetWallCoordinates(734, 488, 59, 216, "bottom", startX, startZ, endX, endZ);
+	CreateWall(startX, startZ, endX, endZ, 1);
+
+	Map2dToMap3d(655, 623, 79, 81);
+	GetWallCoordinates(657, 623, 79, 81, "bottom", startX, startZ, endX, endZ);
+	CreateWall(startX, startZ, endX, endZ, 1);
+
+
+	Map2dToMap3d(134, 650, 97, 39);
+	Map2dToMap3d(230, 661, 25, 17);
+	Map2dToMap3d(249, 648, 68, 41);
+	Map2dToMap3d(313, 617, 344, 24);
+	Map2dToMap3d(313, 640, 38, 72);
+	Map2dToMap3d(346, 639, 15, 41);
+	Map2dToMap3d(346, 659, 78, 21);
+	Map2dToMap3d(346, 691, 312, 21);
+	Map2dToMap3d(395, 640, 28, 39);
+	Map2dToMap3d(423, 655, 111, 16);
+	Map2dToMap3d(423, 670, 12, 24);
+	Map2dToMap3d(434, 681, 53, 11);
+	Map2dToMap3d(470, 669, 64, 13);
+	Map2dToMap3d(501, 635, 33, 26);
+	Map2dToMap3d(534, 659, 16, 37);
+	Map2dToMap3d(547, 659, 52, 18);
+	Map2dToMap3d(565, 674, 36, 21);
+	Map2dToMap3d(574, 640, 81, 19);
+	Map2dToMap3d(598, 659, 59, 16);
+	Map2dToMap3d(623, 674, 33, 18);
+
+}
 
 void ModuleSceneIntro::CreateSpiralRoad(float radius, float height, int sections, int size)
 {
@@ -662,8 +859,6 @@ std::vector<glm::vec3> ModuleSceneIntro::Map2dToMap3d(float x, float y, float wi
 
 	return vertices;
 }
-
-
 
 void ModuleSceneIntro::CreateWall(float startX, float startZ, float endX, float endZ, float cubeSize, float posY, float scale)
 {

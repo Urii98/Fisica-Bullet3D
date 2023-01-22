@@ -33,11 +33,12 @@ public:
 	std::vector<glm::vec3> Map2dToMap3d(float x, float y, float width, float height, float posY=0.0f, float scale=2.0f);
 
 	void CreateMarioKartMap();
+	void CreateRamps();
 	void CreateWall(float startX, float startZ, float endX, float endZ, float cubeSize, float posY = 0.0f, float scale = 2.0f);
 	void GetWallCoordinates(float posX, float posZ, float width, float height, std::string side, float& startX, float& startZ, float& endX, float& endZ);
 	void GraphMovement();
 
-	void CreateSpiralRoadX(float radius, float height, int sections, int size, float heigthX, float heigthY, float heigthZ);
+	void CreateSpiralRamp(float radius, float height, int sections, int size, float heigthX, float heigthY, float heigthZ);
 
 public:
 	// No se que es aixo jaja no ho toco no vull espatllar res :D
