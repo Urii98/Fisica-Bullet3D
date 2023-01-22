@@ -114,7 +114,11 @@ void ModuleSceneIntro::CreateMarioKartMap()
 	Map2dToMap3d(2, 610, 55, 41);
 	Map2dToMap3d(2, 650, 230, 40);
 
-	CreateWall(2, 57, 2, 690, 1);
+	//CreateWall(2, 57, 2, 690, 1);
+
+	float startX, startZ, endX, endZ;
+	GetWallCoordinates(2, 57, 160, 62, "left", startX, startZ, endX, endZ);
+	CreateWall(startX, startZ, endX, endZ, 1);
 
 	Map2dToMap3d(113, 122, 49, 272);
 	Map2dToMap3d(113, 393, 57, 45);
@@ -170,6 +174,8 @@ void ModuleSceneIntro::CreateMarioKartMap()
 	Map2dToMap3d(574, 640, 81, 19);
 	Map2dToMap3d(598, 659, 59, 16);
 	Map2dToMap3d(623, 674, 33, 18);
+
+
 
 }
 
@@ -450,7 +456,7 @@ std::vector<glm::vec3> ModuleSceneIntro::Map2dToMap3d(float x, float y, float wi
 
 
 
-void ModuleSceneIntro::CreateWall(float startX, float startZ, float endX, float endZ, float cubeSize, float scale)
+void ModuleSceneIntro::CreateWall(float startX, float startZ, float endX, float endZ, float cubeSize, float posY, float scale)
 {
 
 	// Calcular la cantidad de cubos necesarios
@@ -463,8 +469,40 @@ void ModuleSceneIntro::CreateWall(float startX, float startZ, float endX, float 
 	// Crear cada cubo y agregarlo al vector de cubos
 	for (int i = 0; i < numCubes; i++)
 	{
-		vec3 pos = vec3(startX/scale, 0, startZ/scale) + direction * (i * cubeSize);
+		vec3 pos = vec3(startX/scale, posY, startZ/scale) + direction * (i * cubeSize);
 		//std::cout << "Cubo numero: " << i << "posicionX: " << startX << "posicionZ: " << startZ << std::endl;
 		AddCube(pos, vec3(cubeSize, 2, cubeSize), Green, 90, 0, 1, 0);
+	}
+}
+
+void ModuleSceneIntro::GetWallCoordinates(float posX, float posZ, float width, float height, std::string side, float& startX, float& startZ, float& endX, float& endZ)
+{
+	if (side == "left")
+	{
+		startX = posX;
+		startZ = posZ;
+		endX = posX;
+		endZ = posZ + height;
+	}
+	else if (side == "right")
+	{
+		startX = posX + width;
+		startZ = posZ;
+		endX = posX + width;
+		endZ = posZ + height;
+	}
+	else if (side == "top")
+	{
+		startX = posX;
+		startZ = posZ;
+		endX = posX + width;
+		endZ = posZ;
+	}
+	else if (side == "bottom")
+	{
+		startX = posX;
+		startZ = posZ + height;
+		endX = posX + width;
+		endZ = posZ + height;
 	}
 }

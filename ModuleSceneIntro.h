@@ -5,6 +5,7 @@
 #include "Primitive.h"
 #include <vector>
 #include <memory>
+#include <string>
 
 #define MAX_SNAKE 2
 
@@ -32,7 +33,8 @@ public:
 	std::vector<glm::vec3> Map2dToMap3d(float x, float y, float width, float height, float posY=0.0f, float scale=2.0f);
 
 	void CreateMarioKartMap();
-	void CreateWall(float startX, float startZ, float endX, float endZ, float cubeSize, float scale = 2.0f);
+	void CreateWall(float startX, float startZ, float endX, float endZ, float cubeSize, float posY = 0.0f, float scale = 2.0f);
+	void GetWallCoordinates(float posX, float posZ, float width, float height, std::string side, float& startX, float& startZ, float& endX, float& endZ);
 	void GraphMovement();
 
 public:
