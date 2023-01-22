@@ -37,6 +37,8 @@ public:
 	void GetWallCoordinates(float posX, float posZ, float width, float height, std::string side, float& startX, float& startZ, float& endX, float& endZ);
 	void GraphMovement();
 
+	void CreateSpiralRoadX(float radius, float height, int sections, int size, float heigthX, float heigthY, float heigthZ);
+
 public:
 	// No se que es aixo jaja no ho toco no vull espatllar res :D
 	/*

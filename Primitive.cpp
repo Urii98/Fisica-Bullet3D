@@ -378,3 +378,4 @@ std::vector<glm::vec3> Road::GetVertices() const
 {
 	return vertices;
 }
+

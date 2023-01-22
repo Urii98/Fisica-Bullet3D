@@ -53,14 +53,11 @@ bool ModuleSceneIntro::Start()
 	//}
 	
 
-
-
-
 	// ======================================================
 	//						SPIRAL ROAD
 	// ======================================================
 	
-	CreateSpiralRoad(125, 200, 50, 8);
+	//CreateSpiralRoad(125, 200, 50, 8);
 	
 	// ======================================================
 	//						Test Code
@@ -95,15 +92,105 @@ bool ModuleSceneIntro::Start()
 	v4.y = inclinacion * v4.x;
 	
 	//plano inclinado
-	//CreateRoad(v1, v2, v3, v4, Red);
+	CreateRoad(v1, v2, v3, v4, Red);
 
 
-	CreateMarioKartMap();
-	
+	//CreateMarioKartMap();
+	CreateSpiralRoadX(1, 2, 20, 2, -2, 0, 0);
 
 
 	return ret;
 }
+
+
+void ModuleSceneIntro::CreateSpiralRoadX(float radius, float height, int sections, int size, float heigthX, float heigthY, float heigthZ)
+{
+	glm::vec3 prevV1, prevV2, prevV3, prevV4;
+	glm::vec3 aV1, aV2, aV3, aV4;
+	glm::vec3 center(250, 0, 0); // center of the spiral
+	float angle = 0.0;
+	float angleStep = 2 * PI / sections;
+	float heightStep = height / sections;
+
+	int sizePlane = size;
+	float initialHeightX = 0;
+	float initialHeightY = 0;
+	float initialHeightZ = 0;
+
+
+	for (int i = 0; i < sections; i++) {
+		// calculate the position of each vertex
+		float y = center.y + radius * cos(angle) + initialHeightY;
+		float z = center.z + radius * sin(angle) + initialHeightZ;
+		float x = center.x + i * heightStep + initialHeightX;
+		glm::vec3 v1 = glm::vec3(x - size, y, z - size);
+		glm::vec3 v2 = glm::vec3(x + size, y, z - size);
+		glm::vec3 v3 = glm::vec3(x + size, y, z + size);
+		glm::vec3 v4 = glm::vec3(x - size, y, z + size);
+
+		//create the plan
+		bool rotateX = true; //example rotate value
+		bool rotateY = false; //example rotate value
+		bool rotateZ = false; //example rotate value
+
+		//add it to the scene
+		//AddPlaneV(v1, v2, v3, v4, angle, rotateX, rotateY, rotateZ); 
+
+		if (i > 0) {
+			//connect to the previous section
+
+			//v1 y v2
+			aV1 = prevV1;
+			aV2 = prevV2;
+			aV3 = v2;
+			aV4 = v1;
+			AddPlaneV(aV1, aV2, aV3, aV4, 0, 0, 0, 0);
+
+			//v2 y v3
+			aV1 = prevV2;
+			aV2 = prevV3;
+			aV3 = v3;
+			aV4 = v2;
+			AddPlaneV(aV1, aV2, aV3, aV4, 0, 0, 0, 0);
+
+			//v3 y v4
+			aV1 = prevV3;
+			aV2 = prevV4;
+			aV3 = v4;
+			aV4 = v3;
+			AddPlaneV(aV1, aV2, aV3, aV4, 0, 0, 0, 0);
+
+			//v4 y v1
+			aV1 = prevV4;
+			aV2 = prevV1;
+			aV3 = v1;
+			aV4 = v4;
+			AddPlaneV(aV1, aV2, aV3, aV4, 0, 0, 0, 0);
+		}
+
+		/* Ultimo vertice arriba del todo
+		V1 X:125.001 Y: 196 Z: -42.1483
+		V2 X:141.001 Y: 196 Z: -42.1483
+		V3 X:141.001 Y: 196 Z: -26.1483
+		V4 X:125.001 Y: 196 Z: -26.1483
+		*/
+
+		//update the angle for the next iteration
+		angle += angleStep;
+		//increment the radius for the next iteration
+		radius += angleStep;
+
+		initialHeightX += heigthX;
+		initialHeightY += heigthY;
+		initialHeightZ += heigthZ;
+
+		prevV1 = v1;
+		prevV2 = v2;
+		prevV3 = v3;
+		prevV4 = v4;
+	}
+}
+
 
 void ModuleSceneIntro::CreateMarioKartMap()
 {
