@@ -114,12 +114,23 @@ void ModuleSceneIntro::CreateMarioKartMap()
 	GetWallCoordinates(2, 481, 38, 130, "right", startX, startZ, endX, endZ);
 	CreateWall(startX, startZ, endX, endZ, 1);
 
+	GetWallCoordinates(2+53, 122, 113-(53+2), 132, "top", startX, startZ, endX, endZ);
+	CreateWall(startX, startZ, endX, endZ, 1);
+
+	GetWallCoordinates(2 + 38, 481, (53+3)-(2+38), 130, "top", startX, startZ, endX, endZ);
+	CreateWall(startX, startZ, endX, endZ, 1);
+
 	Map2dToMap3d(2, 610, 55, 41);
 	GetWallCoordinates(2, 610, 55, 41, "right", startX, startZ, endX, endZ);
 	CreateWall(startX, startZ, endX, endZ, 1);
+	GetWallCoordinates(2+38, 610, (2+55)-(2+38), 41, "top", startX, startZ, endX, endZ);
+	CreateWall(startX, startZ, endX, endZ, 1);
+
 	
 	Map2dToMap3d(2, 650, 230, 40);
 	GetWallCoordinates(2, 650, 230, 40, "bottom", startX, startZ, endX, endZ);
+	CreateWall(startX, startZ, endX, endZ, 1);
+	GetWallCoordinates(2+55, 650, (2+230)-(2+55), 40, "top", startX, startZ, endX, endZ);
 	CreateWall(startX, startZ, endX, endZ, 1);
 
 	CreateWall(2, 57, 2, 690, 1);
@@ -143,6 +154,8 @@ void ModuleSceneIntro::CreateMarioKartMap()
 	CreateWall(startX, startZ, endX, endZ, 1);
 	GetWallCoordinates(113, 393, 57, 45, "right", startX, startZ, endX, endZ);
 	CreateWall(startX, startZ, endX, endZ, 1);
+	GetWallCoordinates(113+51, 393, (113+57)-(113+51), 45, "top", startX, startZ, endX, endZ);
+	CreateWall(startX, startZ, endX, endZ, 1);
 
 	Map2dToMap3d(113, 435, 186, 54);
 	GetWallCoordinates(113, 435, 186, 54, "left", startX, startZ, endX, endZ);
@@ -151,8 +164,20 @@ void ModuleSceneIntro::CreateMarioKartMap()
 	CreateWall(startX, startZ, endX, endZ, 1);
 	GetWallCoordinates(113, 435, 186, 54, "bottom", startX, startZ, endX, endZ);
 	CreateWall(startX, startZ, endX, endZ, 1);
+	GetWallCoordinates(113+57, 435,229-(115+54) , 54, "top", startX, startZ, endX, endZ);
+	CreateWall(startX, startZ, endX, endZ, 1);
 	
 	Map2dToMap3d(229, 357, 98, 47);
+	GetWallCoordinates(229, 357, 98, 48, "left", startX, startZ, endX, endZ);
+	CreateWall(startX, startZ, endX, endZ, 1);
+	GetWallCoordinates(229, 358, 98, 47, "right", startX, startZ, endX, endZ);
+	CreateWall(startX, startZ, endX, endZ, 1);
+	GetWallCoordinates(229, 357, (278 - 228), 47, "top", startX, startZ, endX, endZ);
+	CreateWall(startX, startZ, endX, endZ, 1);
+	GetWallCoordinates(229+72, 357, (229+98)-(229+70), 47, "bottom", startX, startZ, endX, endZ);
+	CreateWall(startX, startZ, endX, endZ, 1);
+	GetWallCoordinates(229+98, 358, (278+109)-(229+98), 47, "top", startX, startZ, endX, endZ);
+	CreateWall(startX, startZ, endX, endZ, 1);
 
 	Map2dToMap3d(229, 404, 72, 32);
 	GetWallCoordinates(229, 404, 72, 32, "right", startX, startZ, endX, endZ);
@@ -167,9 +192,11 @@ void ModuleSceneIntro::CreateMarioKartMap()
 	CreateWall(startX, startZ, endX, endZ, 1);
 
 	Map2dToMap3d(387, 297, 178, 48);
-	GetWallCoordinates(387, 297, 178, 48, "right", startX, startZ, endX, endZ);
+	GetWallCoordinates(387, 297, 181, 48, "bottom", startX, startZ, endX, endZ);
 	CreateWall(startX, startZ, endX, endZ, 1);
-	GetWallCoordinates(387, 297, 178, 48, "bottom", startX, startZ, endX, endZ);
+	GetWallCoordinates(385, 297, (489-384), 48, "top", startX, startZ, endX, endZ);
+	CreateWall(startX, startZ, endX, endZ, 1);
+	GetWallCoordinates(387, 297+48, 178, (297+63)- (297 + 48), "left", startX, startZ, endX, endZ);
 	CreateWall(startX, startZ, endX, endZ, 1);
 
 	Map2dToMap3d(489, 2, 307, 48);
@@ -181,7 +208,7 @@ void ModuleSceneIntro::CreateMarioKartMap()
 	CreateWall(startX, startZ, endX, endZ, 1);
 
 	Map2dToMap3d(489, 49, 33, 295);
-	GetWallCoordinates(489, 49, 33, 295, "left", startX, startZ, endX, endZ);
+	GetWallCoordinates(489, 49, 33, (296-47), "left", startX, startZ, endX, endZ);
 	CreateWall(startX, startZ, endX, endZ, 1);
 
 	Map2dToMap3d(519, 49, 24, 26);
@@ -190,7 +217,7 @@ void ModuleSceneIntro::CreateMarioKartMap()
 	Map2dToMap3d(519, 269, 20, 75);
 
 	Map2dToMap3d(538, 49, 29, 295);
-	GetWallCoordinates(538,49, 29, 295, "right", startX, startZ, endX, endZ);
+	GetWallCoordinates(538,49, 29, 296, "right", startX, startZ, endX, endZ);
 	CreateWall(startX, startZ, endX, endZ, 1);
 
 	Map2dToMap3d(387, 297, 180, 48);
@@ -202,16 +229,51 @@ void ModuleSceneIntro::CreateMarioKartMap()
 	CreateWall(startX, startZ, endX, endZ, 1);
 
 	Map2dToMap3d(721, 136, 93, 51);
+	GetWallCoordinates(721, 136, 93, 51+91, "left", startX, startZ, endX, endZ);
+	CreateWall(startX, startZ, endX, endZ, 1);
+	GetWallCoordinates(721, 136, 93, 51 + 156, "right", startX, startZ, endX, endZ);
+	CreateWall(startX, startZ, endX, endZ, 1);
+
 	Map2dToMap3d(721, 186, 34, 91);
 	Map2dToMap3d(746, 233, 46, 44);
 	Map2dToMap3d(780, 185, 34, 156);
 	Map2dToMap3d(741, 291, 44, 50);
+	GetWallCoordinates(741, 291, 44, 50, "left", startX, startZ, endX, endZ);
+	CreateWall(startX, startZ, endX, endZ, 1);
+
 	Map2dToMap3d(718, 357, 46, 50);
+	GetWallCoordinates(718, 357, 46, 50, "left", startX, startZ, endX, endZ);
+	CreateWall(startX, startZ, endX, endZ, 1);
+	GetWallCoordinates(718, 357, 46, 50, "right", startX, startZ, endX, endZ);
+	CreateWall(startX, startZ, endX, endZ, 1);
+
 	Map2dToMap3d(775, 356, 43, 51);
+	GetWallCoordinates(775, 356, 43, 51, "left", startX, startZ, endX, endZ);
+	CreateWall(startX, startZ, endX, endZ, 1);
+	GetWallCoordinates(775, 356, 43, 51, "right", startX, startZ, endX, endZ);
+	CreateWall(startX, startZ, endX, endZ, 1);
+
 	Map2dToMap3d(734, 422, 84, 47);
-	Map2dToMap3d(776, 471, 42, 60);
+	GetWallCoordinates(734, 422, 84, 47, "left", startX, startZ, endX, endZ);
+	CreateWall(startX, startZ, endX, endZ, 1);
+	GetWallCoordinates(734, 422, 84, 47, "right", startX, startZ, endX, endZ);
+	CreateWall(startX, startZ, endX, endZ, 1);
+
+	Map2dToMap3d(776, 468, 42, 60);
+	GetWallCoordinates(776, 468, 42, 60, "right", startX, startZ, endX, endZ);
+	CreateWall(startX, startZ, endX, endZ, 1);
+
 	Map2dToMap3d(734, 488, 59, 216);
+	GetWallCoordinates(734, 488, 59, (623-488), "left", startX, startZ, endX, endZ);
+	CreateWall(startX, startZ, endX, endZ, 1);
+	GetWallCoordinates(734, 488+((468+60)-488), 59, 216-((468 + 60)-488), "right", startX, startZ, endX, endZ);
+	CreateWall(startX, startZ, endX, endZ, 1);
+	GetWallCoordinates(734, 488, 59, 216, "bottom", startX, startZ, endX, endZ);
+	CreateWall(startX, startZ, endX, endZ, 1);
+
 	Map2dToMap3d(655, 623, 79, 81);
+	GetWallCoordinates(657, 623, 79, 81, "bottom", startX, startZ, endX, endZ);
+	CreateWall(startX, startZ, endX, endZ, 1);
 
 
 	Map2dToMap3d(134, 650, 97, 39);
