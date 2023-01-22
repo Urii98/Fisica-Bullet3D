@@ -36,6 +36,7 @@ enum Coloor {
 	CYAN,
 	GREY,
 	BLACK,
+	BROWN
 };
 
 struct Color GetColor(int color);
@@ -50,3 +51,4 @@ extern Color Yellow;
 extern Color Magenta;
 extern Color Orange;
 extern Color Grey;
+extern Color Brown;

@@ -60,7 +60,7 @@ bool ModuleSceneIntro::Start()
 	//						SPIRAL ROAD
 	// ======================================================
 	
-	//CreateSpiralRoad(125, 200, 50, 8);
+	CreateSpiralRoad(125, 200, 50, 8);
 	
 	// ======================================================
 	//						Test Code
@@ -95,7 +95,7 @@ bool ModuleSceneIntro::Start()
 	v4.y = inclinacion * v4.x;
 	
 	//plano inclinado
-	CreateRoad(v1, v2, v3, v4);
+	//CreateRoad(v1, v2, v3, v4, Red);
 
 
 	CreateMarioKartMap();
@@ -113,6 +113,8 @@ void ModuleSceneIntro::CreateMarioKartMap()
 	Map2dToMap3d(2, 481, 38, 130);
 	Map2dToMap3d(2, 610, 55, 41);
 	Map2dToMap3d(2, 650, 230, 40);
+
+	CreateWall(2, 57, 2, 690, 1);
 
 	Map2dToMap3d(113, 122, 49, 272);
 	Map2dToMap3d(113, 393, 57, 45);
@@ -198,7 +200,7 @@ update_status ModuleSceneIntro::Update(float dt)
 	{
 		float d = abs(graph.get()->GetX());
 
-		float posY = sin(M_PI * (graph.get()->GetX()/ scalarSize) + prueba*2)*20;
+		float posY = sin(M_PI * (graph.get()->GetX()/ scalarSize) + prueba*2.0f)*20.0f;
 		
 	/*	float posY = sin(M_PI*(4.0f * d - prueba)) * 20;
 		posY /= (1.0f + 10.0f * d);*/
@@ -213,10 +215,10 @@ update_status ModuleSceneIntro::Update(float dt)
 		road.Render();
 	}
 
-	//for (auto& cube : vectorCubes)
-	//{
-	//	cube.Render();
-	//}
+	for (auto& cube : vectorCubes)
+	{
+		cube.Render();
+	}
 
 	//for (auto& primitive : primitives) {
 	//	primitive->Render();
@@ -318,6 +320,8 @@ void ModuleSceneIntro::AddPlaneV(glm::vec3 v1, glm::vec3 v2, glm::vec3 v3, glm::
 {
 	PlaneV planeVToAdd(v1, v2, v3, v4);
 
+	planeVToAdd.color = Cyan;
+
 	// angle, XYZ
 	if (rotateX == true) {
 		planeVToAdd.SetRotation(angle, { 1, 0, 0 });
@@ -399,11 +403,6 @@ void ModuleSceneIntro::CreateSpiralRoad(float radius, float height, int sections
 			AddPlaneV(aV1, aV2, aV3, aV4, 0, 0, 0, 0);
 		}
 
-		//std::cout << "V1 X:" << v1.x << " Y: " << v1.y << " Z: " << v1.z << std::endl;
-		//std::cout << "V2 X:" << v2.x << " Y: " << v2.y << " Z: " << v2.z << std::endl;
-		//std::cout << "V3 X:" << v3.x << " Y: " << v3.y << " Z: " << v3.z << std::endl;
-		//std::cout << "V4 X:" << v4.x << " Y: " << v4.y << " Z: " << v4.z << std::endl;
-
 		/* Ultimo vertice arriba del todo
 		V1 X:125.001 Y: 196 Z: -42.1483
 		V2 X:141.001 Y: 196 Z: -42.1483
@@ -428,23 +427,44 @@ void ModuleSceneIntro::GraphMovement()
 
 }
 
-void ModuleSceneIntro::CreateRoad(const glm::vec3& v1, const glm::vec3& v2, const glm::vec3& v3, const glm::vec3& v4)
+void ModuleSceneIntro::CreateRoad(const glm::vec3& v1, const glm::vec3& v2, const glm::vec3& v3, const glm::vec3& v4, Color RGB)
 {
 	Road road(v1, v2, v3, v4);
+	road.color = RGB;
 	vectorRoad.push_back(road);
 	App->physics->AddBody(road, 0.0f);
 }
 
-std::vector<glm::vec3> ModuleSceneIntro::Map2dToMap3d(float x, float y, float width, float height)
+std::vector<glm::vec3> ModuleSceneIntro::Map2dToMap3d(float x, float y, float width, float height, float posY, float scale)
 {
 	std::vector<glm::vec3> vertices;
-	vertices.push_back(glm::vec3(x/2 + width/2, 0, y/2 + height/2));
-	vertices.push_back(glm::vec3(x/2 + width/2, 0, y/2));
-	vertices.push_back(glm::vec3(x/2, 0, y/2));
-	vertices.push_back(glm::vec3(x/2, 0, y/2 + height/2));
+	vertices.push_back(glm::vec3(x/scale + width/scale, posY, y/scale + height/scale));
+	vertices.push_back(glm::vec3(x/scale + width/scale, posY, y/scale));
+	vertices.push_back(glm::vec3(x/scale, posY, y/scale));
+	vertices.push_back(glm::vec3(x/scale, posY, y/scale + height/scale));
 	
-	CreateRoad(vertices[0], vertices[1], vertices[2], vertices[3]);
+	CreateRoad(vertices[0], vertices[1], vertices[2], vertices[3], Brown);
 
 	return vertices;
 }
 
+
+
+void ModuleSceneIntro::CreateWall(float startX, float startZ, float endX, float endZ, float cubeSize, float scale)
+{
+
+	// Calcular la cantidad de cubos necesarios
+	float distance = sqrtf(powf(endX/scale - startX/ scale, 2) + powf(endZ/ scale - startZ/ scale, 2));
+	int numCubes = distance / cubeSize;
+
+	// Calcular el vector de dirección del muro
+	vec3 direction = normalize(vec3(endX/ scale - startX/ scale, 0, endZ/ scale - startZ/ scale));
+
+	// Crear cada cubo y agregarlo al vector de cubos
+	for (int i = 0; i < numCubes; i++)
+	{
+		vec3 pos = vec3(startX/scale, 0, startZ/scale) + direction * (i * cubeSize);
+		//std::cout << "Cubo numero: " << i << "posicionX: " << startX << "posicionZ: " << startZ << std::endl;
+		AddCube(pos, vec3(cubeSize, 2, cubeSize), Green, 90, 0, 1, 0);
+	}
+}

@@ -14,6 +14,8 @@ Color Magenta = Color(1.0f, 0.0f, 1.0f);
 Color Orange = Color(0.88f, 0.49f, 0.06f);
 Color Grey = Color(0.5f, 0.5f, 0.5f);
 
+Color Brown = Color(0.5f, 0.25f, 0.0f);
+
 struct Color GetColor(int color)
 {
 	switch (color)
