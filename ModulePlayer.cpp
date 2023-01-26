@@ -167,7 +167,27 @@ update_status ModulePlayer::Update(float dt)
 
 void ModulePlayer::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 {
-
+	switch (App->scene_intro->sensorCounter)
+	{
+		// linia de meta
+	case 0:
+		vehicle->GetTransform(&last_checkpoint_matrix);
+		break;
+		// sensor en posicio 1
+	case 1:
+		vehicle->GetTransform(&last_checkpoint_matrix);
+		break;
+		// sensor en posicio 2
+	case 2:
+		vehicle->GetTransform(&last_checkpoint_matrix);
+		break;
+		// sensor en posicio 3
+	case 3:
+		vehicle->GetTransform(&last_checkpoint_matrix);
+		break;
+	default:
+		break;
+	}
 }
 
 
