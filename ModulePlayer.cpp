@@ -97,9 +97,12 @@ bool ModulePlayer::Start()
 	car.wheels[3].steering = false;
 
 	vehicle = App->physics->AddVehicle(car);
-	vehicle->SetPos(0, 15, 10);
+	vehicle->SetPos(0, 2, 10);
 	vehicle->collision_listeners.add(App->scene_intro);
 	vehicle->collision_listeners.add(this);
+
+	// Matrix where the vehicle spawns at the beginning of the game
+	vehicle->GetTransform(&initial_matrix);
 	
 	return true;
 }
@@ -143,8 +146,10 @@ update_status ModulePlayer::Update(float dt)
 	{
 		// ... TP i Rotar
 		// Matriu rotació modificar forçadament
-		// Canviar velocitat manualment
+		vehicle->SetTransform(&initial_matrix);
 		/*auto matrixXaxi = vehicle->phys_vehicle->getChassisWorldTransform();*/
+		vehicle->vehicle->getRigidBody()->clearForces();
+		vehicle->vehicle->getRigidBody()->setLinearVelocity({ 0,0,0 });
 	}
 
 	vehicle->ApplyEngineForce(acceleration);

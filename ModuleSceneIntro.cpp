@@ -178,17 +178,17 @@ void ModuleSceneIntro::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 			// sensor en posicio 1
 		case 1:
 			sensor->SetPos(30, 0, 0);
-			sensorCounter += 1;
+			sensorCounter++;
 			break;
 			// sensor en posicio 2
 		case 2:
 			sensor->SetPos(0, 0, -30);
-			sensorCounter += 1;
+			sensorCounter++;
 			break;
 			// sensor en posicio 3
 		case 3:
 			sensor->SetPos(-30, 0, 0);
-			sensorCounter += 1;
+			sensorCounter++;
 			break;
 		default:
 			break;

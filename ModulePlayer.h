@@ -28,4 +28,6 @@ public:
 	float turn;
 	float acceleration;
 	float brake;
+
+	mat4x4 initial_matrix;
 };
