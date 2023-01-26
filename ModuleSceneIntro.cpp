@@ -43,7 +43,7 @@ bool ModuleSceneIntro::Start()
 	sensor->SetPos(30, 0, 0);
 
 	sensorCounter = 0;
-	raceState = BEFORESTART;
+	raceState = LAP1;
 	numOfLaps = 0;
 
 	// -----------------------------
@@ -172,22 +172,22 @@ void ModuleSceneIntro::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 		{
 			// linia de meta
 		case 0:
-			sensor->SetPos(0, 0, 30);
+			sensor->SetPos(30, 0, 0);
 			sensorCounter++;
 			break;
 			// sensor en posicio 1
 		case 1:
-			sensor->SetPos(30, 0, 0);
+			sensor->SetPos(0, 0, 30);
 			sensorCounter++;
 			break;
 			// sensor en posicio 2
 		case 2:
-			sensor->SetPos(0, 0, -30);
+			sensor->SetPos(-30, 0, 0);
 			sensorCounter++;
 			break;
 			// sensor en posicio 3
 		case 3:
-			sensor->SetPos(-30, 0, 0);
+			sensor->SetPos(0, 0, -30);
 			sensorCounter++;
 			break;
 		default:
@@ -203,9 +203,6 @@ void ModuleSceneIntro::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 
 		switch (numOfLaps)
 		{
-		case 0:
-			raceState = BEFORESTART;
-			break;
 		case 1:
 			raceState = LAP1;
 			break;

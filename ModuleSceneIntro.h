@@ -13,7 +13,6 @@ struct PhysMotor3D;
 
 enum RaceStateEnum
 {
-	BEFORESTART,
 	LAP1,
 	LAP2,
 	LAP3,
