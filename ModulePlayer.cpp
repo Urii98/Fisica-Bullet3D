@@ -102,7 +102,7 @@ bool ModulePlayer::Start()
 	vehicle->collision_listeners.add(this);
 
 	// Matrix where the vehicle spawns at the beginning of the game
-	vehicle->GetTransform(&initial_matrix);
+	vehicle->GetTransform(&last_checkpoint_matrix);
 	
 	return true;
 }
@@ -146,7 +146,7 @@ update_status ModulePlayer::Update(float dt)
 	{
 		// ... TP i Rotar
 		// Matriu rotació modificar forçadament
-		vehicle->SetTransform(&initial_matrix);
+		vehicle->SetTransform(&last_checkpoint_matrix);
 		/*auto matrixXaxi = vehicle->phys_vehicle->getChassisWorldTransform();*/
 		vehicle->vehicle->getRigidBody()->clearForces();
 		vehicle->vehicle->getRigidBody()->setLinearVelocity({ 0,0,0 });

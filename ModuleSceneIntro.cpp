@@ -4,6 +4,7 @@
 #include "Primitive.h"
 #include "PhysBody3D.h"
 #include "Color.h"
+#include "ModulePlayer.h"
 
 ModuleSceneIntro::ModuleSceneIntro(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -40,7 +41,6 @@ bool ModuleSceneIntro::Start()
 	// ======================================================
 	sensor = App->physics->AddBody(Cube(20, 10, 20), 0.0f);
 	sensor->SetAsSensor(true);
-	sensor->SetPos(30, 0, 0);
 
 	sensorCounter = 0;
 	raceState = LAP1;

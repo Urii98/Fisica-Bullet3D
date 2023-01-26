@@ -29,5 +29,5 @@ public:
 	float acceleration;
 	float brake;
 
-	mat4x4 initial_matrix;
+	mat4x4 last_checkpoint_matrix;
 };
