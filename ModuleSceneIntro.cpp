@@ -57,7 +57,7 @@ bool ModuleSceneIntro::Start()
 	//						SPIRAL ROAD
 	// ======================================================
 	
-	//CreateSpiralRoad(125, 200, 50, 8);
+	
 	
 	// ======================================================
 	//						Test Code
@@ -110,14 +110,15 @@ bool ModuleSceneIntro::Start()
 	//v2.y = inclinacion * 10;
 	//v3.y = inclinacion * 0;
 	//v4.y = inclinacion * 0;
-	
-	//plano inclinado
-	//CreateRoad(v1, v2, v3, v4, Red);
 
+	//CreateSpiralRamp(1, 2, 20, 2, -2, 0, 0);
 
+	CreateSpiralRoad(125, 200, 50, 8);
 	CreateMarioKartMap();
 	CreateRamps();
-	//CreateSpiralRamp(1, 2, 20, 2, -2, 0, 0);
+
+
+	
 
 
 	return ret;
@@ -296,176 +297,176 @@ void ModuleSceneIntro::CreateRamps()
 	glm::vec3 v1, v2, v3, v4;
 	float inclinacion = 0.15f;
 
-	v1 = glm::vec3(539 / 2, 0, 269 / 2);
-	v2 = glm::vec3(539 / 2, 0, 275 / 2);
-	v3 = glm::vec3(519 / 2, 0, 275 / 2);
-	v4 = glm::vec3(519 / 2, 0, 269 / 2);
-	v4.y = inclinacion * 10;
-	v1.y = inclinacion * 10;
+	v1 = glm::vec3(539 / 2, 196.0, 269 / 2);
+	v2 = glm::vec3(539 / 2, 196.0, 275 / 2);
+	v3 = glm::vec3(519 / 2, 196.0, 275 / 2);
+	v4 = glm::vec3(519 / 2, 196.0, 269 / 2);
+	v4.y += inclinacion * 10;
+	v1.y += inclinacion * 10;
 	CreateRoad(v1, v2, v3, v4, White);
 
-	v1 = glm::vec3(539 / 2, 0, 184 / 2);
-	v2 = glm::vec3(539 / 2, 0, 189 / 2);
-	v3 = glm::vec3(519 / 2, 0, 189 / 2);
-	v4 = glm::vec3(519 / 2, 0, 184 / 2);
-	v4.y = inclinacion * 10;
-	v1.y = inclinacion * 10;
+	v1 = glm::vec3(539 / 2, 196.0, 184 / 2);
+	v2 = glm::vec3(539 / 2, 196.0, 189 / 2);
+	v3 = glm::vec3(519 / 2, 196.0, 189 / 2);
+	v4 = glm::vec3(519 / 2, 196.0, 184 / 2);
+	v4.y += inclinacion * 10;
+	v1.y += inclinacion * 10;
 	CreateRoad(v1, v2, v3, v4, White);
 
-	v1 = glm::vec3(539 / 2, 0, 99 / 2);
-	v2 = glm::vec3(539 / 2, 0, 105 / 2);
-	v3 = glm::vec3(519 / 2, 0, 105 / 2);
-	v4 = glm::vec3(519 / 2, 0, 99 / 2);
-	v4.y = inclinacion * 10;
-	v1.y = inclinacion * 10;
-	CreateRoad(v1, v2, v3, v4, White);
-
-
-
-	v1 = glm::vec3(796 / 2, 0, 109 / 2);
-	v2 = glm::vec3(796 / 2, 0, 116 / 2);
-	v3 = glm::vec3(745 / 2, 0, 116 / 2);
-	v4 = glm::vec3(745 / 2, 0, 109 / 2);
-	v2.y = inclinacion * 10;
-	v3.y = inclinacion * 10;
-	CreateRoad(v1, v2, v3, v4, White);
-
-	v1 = glm::vec3(780 / 2, 0, 186 / 2);
-	v2 = glm::vec3(780 / 2, 0, 191 / 2);
-	v3 = glm::vec3(755 / 2, 0, 191 / 2);
-	v4 = glm::vec3(755 / 2, 0, 186 / 2);
-	v2.y = inclinacion * 10;
-	v3.y = inclinacion * 10;
-	CreateRoad(v1, v2, v3, v4, White);
-
-	v1 = glm::vec3(766 / 2, 0, 275 / 2);
-	v2 = glm::vec3(766 / 2, 0, 284 / 2);
-	v3 = glm::vec3(746 / 2, 0, 284 / 2);
-	v4 = glm::vec3(746 / 2, 0, 275 / 2);
-	v2.y = inclinacion * 10;
-	v3.y = inclinacion * 10;
-	CreateRoad(v1, v2, v3, v4, White);
-
-	v1 = glm::vec3(815 / 2, 0, 339 / 2);
-	v2 = glm::vec3(815 / 2, 0, 345 / 2);
-	v3 = glm::vec3(741 / 2, 0, 345 / 2);
-	v4 = glm::vec3(741 / 2, 0, 339 / 2);
-	v2.y = inclinacion * 10;
-	v3.y = inclinacion * 10;
-	CreateRoad(v1, v2, v3, v4, White);
-
-	v1 = glm::vec3(764 / 2, 0, 407 / 2);
-	v2 = glm::vec3(764 / 2, 0, 412 / 2);
-	v3 = glm::vec3(718 / 2, 0, 412 / 2);
-	v4 = glm::vec3(718 / 2, 0, 407 / 2);
-	v2.y = inclinacion * 10;
-	v3.y = inclinacion * 10;
-	CreateRoad(v1, v2, v3, v4, White);
-
-	v1 = glm::vec3(819 / 2, 0, 407 / 2);
-	v2 = glm::vec3(819 / 2, 0, 412 / 2);
-	v3 = glm::vec3(775 / 2, 0, 412 / 2);
-	v4 = glm::vec3(775 / 2, 0, 407 / 2);
-	v2.y = inclinacion * 10;
-	v3.y = inclinacion * 10;
-	CreateRoad(v1, v2, v3, v4, White);
-
-	v1 = glm::vec3(776 / 2, 0, 469 / 2);
-	v2 = glm::vec3(776 / 2, 0, 475 / 2);
-	v3 = glm::vec3(734 / 2, 0, 475 / 2);
-	v4 = glm::vec3(734 / 2, 0, 469 / 2);
-	v2.y = inclinacion * 10;
-	v3.y = inclinacion * 10;
+	v1 = glm::vec3(539 / 2, 196.0, 99 / 2);
+	v2 = glm::vec3(539 / 2, 196.0, 105 / 2);
+	v3 = glm::vec3(519 / 2, 196.0, 105 / 2);
+	v4 = glm::vec3(519 / 2, 196.0, 99 / 2);
+	v4.y += inclinacion * 10;
+	v1.y += inclinacion * 10;
 	CreateRoad(v1, v2, v3, v4, White);
 
 
 
-	v1 = glm::vec3(255 / 2, 0, 661 / 2);
-	v2 = glm::vec3(255 / 2, 0, 648 / 2);
-	v3 = glm::vec3(249 / 2, 0, 648 / 2);
-	v4 = glm::vec3(249 / 2, 0, 661 / 2);
-	v4.y = inclinacion * 10;
-	v3.y = inclinacion * 10;
+	v1 = glm::vec3(796 / 2,196.0, 109 / 2);
+	v2 = glm::vec3(796 / 2,196.0, 116 / 2);
+	v3 = glm::vec3(745 / 2,196.0, 116 / 2);
+	v4 = glm::vec3(745 / 2,196.0, 109 / 2);
+	v2.y += inclinacion * 10;
+	v3.y += inclinacion * 10;
 	CreateRoad(v1, v2, v3, v4, White);
 
-	v1 = glm::vec3(255 / 2, 0, 689 / 2);
-	v2 = glm::vec3(255 / 2, 0, 678 / 2);
-	v3 = glm::vec3(249 / 2, 0, 678 / 2);
-	v4 = glm::vec3(249 / 2, 0, 689 / 2);
-	v4.y = inclinacion * 10;
-	v3.y = inclinacion * 10;
+	v1 = glm::vec3(780 / 2,196.0, 186 / 2);
+	v2 = glm::vec3(780 / 2,196.0, 191 / 2);
+	v3 = glm::vec3(755 / 2,196.0, 191 / 2);
+	v4 = glm::vec3(755 / 2,196.0, 186 / 2);
+	v2.y += inclinacion * 10;
+	v3.y += inclinacion * 10;
 	CreateRoad(v1, v2, v3, v4, White);
 
-	v1 = glm::vec3(255 / 2, 0, 689 / 2);
-	v2 = glm::vec3(255 / 2, 0, 678 / 2);
-	v3 = glm::vec3(249 / 2, 0, 678 / 2);
-	v4 = glm::vec3(249 / 2, 0, 689 / 2);
-	v4.y = inclinacion * 10;
-	v3.y = inclinacion * 10;
+	v1 = glm::vec3(766 / 2, 196.0, 275 / 2);
+	v2 = glm::vec3(766 / 2, 196.0, 284 / 2);
+	v3 = glm::vec3(746 / 2, 196.0, 284 / 2);
+	v4 = glm::vec3(746 / 2, 196.0, 275 / 2);
+	v2.y += inclinacion * 10;
+	v3.y += inclinacion * 10;
 	CreateRoad(v1, v2, v3, v4, White);
 
-	v1 = glm::vec3(628 / 2, 0, 692 / 2);
-	v2 = glm::vec3(628 / 2, 0, 674 / 2);
-	v3 = glm::vec3(623 / 2, 0, 674 / 2);
-	v4 = glm::vec3(623 / 2, 0, 692 / 2);
-	v4.y = inclinacion * 10;
-	v3.y = inclinacion * 10;
+	v1 = glm::vec3(815 / 2, 196.0, 339 / 2);
+	v2 = glm::vec3(815 / 2, 196.0, 345 / 2);
+	v3 = glm::vec3(741 / 2, 196.0, 345 / 2);
+	v4 = glm::vec3(741 / 2, 196.0, 339 / 2);
+	v2.y += inclinacion * 10;
+	v3.y += inclinacion * 10;
 	CreateRoad(v1, v2, v3, v4, White);
 
-	v1 = glm::vec3(570 / 2, 0, 692 / 2);
-	v2 = glm::vec3(570 / 2, 0, 674 / 2);
-	v3 = glm::vec3(565 / 2, 0, 674 / 2);
-	v4 = glm::vec3(565 / 2, 0, 692 / 2);
-	v4.y = inclinacion * 10;
-	v3.y = inclinacion * 10;
+	v1 = glm::vec3(764 / 2, 196.0, 407 / 2);
+	v2 = glm::vec3(764 / 2, 196.0, 412 / 2);
+	v3 = glm::vec3(718 / 2, 196.0, 412 / 2);
+	v4 = glm::vec3(718 / 2, 196.0, 407 / 2);
+	v2.y += inclinacion * 10;
+	v3.y += inclinacion * 10;
 	CreateRoad(v1, v2, v3, v4, White);
 
-	v1 = glm::vec3(579 / 2, 0, 661 / 2);
-	v2 = glm::vec3(579 / 2, 0, 642 / 2);
-	v3 = glm::vec3(574 / 2, 0, 642 / 2);
-	v4 = glm::vec3(574 / 2, 0, 661 / 2);
-	v4.y = inclinacion * 10;
-	v3.y = inclinacion * 10;
+	v1 = glm::vec3(819 / 2,196.0, 407 / 2);
+	v2 = glm::vec3(819 / 2,196.0, 412 / 2);
+	v3 = glm::vec3(775 / 2,196.0, 412 / 2);
+	v4 = glm::vec3(775 / 2,196.0, 407 / 2);
+	v2.y += inclinacion * 10;
+	v3.y += inclinacion * 10;
 	CreateRoad(v1, v2, v3, v4, White);
 
-	v1 = glm::vec3(506 / 2, 0, 657 / 2);
-	v2 = glm::vec3(506 / 2, 0, 642 / 2);
-	v3 = glm::vec3(501 / 2, 0, 642 / 2);
-	v4 = glm::vec3(501 / 2, 0, 657 / 2);
-	v4.y = inclinacion * 10;
-	v3.y = inclinacion * 10;
+	v1 = glm::vec3(776 / 2, 196.0, 469 / 2);
+	v2 = glm::vec3(776 / 2, 196.0, 475 / 2);
+	v3 = glm::vec3(734 / 2, 196.0, 475 / 2);
+	v4 = glm::vec3(734 / 2, 196.0, 469 / 2);
+	v2.y += inclinacion * 10;
+	v3.y += inclinacion * 10;
 	CreateRoad(v1, v2, v3, v4, White);
 
-	v1 = glm::vec3(401 / 2, 0, 659 / 2);
-	v2 = glm::vec3(401 / 2, 0, 640 / 2);
-	v3 = glm::vec3(395 / 2, 0, 640 / 2);
-	v4 = glm::vec3(395 / 2, 0, 659 / 2);
-	v4.y = inclinacion * 10;
-	v3.y = inclinacion * 10;
+
+
+	v1 = glm::vec3(255 / 2, 196.0, 661 / 2);
+	v2 = glm::vec3(255 / 2, 196.0, 648 / 2);
+	v3 = glm::vec3(249 / 2, 196.0, 648 / 2);
+	v4 = glm::vec3(249 / 2, 196.0, 661 / 2);
+	v4.y += inclinacion * 10;
+	v3.y += inclinacion * 10;
 	CreateRoad(v1, v2, v3, v4, White);
 
-	v1 = glm::vec3(427 / 2, 0, 692 / 2);
-	v2 = glm::vec3(427 / 2, 0, 679 / 2);
-	v3 = glm::vec3(423 / 2, 0, 679 / 2);
-	v4 = glm::vec3(423 / 2, 0, 692 / 2);
-	v4.y = inclinacion * 10;
-	v3.y = inclinacion * 10;
+	v1 = glm::vec3(255 / 2,196.0, 689 / 2);
+	v2 = glm::vec3(255 / 2,196.0, 678 / 2);
+	v3 = glm::vec3(249 / 2,196.0, 678 / 2);
+	v4 = glm::vec3(249 / 2,196.0, 689 / 2);
+	v4.y += inclinacion * 10;
+	v3.y += inclinacion * 10;
 	CreateRoad(v1, v2, v3, v4, White);
 
-	v1 = glm::vec3(539 / 2, 0, 692 / 2);
-	v2 = glm::vec3(539 / 2, 0, 682 / 2);
-	v4 = glm::vec3(534 / 2, 0, 692 / 2);
-	v3 = glm::vec3(534 / 2, 0, 682 / 2);
-	v4.y = inclinacion * 10;
-	v3.y = inclinacion * 10;
+	v1 = glm::vec3(255 / 2,196.0, 689 / 2);
+	v2 = glm::vec3(255 / 2,196.0, 678 / 2);
+	v3 = glm::vec3(249 / 2,196.0, 678 / 2);
+	v4 = glm::vec3(249 / 2,196.0, 689 / 2);
+	v4.y += inclinacion * 10;
+	v3.y += inclinacion * 10;
 	CreateRoad(v1, v2, v3, v4, White);
 
-	v1 = glm::vec3(475 / 2, 0, 682 / 2);
-	v2 = glm::vec3(475 / 2, 0, 672 / 2);
-	v4 = glm::vec3(470 / 2, 0, 682 / 2);
-	v3 = glm::vec3(470 / 2, 0, 672 / 2);
-	v4.y = inclinacion * 10;
-	v3.y = inclinacion * 10;
+	v1 = glm::vec3(628 / 2, 196.0, 692 / 2);
+	v2 = glm::vec3(628 / 2, 196.0, 674 / 2);
+	v3 = glm::vec3(623 / 2, 196.0, 674 / 2);
+	v4 = glm::vec3(623 / 2, 196.0, 692 / 2);
+	v4.y += inclinacion * 10;
+	v3.y += inclinacion * 10;
+	CreateRoad(v1, v2, v3, v4, White);
+
+	v1 = glm::vec3(570 / 2, 196.0, 692 / 2);
+	v2 = glm::vec3(570 / 2, 196.0, 674 / 2);
+	v3 = glm::vec3(565 / 2, 196.0, 674 / 2);
+	v4 = glm::vec3(565 / 2, 196.0, 692 / 2);
+	v4.y += inclinacion * 10;
+	v3.y += inclinacion * 10;
+	CreateRoad(v1, v2, v3, v4, White);
+
+	v1 = glm::vec3(579 / 2, 196.0, 661 / 2);
+	v2 = glm::vec3(579 / 2, 196.0, 642 / 2);
+	v3 = glm::vec3(574 / 2, 196.0, 642 / 2);
+	v4 = glm::vec3(574 / 2, 196.0, 661 / 2);
+	v4.y += inclinacion * 10;
+	v3.y += inclinacion * 10;
+	CreateRoad(v1, v2, v3, v4, White);
+
+	v1 = glm::vec3(506 / 2, 196.0, 657 / 2);
+	v2 = glm::vec3(506 / 2, 196.0, 642 / 2);
+	v3 = glm::vec3(501 / 2, 196.0, 642 / 2);
+	v4 = glm::vec3(501 / 2, 196.0, 657 / 2);
+	v4.y += inclinacion * 10;
+	v3.y += inclinacion * 10;
+	CreateRoad(v1, v2, v3, v4, White);
+
+	v1 = glm::vec3(401 / 2, 196.0, 659 / 2);
+	v2 = glm::vec3(401 / 2, 196.0, 640 / 2);
+	v3 = glm::vec3(395 / 2, 196.0, 640 / 2);
+	v4 = glm::vec3(395 / 2, 196.0, 659 / 2);
+	v4.y += inclinacion * 10;
+	v3.y += inclinacion * 10;
+	CreateRoad(v1, v2, v3, v4, White);
+
+	v1 = glm::vec3(427 / 2, 196.0, 692 / 2);
+	v2 = glm::vec3(427 / 2, 196.0, 679 / 2);
+	v3 = glm::vec3(423 / 2, 196.0, 679 / 2);
+	v4 = glm::vec3(423 / 2, 196.0, 692 / 2);
+	v4.y += inclinacion * 10;
+	v3.y += inclinacion * 10;
+	CreateRoad(v1, v2, v3, v4, White);
+
+	v1 = glm::vec3(539 / 2,196.0, 692 / 2);
+	v2 = glm::vec3(539 / 2,196.0, 682 / 2);
+	v4 = glm::vec3(534 / 2,196.0, 692 / 2);
+	v3 = glm::vec3(534 / 2,196.0, 682 / 2);
+	v4.y += inclinacion * 10;
+	v3.y += inclinacion * 10;
+	CreateRoad(v1, v2, v3, v4, White);
+
+	v1 = glm::vec3(475 / 2, 196.0, 682 / 2);
+	v2 = glm::vec3(475 / 2, 196.0, 672 / 2);
+	v4 = glm::vec3(470 / 2, 196.0, 682 / 2);
+	v3 = glm::vec3(470 / 2, 196.0, 672 / 2);
+	v4.y += inclinacion * 10;
+	v3.y += inclinacion * 10;
 	CreateRoad(v1, v2, v3, v4, White);
 
 
@@ -476,7 +477,7 @@ void ModuleSceneIntro::CreateSpiralRamp(float radius, float height, int sections
 {
 	glm::vec3 prevV1, prevV2, prevV3, prevV4;
 	glm::vec3 aV1, aV2, aV3, aV4;
-	glm::vec3 center(250, 0, 0); // center of the spiral
+	glm::vec3 center(0, 0, 0); // center of the spiral
 	float angle = 0.0;
 	float angleStep = 2 * PI / sections;
 	float heightStep = height / sections;
@@ -599,9 +600,11 @@ void ModuleSceneIntro::CreateMarioKartMap()
 	CreateWall(startX, startZ, endX, endZ, 1);
 
 	Map2dToMap3d(113, 122, 49, 272);
-	GetWallCoordinates(113, 122, 49, 272, "right", startX, startZ, endX, endZ);
-	CreateWall(startX, startZ, endX, endZ, 1);
 	GetWallCoordinates(113, 122, 49, 272, "left", startX, startZ, endX, endZ);
+	CreateWall(startX, startZ, endX, endZ, 1);
+	GetWallCoordinates(113, 122, 49, 68, "right", startX, startZ, endX, endZ);
+	CreateWall(startX, startZ, endX, endZ, 1);
+	GetWallCoordinates(113, 223, 49, 171, "right", startX, startZ, endX, endZ);
 	CreateWall(startX, startZ, endX, endZ, 1);
 
 	Map2dToMap3d(113, 393, 57, 45);
@@ -759,8 +762,8 @@ void ModuleSceneIntro::CreateSpiralRoad(float radius, float height, int sections
 	glm::vec3 prevV1, prevV2, prevV3, prevV4;
 	glm::vec3 aV1, aV2, aV3, aV4;
 	glm::vec3 center(0, 0, 0); // center of the spiral
-	float angle = 0.0;
-	float angleStep = 4 * PI / sections;
+	float angle = 90.0; //0
+	float angleStep = 3.7 * PI / sections; //4
 	float heightStep = height / sections;
 
 	int sizePlane = size;
@@ -832,6 +835,17 @@ void ModuleSceneIntro::CreateSpiralRoad(float radius, float height, int sections
 		prevV3 = v3; 
 		prevV4 = v4;
 	}
+
+	//aV1 = glm::vec3(141.001, 196, -42.1483);
+	//aV2 = glm::vec3(141.001, 196, -42.1483);
+	//aV3 = glm::vec3(2, 160, 57);
+	//aV4 = glm::vec3(59, 160, 57);
+	//AddPlaneV(aV1, aV2, aV3, aV4, 0, 0, 0, 0);
+	
+	//aV1, aV2, aV3, aV4;
+	//Map2dToMap3d(2, 57, 160, 66);
+
+
 }
 
 void ModuleSceneIntro::GraphMovement()

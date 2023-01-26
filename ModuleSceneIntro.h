@@ -30,11 +30,11 @@ public:
 	void AddPlaneV(glm::vec3 v1, glm::vec3 v2, glm::vec3 v3, glm::vec3 v4, int angle, bool rotateX, bool rotateY, bool rotateZ, bool collider=true);
 	void CreateSpiralRoad(float radius, float height, int sections, int size);
 	void CreateRoad(const glm::vec3& v1, const glm::vec3& v2, const glm::vec3& v3, const glm::vec3& v4, Color RGB);
-	std::vector<glm::vec3> Map2dToMap3d(float x, float y, float width, float height, float posY=0.0f, float scale=2.0f);
+	std::vector<glm::vec3> Map2dToMap3d(float x, float y, float width, float height, float posY=196.0f, float scale=2.0f);
 
 	void CreateMarioKartMap();
 	void CreateRamps();
-	void CreateWall(float startX, float startZ, float endX, float endZ, float cubeSize, float posY = 0.0f, float scale = 2.0f);
+	void CreateWall(float startX, float startZ, float endX, float endZ, float cubeSize, float posY = 196.0f, float scale = 2.0f);
 	void GetWallCoordinates(float posX, float posZ, float width, float height, std::string side, float& startX, float& startZ, float& endX, float& endZ);
 	void GraphMovement();
 
