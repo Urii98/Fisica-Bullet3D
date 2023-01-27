@@ -96,17 +96,26 @@ bool ModulePlayer::Start()
 	car.wheels[3].brake = true;
 	car.wheels[3].steering = false;
 
+
 	vehicle = App->physics->AddVehicle(car);
+
 	//vehicle pos at the beginning of the normal road
-	vehicle->SetPos(5, 200, 122);
+	vehicle->SetPos(14, 200, 142);
+
 	//Vehicle pos at the beginnign of the spiral road
 	//vehicle->SetPos(0, 2, 0);
+
 	vehicle->collision_listeners.add(App->scene_intro);
 	vehicle->collision_listeners.add(this);
 
 	// Matrix where the vehicle spawns at the beginning of the game
 	vehicle->GetTransform(&last_checkpoint_matrix);
-	
+
+	// These two lines below take the transformation matrix of the vehicle and rotates it
+	// 180 degrees on the y-axis (0, 1, 0)
+	last_checkpoint_matrix.rotate(180, { 0, 1, 0 });
+	vehicle->SetTransform(&last_checkpoint_matrix);
+
 	return true;
 }
 
@@ -192,6 +201,3 @@ void ModulePlayer::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 		break;
 	}
 }
-
-
-

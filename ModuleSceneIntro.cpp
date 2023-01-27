@@ -63,10 +63,16 @@ bool ModuleSceneIntro::Start()
 	//CreateSpiralRoad(25, 75, 50);
 	
 	// ======================================================
-	//						Test Code
+	//						Checkpoint and laps Code
 	// ======================================================
-	sensor = App->physics->AddBody(Cube(20, 10, 20), 0.0f);
+
+	checkpointCube = { 27, 5, 27 };
+	checkpointCube.color = { 255, 0, 50 };
+
+	sensor = App->physics->AddBody(checkpointCube, 0.0f);
 	sensor->SetAsSensor(true);
+	sensor->SetPos(13, 200, 110);
+	checkpointCube.SetPos(13, 200, 110);
 
 	sensorCounter = 0;
 	raceState = LAP1;
@@ -178,6 +184,8 @@ update_status ModuleSceneIntro::Update(float dt)
 		cube.Render();
 	}
 
+	checkpointCube.Render();
+
 	//for (auto& primitive : primitives) {
 	//	primitive->Render();
 	//}
@@ -281,22 +289,26 @@ void ModuleSceneIntro::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 		{
 			// linia de meta
 		case 0:
-			sensor->SetPos(30, 0, 0);
+			sensor->SetPos(13, 200, 110);
+			checkpointCube.SetPos(13, 200, 110);
 			sensorCounter++;
 			break;
 			// sensor en posicio 1
 		case 1:
-			sensor->SetPos(0, 0, 30);
+			sensor->SetPos(200, 200, 148);
+			checkpointCube.SetPos(200, 200, 148);
 			sensorCounter++;
 			break;
 			// sensor en posicio 2
 		case 2:
-			sensor->SetPos(-30, 0, 0);
+			sensor->SetPos(387, 200, 296);
+			checkpointCube.SetPos(387, 200, 296);
 			sensorCounter++;
 			break;
 			// sensor en posicio 3
 		case 3:
-			sensor->SetPos(0, 0, -30);
+			sensor->SetPos(387, 200, 296);
+			checkpointCube.SetPos(387, 200, 296);
 			sensorCounter++;
 			break;
 		default:

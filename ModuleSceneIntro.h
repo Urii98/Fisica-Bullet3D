@@ -64,6 +64,7 @@ public:
 	int sensorCounter;
 	RaceStateEnum raceState;
 	int numOfLaps;
+	Cube checkpointCube;
 
 	PhysBody3D* pb_chassis;
 	Cube p_chassis;
