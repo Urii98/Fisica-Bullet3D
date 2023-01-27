@@ -154,14 +154,16 @@ update_status ModulePlayer::Update(float dt)
 		brake = BRAKE_POWER;
 	}
 
-	if (App->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN)
+	// Reset vehicle and TP to the last checkpoint
+	if (App->input->GetKey(SDL_SCANCODE_C) == KEY_DOWN)
 	{
-		// ... TP i Rotar
-		// Matriu rotació modificar forçadament
-		vehicle->SetTransform(&last_checkpoint_matrix);
-		/*auto matrixXaxi = vehicle->phys_vehicle->getChassisWorldTransform();*/
+		// ... TP, rotar i aturar el vehicle
 		vehicle->vehicle->getRigidBody()->clearForces();
 		vehicle->vehicle->getRigidBody()->setLinearVelocity({ 0,0,0 });
+		vehicle->vehicle->getRigidBody()->setAngularVelocity({ 0,0,0 });
+
+		vehicle->SetTransform(&last_checkpoint_matrix);
+		/*auto matrixXaxi = vehicle->phys_vehicle->getChassisWorldTransform();*/
 	}
 
 	vehicle->ApplyEngineForce(acceleration);
@@ -179,25 +181,29 @@ update_status ModulePlayer::Update(float dt)
 
 void ModulePlayer::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 {
-	switch (App->scene_intro->sensorCounter)
+	if (body2 == App->scene_intro->sensor)
 	{
-		// linia de meta
-	case 0:
-		vehicle->GetTransform(&last_checkpoint_matrix);
-		break;
-		// sensor en posicio 1
-	case 1:
-		vehicle->GetTransform(&last_checkpoint_matrix);
-		break;
-		// sensor en posicio 2
-	case 2:
-		vehicle->GetTransform(&last_checkpoint_matrix);
-		break;
-		// sensor en posicio 3
-	case 3:
-		vehicle->GetTransform(&last_checkpoint_matrix);
-		break;
-	default:
-		break;
+		switch (App->scene_intro->sensorCounter)
+		{
+			// linia de meta
+		case 0:
+			vehicle->GetTransform(&last_checkpoint_matrix);
+			break;
+			// sensor en posicio 1
+		case 1:
+			vehicle->GetTransform(&last_checkpoint_matrix);
+			break;
+			// sensor en posicio 2
+		case 2:
+			vehicle->GetTransform(&last_checkpoint_matrix);
+			break;
+			// sensor en posicio 3
+		case 3:
+			vehicle->GetTransform(&last_checkpoint_matrix);
+			break;
+		default:
+			break;
+		}
 	}
+	
 }

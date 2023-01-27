@@ -295,14 +295,14 @@ void ModuleSceneIntro::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 			break;
 			// sensor en posicio 1
 		case 1:
-			sensor->SetPos(200, 200, 148);
-			checkpointCube.SetPos(200, 200, 148);
+			sensor->SetPos(220, 200, 160);
+			checkpointCube.SetPos(200, 200, 160);
 			sensorCounter++;
 			break;
 			// sensor en posicio 2
 		case 2:
-			sensor->SetPos(387, 200, 296);
-			checkpointCube.SetPos(387, 200, 296);
+			sensor->SetPos(387, 200, 300);
+			checkpointCube.SetPos(387, 200, 300);
 			sensorCounter++;
 			break;
 			// sensor en posicio 3
@@ -315,7 +315,7 @@ void ModuleSceneIntro::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 			break;
 		}
 
-		// si player passa l'ultim sensor, col�loca de nou el sensor a la meta i suma 1 lap
+		// si player passa l'ultim sensor, col.loca de nou el sensor a la meta i suma 1 lap
 		if (sensorCounter > 3)
 		{
 			sensorCounter = 0;
