@@ -217,20 +217,19 @@ update_status ModulePlayer::Update(float dt)
 		App->window->SetTitle(title);
 	}
 
-	//if (App->scene_intro->restartTheGame)
-	//{
-	//	vehicle->SetPos(14, 200, 142);
-	//	vehicle->GetTransform(&last_checkpoint_matrix);
-	//	last_checkpoint_matrix.rotate(180, { 0, 1, 0 });
-	//	vehicle->SetTransform(&last_checkpoint_matrix);
+	if (App->scene_intro->restartTheGame)
+	{
+		vehicle->SetPos(14, 200, 142);
+		vehicle->GetTransform(&last_checkpoint_matrix);
+		last_checkpoint_matrix.rotate(180, { 0, 1, 0 });
+		vehicle->SetTransform(&last_checkpoint_matrix);
 
-	//	vehicle->vehicle->getRigidBody()->clearForces();
-	//	vehicle->vehicle->getRigidBody()->setLinearVelocity({ 0,0,0 });
-	//	vehicle->vehicle->getRigidBody()->setAngularVelocity({ 0,0,0 });
+		vehicle->vehicle->getRigidBody()->clearForces();
+		vehicle->vehicle->getRigidBody()->setLinearVelocity({ 0,0,0 });
+		vehicle->vehicle->getRigidBody()->setAngularVelocity({ 0,0,0 });
 
-	//	App->scene_intro->raceState = App->scene_intro->RaceStateEnum::LAP1;
-	//	App->scene_intro->restartTheGame = false;
-	//}
+		App->scene_intro->restartTheGame = false;
+	}
 
 	return UPDATE_CONTINUE;
 }

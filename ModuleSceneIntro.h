@@ -88,6 +88,9 @@ public:
 	std::vector<Road> vectorRoad;
 
 	int raceTimer;
+	int endGameTimer;
+
+	bool restartTheGame;
 
 	float prueba;
 	int scalarSize;

@@ -77,6 +77,7 @@ bool ModuleSceneIntro::Start()
 	sensorCounter = 0;
 	raceState = LAP1;
 	numOfLaps = 0;
+	restartTheGame = false;
 
 	// -----------------------------
 
@@ -131,6 +132,7 @@ bool ModuleSceneIntro::Start()
 	CreateRamps();
 
 	raceTimer = 0;
+	endGameTimer = 0;
 
 	return ret;
 }
@@ -150,6 +152,13 @@ update_status ModuleSceneIntro::Update(float dt)
 	{
 		raceTimer = SDL_GetTicks();
 	}
+
+	if ((raceState == WIN || raceState == LOSE) && endGameTimer == 0)
+	{
+		endGameTimer = SDL_GetTicks();
+	}
+
+
 // ======================================================
 //						SPIRAL ROAD RENDER	
 // ======================================================
@@ -192,12 +201,28 @@ update_status ModuleSceneIntro::Update(float dt)
 	//	primitive->Render();
 	//}
 
-	// TIME CONTROLS------------------
-	if (SDL_GetTicks() - raceTimer >= 5000)
+	// TIME CONTROLS-----------------------
+	if (SDL_GetTicks() - raceTimer >= 8000)
 	{
 		raceState = LOSE;
-		raceTimer = 0;
+
+		numOfLaps = 0;
+		sensorCounter = 0;
+		sensor->SetPos(13, 200, 110);
+		checkpointCube.SetPos(13, 200, 110);
+
+		// What happends when second timer ends
+		if (SDL_GetTicks() - endGameTimer >= 5000)
+		{
+			raceTimer = 0;
+			raceState = LAP1;
+			restartTheGame = true;
+		}
 	}
+
+	// After win or lose and wait 5 seconds, restart the game
+	// Check module player for more things that are restarting with the bool "restartTheGame"
+
 
 
 	//DEBUG LAP VARIABLES:
@@ -205,6 +230,7 @@ update_status ModuleSceneIntro::Update(float dt)
 	printf("SensorCounter: %d\n", sensorCounter);
 	printf("Race State %d\n", raceState);
 	printf("### Num of Laps %d\n", numOfLaps);*/
+	printf("%d\n", (SDL_GetTicks() - App->scene_intro->raceTimer) / 1000);
 
 	return UPDATE_CONTINUE;
 }
