@@ -4,6 +4,7 @@
 #include "Primitive.h"
 #include "PhysVehicle3D.h"
 #include "PhysBody3D.h"
+#include "ModuleSceneIntro.h"
 
 ModulePlayer::ModulePlayer(Application* app, bool start_enabled) : Module(app, start_enabled), vehicle(NULL)
 {
@@ -193,9 +194,43 @@ update_status ModulePlayer::Update(float dt)
 
 	vehicle->Render();
 
+
 	char title[80];
-	sprintf_s(title, "%.1f Km/h", vehicle->GetKmh());
+	sprintf_s(title, "%.1f Km/h, Current Time: %d s, ### DO THREE LAPS IN LESS THAN 300s ###", vehicle->GetKmh(), 3);
 	App->window->SetTitle(title);
+	/*if (App->scene_intro->raceState == App->scene_intro->RaceStateEnum::LOSE)
+	{
+		char title[80];
+		sprintf_s(title, "%.1f Km/h, Current Time: %d s, ### YOU LOSE! Try Again :D ###", vehicle->GetKmh(), App->scene_intro->raceTimer.Read() / 1000);
+		App->window->SetTitle(title);
+	}
+	else if (App->scene_intro->raceState == App->scene_intro->RaceStateEnum::WIN)
+	{
+		char title[80];
+		sprintf_s(title, "%.1f Km/h, Current Time: %d s, ### YOU WON, GOOD JOB ###", vehicle->GetKmh(), App->scene_intro->raceTimer.Read() / 1000);
+		App->window->SetTitle(title);
+	}
+	else
+	{
+		char title[80];
+		sprintf_s(title, "%.1f Km/h, Current Time: %d s, ### DO THREE LAPS IN LESS THAN 300s ###", vehicle->GetKmh(), App->scene_intro->raceTimer.Read() / 1000);
+		App->window->SetTitle(title);
+	}*/
+
+	//if (App->scene_intro->restartTheGame)
+	//{
+	//	vehicle->SetPos(14, 200, 142);
+	//	vehicle->GetTransform(&last_checkpoint_matrix);
+	//	last_checkpoint_matrix.rotate(180, { 0, 1, 0 });
+	//	vehicle->SetTransform(&last_checkpoint_matrix);
+
+	//	vehicle->vehicle->getRigidBody()->clearForces();
+	//	vehicle->vehicle->getRigidBody()->setLinearVelocity({ 0,0,0 });
+	//	vehicle->vehicle->getRigidBody()->setAngularVelocity({ 0,0,0 });
+
+	//	App->scene_intro->raceState = App->scene_intro->RaceStateEnum::LAP1;
+	//	App->scene_intro->restartTheGame = false;
+	//}
 
 	return UPDATE_CONTINUE;
 }

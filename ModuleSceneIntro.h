@@ -12,14 +12,7 @@
 struct PhysBody3D;
 struct PhysMotor3D;
 
-enum RaceStateEnum
-{
-	LAP1,
-	LAP2,
-	LAP3,
-	WIN,
-	LOSE
-};
+
 
 class ModuleSceneIntro : public Module
 {
@@ -58,6 +51,15 @@ public:
 	PhysBody3D* pb_snake2[MAX_SNAKE];
 	Sphere s_snake2[MAX_SNAKE];
 	*/
+
+	enum RaceStateEnum
+	{
+		LAP1,
+		LAP2,
+		LAP3,
+		WIN,
+		LOSE
+	};
 
 	PhysBody3D* sensor;
 	// Contador per saber a on ha d'estar el sensor

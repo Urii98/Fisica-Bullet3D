@@ -144,43 +144,6 @@ bool ModuleSceneIntro::CleanUp()
 // Update
 update_status ModuleSceneIntro::Update(float dt)
 {
-	// Debug sensors (view them'all at the same time)
-	//if (sensorCounter > 4) sensorCounter = 0;
-	//switch (sensorCounter)
-	//{
-	//	// linia de meta
-	//case 0:
-	//	sensor->SetPos(13, 200, 110);
-	//	checkpointCube.SetPos(13, 200, 110);
-	//	sensorCounter++;
-	//	break;
-	//	// sensor en posicio 1
-	//case 1:
-	//	sensor->SetPos(220, 200, 160);
-	//	checkpointCube.SetPos(220, 200, 160);
-	//	sensorCounter++;
-	//	break;
-	//	// sensor en posicio 2
-	//case 2:
-	//	sensor->SetPos(385, 200, 50);
-	//	checkpointCube.SetPos(385, 200, 50);
-	//	sensorCounter++;
-	//	break;
-	//	// sensor en posicio 3
-	//case 3:
-	//	sensor->SetPos(350, 200, 330);
-	//	checkpointCube.SetPos(350, 200, 330);
-	//	sensorCounter++;
-	//	break;
-	//case 4:
-	//	sensor->SetPos(60, 200, 335);
-	//	checkpointCube.SetPos(60, 200, 335);
-	//	sensorCounter++;
-	//	break;
-	//default:
-	//	break;
-	//}
-
 
 // ======================================================
 //						SPIRAL ROAD RENDER	
@@ -225,11 +188,10 @@ update_status ModuleSceneIntro::Update(float dt)
 	//}
 
 	//DEBUG LAP VARIABLES:
-	printf("VARIABLES\n");
+	/*printf("VARIABLES\n");
 	printf("SensorCounter: %d\n", sensorCounter);
 	printf("Race State %d\n", raceState);
-	printf("### Num of Laps %d\n", numOfLaps);
-
+	printf("### Num of Laps %d\n", numOfLaps);*/
 
 	return UPDATE_CONTINUE;
 }
@@ -355,7 +317,7 @@ void ModuleSceneIntro::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 		}
 
 		// si player passa l'ultim sensor, col.loca de nou el sensor a la meta i suma 1 lap
-		if (sensorCounter > 4)
+		if (sensorCounter > 4 && numOfLaps < 4)
 		{
 			sensorCounter = 0;
 			numOfLaps++;
