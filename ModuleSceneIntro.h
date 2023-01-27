@@ -87,6 +87,8 @@ public:
 	std::vector<PlaneV> vectorPlaneV;
 	std::vector<Road> vectorRoad;
 
+	int raceTimer;
+
 	float prueba;
 	int scalarSize;
 };

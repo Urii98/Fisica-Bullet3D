@@ -130,6 +130,8 @@ bool ModuleSceneIntro::Start()
 	CreateMarioKartMap();
 	CreateRamps();
 
+	raceTimer = 0;
+
 	return ret;
 }
 
@@ -144,7 +146,10 @@ bool ModuleSceneIntro::CleanUp()
 // Update
 update_status ModuleSceneIntro::Update(float dt)
 {
-
+	if (raceTimer == 0)
+	{
+		raceTimer = SDL_GetTicks();
+	}
 // ======================================================
 //						SPIRAL ROAD RENDER	
 // ======================================================
@@ -186,6 +191,14 @@ update_status ModuleSceneIntro::Update(float dt)
 	//for (auto& primitive : primitives) {
 	//	primitive->Render();
 	//}
+
+	// TIME CONTROLS------------------
+	if (SDL_GetTicks() - raceTimer >= 5000)
+	{
+		raceState = LOSE;
+		raceTimer = 0;
+	}
+
 
 	//DEBUG LAP VARIABLES:
 	/*printf("VARIABLES\n");

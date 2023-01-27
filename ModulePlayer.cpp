@@ -195,27 +195,27 @@ update_status ModulePlayer::Update(float dt)
 	vehicle->Render();
 
 
-	char title[80];
-	sprintf_s(title, "%.1f Km/h, Current Time: %d s, ### DO THREE LAPS IN LESS THAN 300s ###", vehicle->GetKmh(), 3);
-	App->window->SetTitle(title);
-	/*if (App->scene_intro->raceState == App->scene_intro->RaceStateEnum::LOSE)
+	//char title[80];
+	//sprintf_s(title, "%.1f Km/h, Current Time: %d s, ### DO THREE LAPS IN LESS THAN 300s ###", vehicle->GetKmh(), 3);
+	//App->window->SetTitle(title);
+	if (App->scene_intro->raceState == App->scene_intro->RaceStateEnum::LOSE)
 	{
 		char title[80];
-		sprintf_s(title, "%.1f Km/h, Current Time: %d s, ### YOU LOSE! Try Again :D ###", vehicle->GetKmh(), App->scene_intro->raceTimer.Read() / 1000);
+		sprintf_s(title, "%.1f Km/h, Current Time: %d s, ### YOU LOSE! Try Again :D ###", vehicle->GetKmh(), (SDL_GetTicks() - App->scene_intro->raceTimer) / 1000);
 		App->window->SetTitle(title);
 	}
 	else if (App->scene_intro->raceState == App->scene_intro->RaceStateEnum::WIN)
 	{
 		char title[80];
-		sprintf_s(title, "%.1f Km/h, Current Time: %d s, ### YOU WON, GOOD JOB ###", vehicle->GetKmh(), App->scene_intro->raceTimer.Read() / 1000);
+		sprintf_s(title, "%.1f Km/h, Current Time: %d s, ### YOU WON, GOOD JOB ###", vehicle->GetKmh(), (SDL_GetTicks() - App->scene_intro->raceTimer) / 1000);
 		App->window->SetTitle(title);
 	}
 	else
 	{
 		char title[80];
-		sprintf_s(title, "%.1f Km/h, Current Time: %d s, ### DO THREE LAPS IN LESS THAN 300s ###", vehicle->GetKmh(), App->scene_intro->raceTimer.Read() / 1000);
+		sprintf_s(title, "%.1f Km/h, Current Time: %d s, ### DO THREE LAPS IN LESS THAN 300s ###", vehicle->GetKmh(), (SDL_GetTicks() - App->scene_intro->raceTimer) / 1000);
 		App->window->SetTitle(title);
-	}*/
+	}
 
 	//if (App->scene_intro->restartTheGame)
 	//{
