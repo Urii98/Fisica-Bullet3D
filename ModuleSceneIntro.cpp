@@ -202,13 +202,36 @@ update_status ModuleSceneIntro::Update(float dt)
 	//}
 
 	// TIME CONTROLS-----------------------
-	if (SDL_GetTicks() - raceTimer >= 3 * 1000)
+	// PER CANVIAR EL TEMPS, TOCAR EL 300 (en segons)
+
+	if (SDL_GetTicks() - raceTimer >= 300 * 1000 && raceState != WIN)
 	{
 		raceState = LOSE;
 	}
 
 	// What happends when second timer ends
-	if (raceState == LOSE && (SDL_GetTicks() - endGameTimer) >= 4 * 1000)
+	// PER CANVIAR EL TEMPS de derrota, TOCAR EL 305 (en segons)
+	// Ha d'haver-hi uns segons de diferència entre el temps de la cursa (ara es 300) i la derrota
+	// ara es 305. Per tant, la derrota abans de fer el reinici de la partida son 5 segons
+	if (raceState == LOSE && (SDL_GetTicks() - endGameTimer) >= 305 * 1000)
+	{
+		raceTimer = 0;
+		endGameTimer = 0;
+
+		raceState = LAP1;
+		restartTheGame = true;
+
+		numOfLaps = 0;
+		sensorCounter = 0;
+		sensor->SetPos(13, 200, 110);
+		checkpointCube.SetPos(13, 200, 110);
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_0) == KEY_DOWN)
+	{
+		raceState = WIN;
+	}
+	if (App->input->GetKey(SDL_SCANCODE_K) == KEY_DOWN)
 	{
 		raceTimer = 0;
 		endGameTimer = 0;

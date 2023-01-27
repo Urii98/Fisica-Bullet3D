@@ -207,7 +207,7 @@ update_status ModulePlayer::Update(float dt)
 	else if (App->scene_intro->raceState == App->scene_intro->RaceStateEnum::WIN)
 	{
 		char title[80];
-		sprintf_s(title, "%.1f Km/h, Current Time: %d s, ### YOU WON, GOOD JOB ###", vehicle->GetKmh(), (SDL_GetTicks() - App->scene_intro->raceTimer) / 1000);
+		sprintf_s(title, "%.1f Km/h, Current Time: %d s, ### YOU WON, GOOD JOB ### Press K to restart", vehicle->GetKmh(), (SDL_GetTicks() - App->scene_intro->raceTimer) / 1000);
 		App->window->SetTitle(title);
 	}
 	else
