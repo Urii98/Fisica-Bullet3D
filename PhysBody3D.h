@@ -45,7 +45,7 @@ private:
 	btRigidBody* body = nullptr;
 
 public:
-	bool mutable is_sensor = false;
+	bool mutable is_sensora = false;
 	TypeObject type = TypeObject::NONE;
 	p2List<Module*> collision_listeners;
 	bool is_sensor = false;

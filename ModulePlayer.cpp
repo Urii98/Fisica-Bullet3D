@@ -35,7 +35,7 @@ bool ModulePlayer::Start()
 	// Car properties ----------------------------------------
 	car.chassis_size.Set(3, 1.2f, 5);
 	car.chassis_offset.Set(0, 1.5, 0);
-	car.mass = 500.0f;
+	car.mass = 1500.0f;
 	car.suspensionStiffness = 15.88f;
 	car.suspensionCompression = 0.83f;
 	car.suspensionDamping = 0.88f;
@@ -148,7 +148,7 @@ update_status ModulePlayer::Update(float dt)
 
 	App->physics->ForceDrag(vehicle, 10);
 
-	dragForce = 0.5 * vehicle->GetKmh() * 4 * 5;
+	dragForce = 0.5 * vehicle->GetKmh() * 1.2 * 5;
 
 	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT && vehicle->GetKmh() > -30.0f)
 	{
@@ -245,20 +245,23 @@ update_status ModulePlayer::Update(float dt)
 	//App->window->SetTitle(title);
 	if (App->scene_intro->raceState == App->scene_intro->RaceStateEnum::LOSE)
 	{
-		char title[80];
-		sprintf_s(title, "%.1f Km/h, Current Time: %d s, ### YOU LOSE! Try Again :D ###", vehicle->GetKmh(), (SDL_GetTicks() - App->scene_intro->raceTimer) / 1000,);
+		char title[200];
+		sprintf_s(title, "%.1f Km/h,   Current Time: %d s,   massa = %.1f       %.1f Km/h      Gravity= %.1f   dragForce= %.1f ### YOU LOSE! Try Again :D ###", 
+			vehicle->GetKmh(), (SDL_GetTicks() - App->scene_intro->raceTimer) / 1000, vehicle->info.mass, vehicle->GetKmh(), gravity.y, dragForce);
 		App->window->SetTitle(title);
 	}
 	else if (App->scene_intro->raceState == App->scene_intro->RaceStateEnum::WIN)
 	{
-		char title[80];
-		sprintf_s(title, "%.1f Km/h, Current Time: %d s, ### YOU WON, GOOD JOB ### Press K to restart", vehicle->GetKmh(), (SDL_GetTicks() - App->scene_intro->raceTimer) / 1000);
+		char title[200];
+		sprintf_s(title, "%.1f Km/h,   Current Time: %d s,   massa = %.1f       %.1f Km/h      Gravity= %.1f   dragForce= %.1f ### YOU WON, GOOD JOB ### Press K to restart", 
+			vehicle->GetKmh(), (SDL_GetTicks() - App->scene_intro->raceTimer) / 1000, vehicle->info.mass, vehicle->GetKmh(), gravity.y, dragForce);
 		App->window->SetTitle(title);
 	}
 	else
 	{
-		char title[80];
-		sprintf_s(title, "%.1f Km/h, Current Time: %d s, ### DO THREE LAPS IN LESS THAN 300s ###", vehicle->GetKmh(), (SDL_GetTicks() - App->scene_intro->raceTimer) / 1000);
+		char title[200];
+		sprintf_s(title, "%.1f Km/h,   Current Time: %d s,   massa = %.1f       %.1f Km/h      Gravity= %.1f   dragForce= %.1f ### DO THREE LAPS IN LESS THAN 300s ###", 
+			vehicle->GetKmh(), (SDL_GetTicks() - App->scene_intro->raceTimer) / 1000, vehicle->info.mass, vehicle->GetKmh(), gravity.y, dragForce);
 		App->window->SetTitle(title);
 	}
 
@@ -275,9 +278,9 @@ update_status ModulePlayer::Update(float dt)
 
 		App->scene_intro->restartTheGame = false;
 	}
-	// char title[80];
-	// sprintf_s(title, " massa = %.1f       %.1f Km/h      Gravity= %.1f   dragForce= %.1f",vehicle->info.mass,vehicle->GetKmh(), gravity.y ,dragForce);
-	// App->window->SetTitle(title);
+	 
+	 
+	 
 
 
 

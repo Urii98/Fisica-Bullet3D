@@ -196,6 +196,21 @@ update_status ModuleSceneIntro::Update(float dt)
 		cube.Render();
 	}
 
+	fan1.Pcubeinfo->GetTransform(&fan1.cubeinfo->transform);
+	fan1.cubeinfo->Render();
+
+
+	p2List_item <Cube*>* cube_render = cubeList.getFirst();
+    while (cube_render != nullptr) {
+
+        cube_render->data->Render();
+        cube_render = cube_render->next;
+		
+
+
+    }
+
+
 	checkpointCube.Render();
 
 	//for (auto& primitive : primitives) {
@@ -285,37 +300,11 @@ PhysBody3D* ModuleSceneIntro::CreateCubePhysbody(Cube* cube, Module* Callback, T
 void ModuleSceneIntro::CreateTurbine()
 {
 	//without
-	fan1 = SpinMachine(40, 4, 20, 2, 2, 10, 90, Red,1000000);
-	mover1 = TorqueMove(40, 4, 20, 90,Red, 1000000);
+	
+	fan1 = SpinMachine(40, 202, 40, 2, 2, 10, 90, Red,1000000);
+	mover1 = TorqueMove(40, 202, 40, 90,Red, 1000000);
 	App->physics->AddConstraintHinge(*mover1.Pcubeinfo, *fan1.Pcubeinfo, vec3(0, 0, 0), vec3(0, 0, 0), vec3(1, 0, 0), vec3(0, 0, 0), true, true);
-	////with
-	//fan2 = SpinMachine(160, 6, 55, 10, 1, 1, 90);
-	//mover2 = TorqueMove(160, 6, 55, 90);
-	//App->physics->AddConstraintHinge(*mover2.Pcubeinfo, *fan2.Pcubeinfo, vec3(0, 0, 0), vec3(0, 0, 0), vec3(1, 0, 0), vec3(0, 0, 0), true, true);
-	////with
-	//fan3 = SpinMachine(60, 6, 45, 10, 1, 1, 90);
-	//mover3 = TorqueMove(60, 6, 45, 90);
-	//App->physics->AddConstraintHinge(*mover3.Pcubeinfo, *fan3.Pcubeinfo, vec3(0, 0, 0), vec3(0, 0, 0), vec3(1, 0, 0), vec3(0, 0, 0), true, true);
-	////with
-	//fan4 = SpinMachine(-40, 6, 55, 10, 1, 1, 90);
-	//mover4 = TorqueMove(-40, 6, 55, 90);
-	//App->physics->AddConstraintHinge(*mover4.Pcubeinfo, *fan4.Pcubeinfo, vec3(0, 0, 0), vec3(0, 0, 0), vec3(1, 0, 0), vec3(0, 0, 0), true, true);
-	////with
-	//fan5 = SpinMachine(-140, 6, 45, 10, 1, 1, 90);
-	//mover5 = TorqueMove(-140, 6, 45, 90);
-	//App->physics->AddConstraintHinge(*mover5.Pcubeinfo, *fan5.Pcubeinfo, vec3(0, 0, 0), vec3(0, 0, 0), vec3(1, 0, 0), vec3(0, 0, 0), true, true);
-	////without
-	//fan6 = SpinMachine(320, 4, -110, 2, 2, 10, 90, 10);
-	//mover6 = TorqueMove(320, 4, -110, 90, 10);
-	//App->physics->AddConstraintHinge(*mover6.Pcubeinfo, *fan6.Pcubeinfo, vec3(0, 0, 0), vec3(0, 0, 0), vec3(1, 0, 0), vec3(0, 0, 0), true, false);
-	////with
-	//fan7 = SpinMachine(260, 6, -50, 10, 1, 1, 90);
-	//mover7 = TorqueMove(260, 6, -50, 90);
-	//App->physics->AddConstraintHinge(*mover7.Pcubeinfo, *fan7.Pcubeinfo, vec3(0, 0, 0), vec3(0, 0, 0), vec3(1, 0, 0), vec3(0, 0, 0), true, true);
-	////without
-	//fan8 = SpinMachine(160, 4, -50, 10, 2, 2, 90, 10);
-	//mover8 = TorqueMove(160, 4, -50, 90, 10);
-	//App->physics->AddConstraintHinge(*mover8.Pcubeinfo, *fan8.Pcubeinfo, vec3(0, 0, 0), vec3(0, 0, 0), vec3(1, 0, 0), vec3(0, 0, 0), true, false);
+
 
 }
 
@@ -323,6 +312,7 @@ compact_info ModuleSceneIntro::SpinMachine(int posx, int posy, int posz, int siz
 {
 	Cube* cube = cubeCreation(vec3(posx, posy, posz), vec3(sizex, sizey, sizez), color, angle, vec3(0, 1, 0));
 	cubeList.add(cube);
+	/*efe.push_back(cube);*/
 
 	PhysBody3D* attacher;
 	attacher = CreateCubePhysbody(cube, this, TypeObject::NONE, false, mass);
@@ -340,6 +330,7 @@ compact_info ModuleSceneIntro::TorqueMove(int posx, int posy, int posz, float an
 
 	Cube* cube = cubeCreation(vec3(posx, posy, posz), vec3(1, 1, 1), color, angle, vec3(0, 1, 0));
 	cubeList.add(cube);
+	/*efe.push_back(cube);*/
 
 	PhysBody3D* attached;
 	attached = CreateCubePhysbody(cube, this, TypeObject::JOINT, false, mass);
@@ -529,7 +520,7 @@ void ModuleSceneIntro::AddPlaneV(glm::vec3 v1, glm::vec3 v2, glm::vec3 v3, glm::
 void ModuleSceneIntro::CreateRamps()
 {
 	glm::vec3 v1, v2, v3, v4;
-	float inclinacion = 0.15f;
+	float inclinacion = 0.10f;
 
 	v1 = glm::vec3(539 / 2, 196.0, 269 / 2);
 	v2 = glm::vec3(539 / 2, 196.0, 275 / 2);

@@ -99,6 +99,7 @@ public:
 	PhysMotor3D* left_wheel;
 	PhysMotor3D* right_wheel;
 
+	std::vector<Cube*> spinTorqueMachine;
 	std::vector<Cube> vectorCubes;
 	std::vector<std::unique_ptr<Cube>> graphCubes;
 	std::vector<PlaneV> vectorPlaneV;
