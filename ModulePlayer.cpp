@@ -1,6 +1,7 @@
 #include "Globals.h"
 #include "Application.h"
 #include "ModulePlayer.h"
+#include "ModulePhysics3D.h"
 #include "Primitive.h"
 #include "PhysVehicle3D.h"
 #include "PhysBody3D.h"
@@ -20,6 +21,8 @@ bool ModulePlayer::Start()
 
 	VehicleInfo car;
 
+	gravity= vec3(0.0f, -10.0f, 0.0f);
+
 	// Car properties ----------------------------------------
 	car.chassis_size.Set(2, 2, 4);
 	car.chassis_offset.Set(0, 1.5, 0);
@@ -30,6 +33,7 @@ bool ModulePlayer::Start()
 	car.maxSuspensionTravelCm = 1000.0f;
 	car.frictionSlip = 50.5;
 	car.maxSuspensionForce = 6000.0f;
+	
 
 	// Wheel properties ---------------------------------------
 	float connection_height = 1.2f;
@@ -115,6 +119,10 @@ update_status ModulePlayer::Update(float dt)
 {
 	turn = acceleration = brake = 0.0f;
 
+	App->physics->ForceDrag(vehicle, 10);
+
+	dragForce = 0.5 * vehicle->GetKmh() * 4 * 5;
+
 	if(App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
 	{
 		acceleration = MAX_ACCELERATION;
@@ -134,8 +142,43 @@ update_status ModulePlayer::Update(float dt)
 
 	if(App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
 	{
-		brake = BRAKE_POWER;
+		acceleration = -MAX_ACCELERATION / 2;
 	}
+
+	if (App->input->GetKey(SDL_SCANCODE_1) == KEY_REPEAT) {
+		vehicle->info.mass += 1;
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_2) == KEY_REPEAT) {
+		vehicle->info.mass -= 1;
+	}
+
+
+	if (App->input->GetKey(SDL_SCANCODE_3) == KEY_REPEAT) {
+		gravity += vec3(0.0f, -0.1f, 0.0f);
+
+		App->physics->SetGravity(gravity);
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_4) == KEY_REPEAT) {
+		
+		gravity -= vec3 (0.0f, -0.1f, 0.0f);
+
+		App->physics->SetGravity(gravity);
+	}
+
+
+
+
+	//if (App->input->GetKey(SDL_SCANCODE_DOWN) != KEY_REPEAT && App->input->GetKey(SDL_SCANCODE_UP) != KEY_REPEAT) {
+	//	brake = BRAKE_POWER / 100;
+
+	//	if (vehicle->GetKmh() > 100) {
+	//		brake = BRAKE_POWER / 20;
+	//	}
+	//}
+
+	acceleration -= dragForce;
 
 	vehicle->ApplyEngineForce(acceleration);
 	vehicle->Turn(turn);
@@ -144,8 +187,10 @@ update_status ModulePlayer::Update(float dt)
 	vehicle->Render();
 
 	char title[80];
-	sprintf_s(title, "%.1f Km/h", vehicle->GetKmh());
+	sprintf_s(title, " massa = %.1f       %.1f Km/h      Gravity= %.1f   dragForce= %.1f",vehicle->info.mass,vehicle->GetKmh(), gravity.y ,dragForce);
 	App->window->SetTitle(title);
+
+
 
 	return UPDATE_CONTINUE;
 }

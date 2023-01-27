@@ -33,7 +33,11 @@ public:
 	PhysVehicle3D* AddVehicle(const VehicleInfo& info);
 
 	void AddConstraintP2P(PhysBody3D& bodyA, PhysBody3D& bodyB, const vec3& anchorA, const vec3& anchorB);
-	void AddConstraintHinge(PhysBody3D& bodyA, PhysBody3D& bodyB, const vec3& anchorA, const vec3& anchorB, const vec3& axisS, const vec3& axisB, bool disable_collision = false);
+	void AddConstraintHinge(PhysBody3D& bodyA, PhysBody3D& bodyB, const vec3& anchorA, const vec3& anchorB, const vec3& axisS, const vec3& axisB, bool disable_collision = false, bool speen=false);
+
+	void SetGravity(vec3 g = { 0, -10, 0 });
+	vec3 ForceBuoyance(PhysBody3D* body, float volume);
+	vec3 ForceDrag(PhysBody3D* body, float density);
 
 private:
 
