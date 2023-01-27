@@ -69,6 +69,10 @@ bool ModulePhysics3D::Start()
 	return true;
 }
 
+void ModulePhysics3D::SetGravity(vec3 g) {
+	world->setGravity({ g.x, g.y, g.z });
+}
+
 // ---------------------------------------------------------
 update_status ModulePhysics3D::PreUpdate(float dt)
 {
@@ -127,13 +131,13 @@ update_status ModulePhysics3D::Update(float dt)
 			item = item->next;
 		}
 
-		if(App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
+	/*	if(App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
 		{
 			Sphere s(1);
 			s.SetPos(App->camera->Position.x, App->camera->Position.y, App->camera->Position.z);
 			float force = 30.0f;
 			AddBody(s)->Push(-(App->camera->Z.x * force), -(App->camera->Z.y * force), -(App->camera->Z.z * force));
-		}
+		}*/
 	}
 
 	return UPDATE_CONTINUE;
@@ -345,8 +349,8 @@ void ModulePhysics3D::AddConstraintP2P(PhysBody3D& bodyA, PhysBody3D& bodyB, con
 	p2p->setDbgDrawSize(2.0f);
 }
 
-void ModulePhysics3D::AddConstraintHinge(PhysBody3D& bodyA, PhysBody3D& bodyB, const vec3& anchorA, const vec3& anchorB, const vec3& axisA, const vec3& axisB, bool disable_collision)
-{
+void ModulePhysics3D::AddConstraintHinge(PhysBody3D& bodyA, PhysBody3D& bodyB, const vec3& anchorA, const vec3& anchorB, const vec3& axisA, const vec3& axisB, bool disable_collision,bool spin)
+{	
 	btHingeConstraint* hinge = new btHingeConstraint(
 		*(bodyA.body), 
 		*(bodyB.body), 
@@ -355,9 +359,24 @@ void ModulePhysics3D::AddConstraintHinge(PhysBody3D& bodyA, PhysBody3D& bodyB, c
 		btVector3(axisA.x, axisA.y, axisA.z), 
 		btVector3(axisB.x, axisB.y, axisB.z));
 
+	hinge->enableAngularMotor(spin, 10000.0f, INFINITE);
+
 	world->addConstraint(hinge, disable_collision);
 	constraints.add(hinge);
 	hinge->setDbgDrawSize(2.0f);
+}
+
+vec3 ModulePhysics3D::ForceBuoyance(PhysBody3D* body, float volume) {
+	vec3 forceBuoy = { 0, (1 * abs(world->getGravity().getY() * volume) * -1) , 0 };
+	return forceBuoy;
+}
+
+vec3 ModulePhysics3D::ForceDrag(PhysBody3D* body, float density) {
+	float dragModule;
+	dragModule = 0.5f * density;
+
+	vec3 forceDrag = { -dragModule * body->GetLinearVelocity().getX(), -dragModule * body->GetLinearVelocity().getY(),-dragModule * body->GetLinearVelocity().getZ() };
+	return forceDrag;
 }
 
 // =============================================
