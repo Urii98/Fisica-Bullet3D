@@ -153,7 +153,7 @@ update_status ModuleSceneIntro::Update(float dt)
 		raceTimer = SDL_GetTicks();
 	}
 
-	if ((raceState == WIN || raceState == LOSE) && endGameTimer == 0)
+	if (endGameTimer == 0)
 	{
 		endGameTimer = SDL_GetTicks();
 	}
@@ -202,22 +202,24 @@ update_status ModuleSceneIntro::Update(float dt)
 	//}
 
 	// TIME CONTROLS-----------------------
-	if (SDL_GetTicks() - raceTimer >= 8000)
+	if (SDL_GetTicks() - raceTimer >= 3 * 1000)
 	{
 		raceState = LOSE;
+	}
+
+	// What happends when second timer ends
+	if (raceState == LOSE && (SDL_GetTicks() - endGameTimer) >= 4 * 1000)
+	{
+		raceTimer = 0;
+		endGameTimer = 0;
+
+		raceState = LAP1;
+		restartTheGame = true;
 
 		numOfLaps = 0;
 		sensorCounter = 0;
 		sensor->SetPos(13, 200, 110);
 		checkpointCube.SetPos(13, 200, 110);
-
-		// What happends when second timer ends
-		if (SDL_GetTicks() - endGameTimer >= 5000)
-		{
-			raceTimer = 0;
-			raceState = LAP1;
-			restartTheGame = true;
-		}
 	}
 
 	// After win or lose and wait 5 seconds, restart the game
