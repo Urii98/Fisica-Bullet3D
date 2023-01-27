@@ -66,7 +66,7 @@ bool ModuleSceneIntro::Start()
 	//						Checkpoint and laps Code
 	// ======================================================
 
-	checkpointCube = { 27, 5, 27 };
+	checkpointCube = { 35, 5, 35 };
 	checkpointCube.color = { 255, 0, 50 };
 
 	sensor = App->physics->AddBody(checkpointCube, 0.0f);
@@ -130,10 +130,6 @@ bool ModuleSceneIntro::Start()
 	CreateMarioKartMap();
 	CreateRamps();
 
-
-	
-
-
 	return ret;
 }
 
@@ -148,6 +144,44 @@ bool ModuleSceneIntro::CleanUp()
 // Update
 update_status ModuleSceneIntro::Update(float dt)
 {
+	// Debug sensors (view them'all at the same time)
+	//if (sensorCounter > 4) sensorCounter = 0;
+	//switch (sensorCounter)
+	//{
+	//	// linia de meta
+	//case 0:
+	//	sensor->SetPos(13, 200, 110);
+	//	checkpointCube.SetPos(13, 200, 110);
+	//	sensorCounter++;
+	//	break;
+	//	// sensor en posicio 1
+	//case 1:
+	//	sensor->SetPos(220, 200, 160);
+	//	checkpointCube.SetPos(220, 200, 160);
+	//	sensorCounter++;
+	//	break;
+	//	// sensor en posicio 2
+	//case 2:
+	//	sensor->SetPos(385, 200, 50);
+	//	checkpointCube.SetPos(385, 200, 50);
+	//	sensorCounter++;
+	//	break;
+	//	// sensor en posicio 3
+	//case 3:
+	//	sensor->SetPos(350, 200, 330);
+	//	checkpointCube.SetPos(350, 200, 330);
+	//	sensorCounter++;
+	//	break;
+	//case 4:
+	//	sensor->SetPos(60, 200, 335);
+	//	checkpointCube.SetPos(60, 200, 335);
+	//	sensorCounter++;
+	//	break;
+	//default:
+	//	break;
+	//}
+
+
 // ======================================================
 //						SPIRAL ROAD RENDER	
 // ======================================================
@@ -311,12 +345,17 @@ void ModuleSceneIntro::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 			checkpointCube.SetPos(387, 200, 296);
 			sensorCounter++;
 			break;
+		case 4:
+			sensor->SetPos(60, 200, 335);
+			checkpointCube.SetPos(60, 200, 335);
+			sensorCounter++;
+			break;
 		default:
 			break;
 		}
 
 		// si player passa l'ultim sensor, col.loca de nou el sensor a la meta i suma 1 lap
-		if (sensorCounter > 3)
+		if (sensorCounter > 4)
 		{
 			sensorCounter = 0;
 			numOfLaps++;
