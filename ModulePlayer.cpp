@@ -19,9 +19,18 @@ bool ModulePlayer::Start()
 	LOG("Loading player");
 
 	VehicleInfo car;
+	// Car properties ----------------------------------------
+	// Asiento
+	car.seient_size.Set(2, 0.5f, 2);
+	// aleron
+	car.alero_size.Set(4.0f, 0.25f, 1);
+	// Asiento
+	car.seient_offset.Set(0, 1.8f, -0.6f);
+	// aleron
+	car.alero_offset.Set(0, 2.2f, -2.75f);
 
 	// Car properties ----------------------------------------
-	car.chassis_size.Set(2, 2, 4);
+	car.chassis_size.Set(3, 1.2f, 5);
 	car.chassis_offset.Set(0, 1.5, 0);
 	car.mass = 500.0f;
 	car.suspensionStiffness = 15.88f;
@@ -32,14 +41,14 @@ bool ModulePlayer::Start()
 	car.maxSuspensionForce = 6000.0f;
 
 	// Wheel properties ---------------------------------------
-	float connection_height = 1.2f;
-	float wheel_radius = 0.6f;
-	float wheel_width = 0.5f;
+	float connection_height = 1.8f;
+	float wheel_radius = 0.8f;
+	float wheel_width = 0.9f;
 	float suspensionRestLength = 1.2f;
 
 	// Don't change anything below this line ------------------
 
-	float half_width = car.chassis_size.x*0.5f;
+	float half_width = car.chassis_size.x*0.8f;
 	float half_length = car.chassis_size.z*0.5f;
 	
 	vec3 direction(0,-1,0);

@@ -48,6 +48,29 @@ void PhysVehicle3D::Render()
 	chassis.transform.M[13] += offset.getY();
 	chassis.transform.M[14] += offset.getZ();
 
+	Cylinder seient(1, 1.2f);
+	vehicle->getChassisWorldTransform().getOpenGLMatrix(&seient.transform);
+	btQuaternion qseient = vehicle->getChassisWorldTransform().getRotation();
+	btVector3 offset3(info.seient_offset.x, info.seient_offset.y, info.seient_offset.z);
+	offset3 = offset3.rotate(qseient.getAxis(), qseient.getAngle());
+	seient.color = Blue;
+	seient.transform.M[12] += offset3.getX();
+	seient.transform.M[13] += offset3.getY();
+	seient.transform.M[14] += offset3.getZ();
+
+	Cube alero(info.alero_size.x, info.alero_size.y, info.alero_size.z);
+	vehicle->getChassisWorldTransform().getOpenGLMatrix(&alero.transform);
+	btQuaternion qalero = vehicle->getChassisWorldTransform().getRotation();
+	btVector3 offset10(info.alero_offset.x, info.alero_offset.y, info.alero_offset.z);
+	offset10 = offset10.rotate(qalero.getAxis(), qalero.getAngle());
+	alero.color = Blue;
+	alero.transform.M[12] += offset10.getX();
+	alero.transform.M[13] += offset10.getY();
+	alero.transform.M[14] += offset10.getZ();
+
+	seient.Render();
+	alero.Render();
+
 
 	chassis.Render();
 }
