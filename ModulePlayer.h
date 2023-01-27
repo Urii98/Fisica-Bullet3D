@@ -22,6 +22,8 @@ public:
 public:
 
 	PhysVehicle3D* vehicle;
+	bool turboActive;
+	int turbo = 100;
 	float turn;
 	float acceleration;
 	float brake;
