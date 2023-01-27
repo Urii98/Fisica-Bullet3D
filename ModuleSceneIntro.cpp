@@ -5,6 +5,8 @@
 #include "PhysBody3D.h"
 #include "Color.h"
 #include <iostream>
+#include "ModulePlayer.h"
+
 ModuleSceneIntro::ModuleSceneIntro(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
 }
@@ -58,12 +60,17 @@ bool ModuleSceneIntro::Start()
 	// ======================================================
 	
 	
+	//CreateSpiralRoad(25, 75, 50);
 	
 	// ======================================================
 	//						Test Code
 	// ======================================================
 	sensor = App->physics->AddBody(Cube(20, 10, 20), 0.0f);
 	sensor->SetAsSensor(true);
+
+	sensorCounter = 0;
+	raceState = LAP1;
+	numOfLaps = 0;
 
 	// -----------------------------
 
@@ -76,17 +83,17 @@ bool ModuleSceneIntro::Start()
 	btRigidBody* body = new btRigidBody(rbInfo);
 
 
-	// Coordenadas de los vértices de la carretera
+	// Coordenadas de los vï¿½rtices de la carretera
 	//glm::vec3 v1(0, 0, 0);
 	//glm::vec3 v2(10, 0, 0);
 	//glm::vec3 v3(10, 0, 10);
 	//glm::vec3 v4(0, 0, 10);
 
-	// Calculamos la inclinación de la subida
+	// Calculamos la inclinaciï¿½n de la subida
 	//float inclinacion = 0.3f;
 
 	//Rampa de Izquierda a Derecha
-	// Aplicamos la inclinación a los vértices
+	// Aplicamos la inclinaciï¿½n a los vï¿½rtices
 	//v1.y = inclinacion * v1.x;
 	//v2.y = inclinacion * v2.x;
 	//v3.y = inclinacion * v3.x;
@@ -99,7 +106,7 @@ bool ModuleSceneIntro::Start()
 	//v1.y = inclinacion * v1.z;
 
 	//Rampa de Derecha a Izquierda
-	// Aplicamos la inclinación a los vértices
+	// Aplicamos la inclinaciï¿½n a los vï¿½rtices
 	//v1.y = inclinacion * 10;
 	//v2.y = inclinacion * 0;
 	//v3.y = inclinacion * 0;
@@ -175,8 +182,11 @@ update_status ModuleSceneIntro::Update(float dt)
 	//	primitive->Render();
 	//}
 
-	
-	//Render sensor
+	//DEBUG LAP VARIABLES:
+	printf("VARIABLES\n");
+	printf("SensorCounter: %d\n", sensorCounter);
+	printf("Race State %d\n", raceState);
+	printf("### Num of Laps %d\n", numOfLaps);
 
 
 	return UPDATE_CONTINUE;
@@ -265,6 +275,58 @@ void ModuleSceneIntro::AddCylinder(vec3 position, float radius, float height, Co
 
 void ModuleSceneIntro::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 {
+	if (body2 == sensor)
+	{
+		switch (sensorCounter)
+		{
+			// linia de meta
+		case 0:
+			sensor->SetPos(30, 0, 0);
+			sensorCounter++;
+			break;
+			// sensor en posicio 1
+		case 1:
+			sensor->SetPos(0, 0, 30);
+			sensorCounter++;
+			break;
+			// sensor en posicio 2
+		case 2:
+			sensor->SetPos(-30, 0, 0);
+			sensorCounter++;
+			break;
+			// sensor en posicio 3
+		case 3:
+			sensor->SetPos(0, 0, -30);
+			sensorCounter++;
+			break;
+		default:
+			break;
+		}
+
+		// si player passa l'ultim sensor, colï¿½loca de nou el sensor a la meta i suma 1 lap
+		if (sensorCounter > 3)
+		{
+			sensorCounter = 0;
+			numOfLaps++;
+		}
+
+		switch (numOfLaps)
+		{
+		case 1:
+			raceState = LAP1;
+			break;
+		case 2:
+			raceState = LAP2;
+			break;
+		case 3:
+			raceState = LAP3;
+			break;
+		case 4:
+			raceState = WIN;
+		default:
+			break;
+		}
+	}
 }
 
 void ModuleSceneIntro::AddPlaneV(glm::vec3 v1, glm::vec3 v2, glm::vec3 v3, glm::vec3 v4, int angle, bool rotateX, bool rotateY, bool rotateZ, bool collider)
@@ -881,7 +943,7 @@ void ModuleSceneIntro::CreateWall(float startX, float startZ, float endX, float 
 	float distance = sqrtf(powf(endX/scale - startX/ scale, 2) + powf(endZ/ scale - startZ/ scale, 2));
 	int numCubes = distance / cubeSize;
 
-	// Calcular el vector de dirección del muro
+	// Calcular el vector de direcciï¿½n del muro
 	vec3 direction = normalize(vec3(endX/ scale - startX/ scale, 0, endZ/ scale - startZ/ scale));
 
 	// Crear cada cubo y agregarlo al vector de cubos

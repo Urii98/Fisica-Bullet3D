@@ -97,9 +97,12 @@ bool ModulePlayer::Start()
 	car.wheels[3].steering = false;
 
 	vehicle = App->physics->AddVehicle(car);
-	vehicle->SetPos(0, 15, 10);
+	vehicle->SetPos(0, 2, 0);
 	vehicle->collision_listeners.add(App->scene_intro);
 	vehicle->collision_listeners.add(this);
+
+	// Matrix where the vehicle spawns at the beginning of the game
+	vehicle->GetTransform(&last_checkpoint_matrix);
 	
 	return true;
 }
@@ -139,6 +142,16 @@ update_status ModulePlayer::Update(float dt)
 		brake = BRAKE_POWER;
 	}
 
+	if (App->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN)
+	{
+		// ... TP i Rotar
+		// Matriu rotació modificar forçadament
+		vehicle->SetTransform(&last_checkpoint_matrix);
+		/*auto matrixXaxi = vehicle->phys_vehicle->getChassisWorldTransform();*/
+		vehicle->vehicle->getRigidBody()->clearForces();
+		vehicle->vehicle->getRigidBody()->setLinearVelocity({ 0,0,0 });
+	}
+
 	vehicle->ApplyEngineForce(acceleration);
 	vehicle->Turn(turn);
 	vehicle->Brake(brake);
@@ -154,12 +167,26 @@ update_status ModulePlayer::Update(float dt)
 
 void ModulePlayer::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 {
-	if (body2 == App->scene_intro->sensor)
+	switch (App->scene_intro->sensorCounter)
 	{
-		// change sensor position
-		// +1 sensor counter
-		// if sensor counter = 4: reset counter, +1 lap
-		// if lap = 3, Win
+		// linia de meta
+	case 0:
+		vehicle->GetTransform(&last_checkpoint_matrix);
+		break;
+		// sensor en posicio 1
+	case 1:
+		vehicle->GetTransform(&last_checkpoint_matrix);
+		break;
+		// sensor en posicio 2
+	case 2:
+		vehicle->GetTransform(&last_checkpoint_matrix);
+		break;
+		// sensor en posicio 3
+	case 3:
+		vehicle->GetTransform(&last_checkpoint_matrix);
+		break;
+	default:
+		break;
 	}
 }
 
