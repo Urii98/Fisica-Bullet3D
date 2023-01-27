@@ -143,7 +143,7 @@ update_status ModulePlayer::Update(float dt)
 	}
 
 	turboActive = false;
-	if (turbo > 0 && (App->input->GetMouseButton(3) == KEY_REPEAT)) {
+	if (turbo > 0 && (App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT)) {
 		acceleration = MAX_ACCELERATION * 5;
 		turbo--;
 		turboActive = true;

@@ -40,6 +40,11 @@ bool ModuleCamera3D::CleanUp()
 // -----------------------------------------------------------------
 update_status ModuleCamera3D::Update(float dt)
 {
+
+	if (App->input->GetKey(SDL_SCANCODE_F4) == KEY_DOWN) {
+		if (freecamera) freecamera = false;
+		else freecamera = true;
+	}
 	// Implement a debug camera with keys and mouse
 	// Now we can make this movememnt frame rate independant!
 	if (freecamera) {
