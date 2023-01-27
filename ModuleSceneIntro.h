@@ -66,6 +66,8 @@ public:
 	int numOfLaps;
 	Cube checkpointCube;
 
+	PhysBody3D* pb_seient;
+
 	PhysBody3D* pb_chassis;
 	Cube p_chassis;
 

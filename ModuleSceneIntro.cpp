@@ -330,19 +330,19 @@ void ModuleSceneIntro::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 			// sensor en posicio 1
 		case 1:
 			sensor->SetPos(220, 200, 160);
-			checkpointCube.SetPos(200, 200, 160);
+			checkpointCube.SetPos(220, 200, 160);
 			sensorCounter++;
 			break;
 			// sensor en posicio 2
 		case 2:
-			sensor->SetPos(387, 200, 300);
-			checkpointCube.SetPos(387, 200, 300);
+			sensor->SetPos(385, 200, 50);
+			checkpointCube.SetPos(385, 200, 50);
 			sensorCounter++;
 			break;
 			// sensor en posicio 3
 		case 3:
-			sensor->SetPos(387, 200, 296);
-			checkpointCube.SetPos(387, 200, 296);
+			sensor->SetPos(350, 200, 330);
+			checkpointCube.SetPos(350, 200, 330);
 			sensorCounter++;
 			break;
 		case 4:

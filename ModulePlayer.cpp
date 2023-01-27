@@ -20,13 +20,12 @@ bool ModulePlayer::Start()
 
 	VehicleInfo car;
 	// Car properties ----------------------------------------
-	// Asiento
+	// Seient
 	car.seient_size.Set(2, 0.5f, 2);
-	// aleron
-	car.alero_size.Set(4.0f, 0.25f, 1);
-	// Asiento
 	car.seient_offset.Set(0, 1.8f, -0.6f);
-	// aleron
+
+	// Alero
+	car.alero_size.Set(4.0f, 0.25f, 1);
 	car.alero_offset.Set(0, 2.2f, -2.75f);
 
 	// Car properties ----------------------------------------
@@ -175,6 +174,19 @@ update_status ModulePlayer::Update(float dt)
 		/*auto matrixXaxi = vehicle->phys_vehicle->getChassisWorldTransform();*/
 	}
 
+	//if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT && App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
+	//{
+	//	vehicle->Push(0, 5000, 0);
+	//}
+	//else if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT && App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
+	//{
+	//	vehicle->Push(1000, 5000, 0);
+	//}
+	//else if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT && App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
+	//{
+	//	vehicle->Push(-1000, 5000, 0);
+	//}
+
 	vehicle->ApplyEngineForce(acceleration);
 	vehicle->Turn(turn);
 	vehicle->Brake(brake);
@@ -209,6 +221,10 @@ void ModulePlayer::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 			// sensor en posicio 3
 		case 3:
 			vehicle->GetTransform(&last_checkpoint_matrix);
+			break;
+		case 4:
+			vehicle->GetTransform(&last_checkpoint_matrix);
+			// sensor en posicio 3
 			break;
 		default:
 			break;
