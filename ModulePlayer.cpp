@@ -1,6 +1,7 @@
 #include "Globals.h"
 #include "Application.h"
 #include "ModulePlayer.h"
+#include "ModulePhysics3D.h"
 #include "Primitive.h"
 #include "PhysVehicle3D.h"
 #include "PhysBody3D.h"
@@ -29,6 +30,8 @@ bool ModulePlayer::Start()
 	car.alero_size.Set(4.0f, 0.25f, 1);
 	car.alero_offset.Set(0, 2.2f, -2.75f);
 
+	gravity= vec3(0.0f, -10.0f, 0.0f);
+
 	// Car properties ----------------------------------------
 	car.chassis_size.Set(3, 1.2f, 5);
 	car.chassis_offset.Set(0, 1.5, 0);
@@ -39,6 +42,7 @@ bool ModulePlayer::Start()
 	car.maxSuspensionTravelCm = 1000.0f;
 	car.frictionSlip = 50.5;
 	car.maxSuspensionForce = 6000.0f;
+	
 
 	// Wheel properties ---------------------------------------
 	float connection_height = 1.8f;
@@ -141,26 +145,31 @@ update_status ModulePlayer::Update(float dt)
 {
 	turn = acceleration = brake = 0.0f;
 
-	if(App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
+
+	App->physics->ForceDrag(vehicle, 10);
+
+	dragForce = 0.5 * vehicle->GetKmh() * 4 * 5;
+
+	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT && vehicle->GetKmh() > -30.0f)
 	{
 		acceleration = MAX_ACCELERATION;
 	}
 
-	if(App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
+	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
 	{
-		if(turn < TURN_DEGREES)
-			turn +=  TURN_DEGREES;
+		if (turn < TURN_DEGREES)
+			turn += TURN_DEGREES;
 	}
 
-	if(App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
+	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
 	{
-		if(turn > -TURN_DEGREES)
+		if (turn > -TURN_DEGREES)
 			turn -= TURN_DEGREES;
 	}
 
-	if(App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
+	if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT && vehicle->GetKmh() < 30.0f)
 	{
-		brake = BRAKE_POWER;
+		acceleration = -MAX_ACCELERATION;
 	}
 
 	// Reset vehicle and TP to the last checkpoint
@@ -172,21 +181,57 @@ update_status ModulePlayer::Update(float dt)
 		vehicle->vehicle->getRigidBody()->setAngularVelocity({ 0,0,0 });
 
 		vehicle->SetTransform(&last_checkpoint_matrix);
-		/*auto matrixXaxi = vehicle->phys_vehicle->getChassisWorldTransform();*/
 	}
 
-	//if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT && App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
-	//{
-	//	vehicle->Push(0, 5000, 0);
+	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT)
+	{
+		acceleration = -MAX_ACCELERATION / 2;
+	}
+
+	turboActive = false;
+	if (turbo > 0 && (App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT)) {
+		acceleration = MAX_ACCELERATION * 5;
+		turbo--;
+		turboActive = true;
+	}
+	else if (turbo < 100) {
+		turbo++;
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_1) == KEY_REPEAT) {
+		vehicle->info.mass += 1;
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_2) == KEY_REPEAT) {
+		vehicle->info.mass -= 1;
+	}
+
+
+	if (App->input->GetKey(SDL_SCANCODE_3) == KEY_REPEAT) {
+		gravity += vec3(0.0f, -0.1f, 0.0f);
+
+		App->physics->SetGravity(gravity);
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_4) == KEY_REPEAT) {
+		
+		gravity -= vec3 (0.0f, -0.1f, 0.0f);
+
+		App->physics->SetGravity(gravity);
+	}
+
+
+
+
+	//if (App->input->GetKey(SDL_SCANCODE_DOWN) != KEY_REPEAT && App->input->GetKey(SDL_SCANCODE_UP) != KEY_REPEAT) {
+	//	brake = BRAKE_POWER / 100;
+
+	//	if (vehicle->GetKmh() > 100) {
+	//		brake = BRAKE_POWER / 20;
+	//	}
 	//}
-	//else if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT && App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
-	//{
-	//	vehicle->Push(1000, 5000, 0);
-	//}
-	//else if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT && App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
-	//{
-	//	vehicle->Push(-1000, 5000, 0);
-	//}
+
+	acceleration -= dragForce;
 
 	vehicle->ApplyEngineForce(acceleration);
 	vehicle->Turn(turn);
@@ -201,7 +246,7 @@ update_status ModulePlayer::Update(float dt)
 	if (App->scene_intro->raceState == App->scene_intro->RaceStateEnum::LOSE)
 	{
 		char title[80];
-		sprintf_s(title, "%.1f Km/h, Current Time: %d s, ### YOU LOSE! Try Again :D ###", vehicle->GetKmh(), (SDL_GetTicks() - App->scene_intro->raceTimer) / 1000);
+		sprintf_s(title, "%.1f Km/h, Current Time: %d s, ### YOU LOSE! Try Again :D ###", vehicle->GetKmh(), (SDL_GetTicks() - App->scene_intro->raceTimer) / 1000,);
 		App->window->SetTitle(title);
 	}
 	else if (App->scene_intro->raceState == App->scene_intro->RaceStateEnum::WIN)
@@ -230,6 +275,11 @@ update_status ModulePlayer::Update(float dt)
 
 		App->scene_intro->restartTheGame = false;
 	}
+	// char title[80];
+	// sprintf_s(title, " massa = %.1f       %.1f Km/h      Gravity= %.1f   dragForce= %.1f",vehicle->info.mass,vehicle->GetKmh(), gravity.y ,dragForce);
+	// App->window->SetTitle(title);
+
+
 
 	return UPDATE_CONTINUE;
 }

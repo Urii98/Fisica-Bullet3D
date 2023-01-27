@@ -26,9 +26,15 @@ public:
 public:
 
 	PhysVehicle3D* vehicle;
+	bool turboActive;
+	int turbo = 100;
 	float turn;
 	float acceleration;
 	float brake;
 
 	mat4x4 last_checkpoint_matrix;
+	float dragForce;
+	float massa;
+
+	vec3 gravity;
 };
