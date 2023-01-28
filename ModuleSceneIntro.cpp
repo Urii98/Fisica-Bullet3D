@@ -82,12 +82,12 @@ bool ModuleSceneIntro::Start()
 	// -----------------------------
 
 
-	btCollisionShape* colShape = new btStaticPlaneShape(btVector3(0, 1, 0), 0);
+	//btCollisionShape* colShape = new btStaticPlaneShape(btVector3(0, 1, 0), 0);
 
-	btDefaultMotionState* myMotionState = new btDefaultMotionState();
-	btRigidBody::btRigidBodyConstructionInfo rbInfo(0.0f, myMotionState, colShape);
+	//btDefaultMotionState* myMotionState = new btDefaultMotionState();
+	//btRigidBody::btRigidBodyConstructionInfo rbInfo(0.0f, myMotionState, colShape);
 
-	btRigidBody* body = new btRigidBody(rbInfo);
+	//btRigidBody* body = new btRigidBody(rbInfo);
 
 
 	// Coordenadas de los v�rtices de la carretera
@@ -263,7 +263,6 @@ update_status ModuleSceneIntro::Update(float dt)
 
 	// After win or lose and wait 5 seconds, restart the game
 	// Check module player for more things that are restarting with the bool "restartTheGame"
-
 
 
 	//DEBUG LAP VARIABLES:
