@@ -35,6 +35,8 @@ public:
 	mat4x4 last_checkpoint_matrix;
 	float dragForce;
 	float massa;
-
+	vec3 bouyancy;
+    
+	bool physics;
 	vec3 gravity;
 };

@@ -19,7 +19,7 @@ ModulePlayer::~ModulePlayer()
 bool ModulePlayer::Start()
 {
 	LOG("Loading player");
-
+	physics = true;
 	VehicleInfo car;
 	// Car properties ----------------------------------------
 	// Seient
@@ -144,11 +144,14 @@ bool ModulePlayer::CleanUp()
 update_status ModulePlayer::Update(float dt)
 {
 	turn = acceleration = brake = 0.0f;
+	if (physics == true) {
+		gravity = vec3(0.0f, -10.0f, 0.0f);
 
+		bouyancy = App->physics->ForceBuoyance(vehicle, 10);
+		App->physics->ForceDrag(vehicle, 10);
 
-	App->physics->ForceDrag(vehicle, 10);
-
-	dragForce = 0.5 * vehicle->GetKmh() * 1.2 * 5;
+		dragForce = 0.5 * vehicle->GetKmh() * 1.2 * 5;
+	}
 
 	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT && vehicle->GetKmh() > -30.0f)
 	{
@@ -185,7 +188,12 @@ update_status ModulePlayer::Update(float dt)
 
 	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT)
 	{
-		acceleration = -MAX_ACCELERATION / 2;
+		if (vehicle->GetKmh() > 0) {
+			acceleration -= MAX_ACCELERATION * 5;
+		}
+		if (vehicle->GetKmh() < 0) {
+			acceleration += MAX_ACCELERATION * 5;
+		}
 	}
 
 	turboActive = false;
@@ -220,6 +228,27 @@ update_status ModulePlayer::Update(float dt)
 		App->physics->SetGravity(gravity);
 	}
 
+	if (App->input->GetKey(SDL_SCANCODE_5) == KEY_DOWN) {
+
+		physics = false;
+
+		dragForce = 0;
+		gravity = vec3(0.0f, -0.0f, 0.0f);
+		bouyancy = vec3(0.0f, 0.0f, 0.0f);
+
+	}
+
+	
+
+		if (App->input->GetKey(SDL_SCANCODE_6) == KEY_DOWN) {
+
+			physics = true;
+
+		}
+
+
+	App->physics->SetGravity(gravity);
+
 
 
 
@@ -246,22 +275,22 @@ update_status ModulePlayer::Update(float dt)
 	if (App->scene_intro->raceState == App->scene_intro->RaceStateEnum::LOSE)
 	{
 		char title[200];
-		sprintf_s(title, "%.1f Km/h,   Current Time: %d s,   massa = %.1f       %.1f Km/h      Gravity= %.1f   dragForce= %.1f ### YOU LOSE! Try Again :D ###", 
-			vehicle->GetKmh(), (SDL_GetTicks() - App->scene_intro->raceTimer) / 1000, vehicle->info.mass, vehicle->GetKmh(), gravity.y, dragForce);
+		sprintf_s(title, "   Current Time: %d s,   massa = %.1f       %.1f Km/h      Gravity= %.1f   dragForce= %.1f  Pyshics=%s ### YOU LOSE! Try Again :D ###",
+			 (SDL_GetTicks() - App->scene_intro->raceTimer) / 1000, vehicle->info.mass, vehicle->GetKmh(), gravity.y, dragForce, physics ? "true":"false");
 		App->window->SetTitle(title);
 	}
 	else if (App->scene_intro->raceState == App->scene_intro->RaceStateEnum::WIN)
 	{
 		char title[200];
-		sprintf_s(title, "%.1f Km/h,   Current Time: %d s,   massa = %.1f       %.1f Km/h      Gravity= %.1f   dragForce= %.1f ### YOU WON, GOOD JOB ### Press K to restart", 
-			vehicle->GetKmh(), (SDL_GetTicks() - App->scene_intro->raceTimer) / 1000, vehicle->info.mass, vehicle->GetKmh(), gravity.y, dragForce);
+		sprintf_s(title, "  Current Time: %d s,   massa = %.1f       %.1f Km/h      Gravity= %.1f   dragForce= %.1f  Pyshics=%s ### YOU WON, GOOD JOB ### Press K to restart", 
+			 (SDL_GetTicks() - App->scene_intro->raceTimer) / 1000, vehicle->info.mass, vehicle->GetKmh(), gravity.y, dragForce,physics ? "true" : "false");
 		App->window->SetTitle(title);
 	}
 	else
 	{
 		char title[200];
-		sprintf_s(title, "%.1f Km/h,   Current Time: %d s,   massa = %.1f       %.1f Km/h      Gravity= %.1f   dragForce= %.1f ### DO THREE LAPS IN LESS THAN 300s ###", 
-			vehicle->GetKmh(), (SDL_GetTicks() - App->scene_intro->raceTimer) / 1000, vehicle->info.mass, vehicle->GetKmh(), gravity.y, dragForce);
+		sprintf_s(title, " Current Time: %d s,   massa = %.1f       %.1f Km/h      Gravity= %.1f   dragForce= %.1f  Pyshics=%s ### DO THREE LAPS IN LESS THAN 300s ###", 
+			 (SDL_GetTicks() - App->scene_intro->raceTimer) / 1000, vehicle->info.mass, vehicle->GetKmh(), gravity.y, dragForce, physics ? "true" : "false");
 		App->window->SetTitle(title);
 	}
 
