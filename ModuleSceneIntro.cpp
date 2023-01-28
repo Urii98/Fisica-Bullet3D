@@ -76,7 +76,7 @@ bool ModuleSceneIntro::Start()
 
 	// Different Terrains
 	ice_Cube = { 35, 0.01f, 35 };
-	ice_Cube.color = Blue;
+	ice_Cube.color = Cyan;
 
 	ice_Sensor = App->physics->AddBody({ 35,0.01,35 }, 0.0f);
 	ice_Sensor->SetAsSensor(true);
@@ -90,6 +90,16 @@ bool ModuleSceneIntro::Start()
 	mud_Sensor->SetAsSensor(true);
 	mud_Sensor->SetPos(13, 196, 80);
 	mud_Cube.SetPos(13, 196, 80);
+
+
+	water_Cube = { 35, 40, 15 };
+	water_Cube.color = Blue;
+
+    water_Sensor = App->physics->AddBody({ 35,20,15 }, 0.0f);
+	water_Sensor->SetAsSensor(true);
+	water_Sensor->SetPos(76, 196, 80);
+	water_Cube.SetPos(76, 196, 80);
+
 
 	//-------------------------------------
 
@@ -234,6 +244,7 @@ update_status ModuleSceneIntro::Update(float dt)
 
 	ice_Cube.Render();
 	mud_Cube.Render();
+	water_Cube.Render();
 
 	//for (auto& primitive : primitives) {
 	//	primitive->Render();
@@ -521,6 +532,7 @@ void ModuleSceneIntro::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 	{
 		App->player->coeficiente = 0.001;
 	}
+
 	
 }
 

@@ -89,6 +89,9 @@ public:
 	PhysBody3D* mud_Sensor;
 	Cube mud_Cube;
 
+	PhysBody3D* water_Sensor;
+	Cube water_Cube;
+
 	PhysBody3D* pb_seient;
 	p2List<PhysBody3D*> cubePhysList;
 	p2List<Cube*> cubeList;

@@ -150,7 +150,7 @@ update_status ModulePlayer::Update(float dt)
 	if (physics == true) {
 		gravity = vec3(0.0f, -10.0f, 0.0f);
 
-		bouyancy = App->physics->ForceBuoyance(vehicle, 10);
+		bouyancy = vec3(0.0f, 5.0f, 0.0f);;
 		App->physics->ForceDrag(vehicle, 10);
 
 		dragForce = 0.5 * vehicle->GetKmh() * 1.2 * 5;
@@ -320,7 +320,7 @@ update_status ModulePlayer::Update(float dt)
 	}
 	 
 	 
-	 
+	gravity=vec3(0.0f, -10.f, 0.0f);
 	coeficiente = 1;
 
 
@@ -356,6 +356,12 @@ void ModulePlayer::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 		default:
 			break;
 		}
+	}
+
+	if (body2 == App->scene_intro->water_Sensor)
+	{
+
+		vehicle->Push(0, 1000, 0);
 	}
 	
 }
