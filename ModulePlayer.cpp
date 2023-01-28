@@ -21,6 +21,7 @@ bool ModulePlayer::Start()
 {
 	LOG("Loading player");
 	physics = true;
+	coeficiente = 1;
 	VehicleInfo car;
 	// Car properties ----------------------------------------
 	// Seient
@@ -145,6 +146,7 @@ bool ModulePlayer::CleanUp()
 update_status ModulePlayer::Update(float dt)
 {
 	turn = acceleration = brake = 0.0f;
+	
 	if (physics == true) {
 		gravity = vec3(0.0f, -10.0f, 0.0f);
 
@@ -255,7 +257,7 @@ update_status ModulePlayer::Update(float dt)
 
 		}
 
-
+	
 	App->physics->SetGravity(gravity);
 
 
@@ -271,10 +273,10 @@ update_status ModulePlayer::Update(float dt)
 
 	acceleration -= dragForce;
 
-	vehicle->ApplyEngineForce(acceleration);
+	vehicle->ApplyEngineForce(acceleration*coeficiente);
 	vehicle->Turn(turn);
 	vehicle->Brake(brake);
-
+	
 	vehicle->Render();
 
 
@@ -319,7 +321,7 @@ update_status ModulePlayer::Update(float dt)
 	 
 	 
 	 
-
+	coeficiente = 1;
 
 
 	return UPDATE_CONTINUE;

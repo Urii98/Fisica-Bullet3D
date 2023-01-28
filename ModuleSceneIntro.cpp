@@ -30,29 +30,29 @@ bool ModuleSceneIntro::Start()
 	// ======================================================
 	//						SINUS GRAPH
 	// ======================================================
-	//int numCubes = 100;
-	//float step = 2.0f / numCubes;
-	//vec3 scale(20, 20, 20);
-	//scalarSize = 7.5f;
-	//scale *= step;
-	//vec3 position(0, 0, 0);
+	int numCubes = 100;
+	float step = 2.0f / numCubes;
+	vec3 scale(20, 20, 20);
+	scalarSize = 7.5f;
+	scale *= step;
+	vec3 position(0, 0, 0);
 
-	//for (int i = 0; i < numCubes; i++)
-	//{
-	//	graphCubes.emplace_back(std::make_unique<Cube>(scale.x, scale.y, scale.z));
-	//	
-	//	float posX = ((i + 1.0f)*step - 1.0f) * scalarSize;
-	//	float posY = posX * posX;
+	for (int i = 0; i < numCubes; i++)
+	{
+		graphCubes.emplace_back(std::make_unique<Cube>(scale.x, scale.y, scale.z));
+		
+		float posX = ((i + 1.0f)*step - 1.0f) * scalarSize;
+		float posY = posX * posX;
 
-	//	graphCubes.at(i).get()->SetPos(posX, posY, 10);
+		graphCubes.at(i).get()->SetPos(posX, posY, 10);
 
-	//	float rate = 8.0 / numCubes;
-	//	float aux = i * rate;
-	//	
-	//	graphCubes.at(i).get()->color = GetColor(aux);
+		float rate = 8.0 / numCubes;
+		float aux = i * rate;
+		
+		graphCubes.at(i).get()->color = GetColor(aux);
 
-	//	
-	//}
+		
+	}
 	
 
 	// ======================================================
@@ -78,15 +78,15 @@ bool ModuleSceneIntro::Start()
 	ice_Cube = { 35, 0.01f, 35 };
 	ice_Cube.color = Blue;
 
-	ice_Sensor = App->physics->AddBody(ice_Cube, 0.0f);
+	ice_Sensor = App->physics->AddBody({ 35,0.01,35 }, 0.0f);
 	ice_Sensor->SetAsSensor(true);
-	ice_Sensor->SetPos(13, 196, 190);
+	ice_Sensor->SetPos(13,198, 190);
 	ice_Cube.SetPos(13, 196, 190);
 
 	mud_Cube = { 35, 0.01f, 35 };
 	mud_Cube.color = Brown;
 
-	mud_Sensor = App->physics->AddBody(mud_Cube, 0.0f);
+	mud_Sensor = App->physics->AddBody({35,2,35}, 0.0f);
 	mud_Sensor->SetAsSensor(true);
 	mud_Sensor->SetPos(13, 196, 80);
 	mud_Cube.SetPos(13, 196, 80);
@@ -511,13 +511,17 @@ void ModuleSceneIntro::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 
 	if (body2 == ice_Sensor)
 	{
+		App->player->coeficiente = 10;
+
 
 	}
+
 
 	if (body2 == mud_Sensor)
 	{
-
+		App->player->coeficiente = 0.001;
 	}
+	
 }
 
 void ModuleSceneIntro::AddPlaneV(glm::vec3 v1, glm::vec3 v2, glm::vec3 v3, glm::vec3 v4, int angle, bool rotateX, bool rotateY, bool rotateZ, bool collider)
