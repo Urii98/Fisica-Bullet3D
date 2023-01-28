@@ -83,6 +83,12 @@ public:
 	int numOfLaps;
 	Cube checkpointCube;
 
+	PhysBody3D* ice_Sensor;
+	Cube ice_Cube;
+
+	PhysBody3D* mud_Sensor;
+	Cube mud_Cube;
+
 	PhysBody3D* pb_seient;
 	p2List<PhysBody3D*> cubePhysList;
 	p2List<Cube*> cubeList;

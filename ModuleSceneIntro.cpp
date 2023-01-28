@@ -74,6 +74,25 @@ bool ModuleSceneIntro::Start()
 	sensor->SetPos(13, 200, 110);
 	checkpointCube.SetPos(13, 200, 110);
 
+	// Different Terrains
+	ice_Cube = { 35, 0.01f, 35 };
+	ice_Cube.color = Blue;
+
+	ice_Sensor = App->physics->AddBody(ice_Cube, 0.0f);
+	ice_Sensor->SetAsSensor(true);
+	ice_Sensor->SetPos(13, 196, 190);
+	ice_Cube.SetPos(13, 196, 190);
+
+	mud_Cube = { 35, 0.01f, 35 };
+	mud_Cube.color = Brown;
+
+	mud_Sensor = App->physics->AddBody(mud_Cube, 0.0f);
+	mud_Sensor->SetAsSensor(true);
+	mud_Sensor->SetPos(13, 196, 80);
+	mud_Cube.SetPos(13, 196, 80);
+
+	//-------------------------------------
+
 	sensorCounter = 0;
 	raceState = LAP1;
 	numOfLaps = 0;
@@ -213,6 +232,9 @@ update_status ModuleSceneIntro::Update(float dt)
 
 	checkpointCube.Render();
 
+	ice_Cube.Render();
+	mud_Cube.Render();
+
 	//for (auto& primitive : primitives) {
 	//	primitive->Render();
 	//}
@@ -243,10 +265,6 @@ update_status ModuleSceneIntro::Update(float dt)
 		checkpointCube.SetPos(13, 200, 110);
 	}
 
-	if (App->input->GetKey(SDL_SCANCODE_0) == KEY_DOWN)
-	{
-		raceState = WIN;
-	}
 	if (App->input->GetKey(SDL_SCANCODE_K) == KEY_DOWN)
 	{
 		raceTimer = 0;
@@ -428,6 +446,7 @@ void ModuleSceneIntro::AddCylinder(vec3 position, float radius, float height, Co
 
 void ModuleSceneIntro::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 {
+	// Checkpoint
 	if (body2 == sensor)
 	{
 		switch (sensorCounter)
@@ -488,6 +507,16 @@ void ModuleSceneIntro::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 		default:
 			break;
 		}
+	}
+
+	if (body2 == ice_Sensor)
+	{
+
+	}
+
+	if (body2 == mud_Sensor)
+	{
+
 	}
 }
 
