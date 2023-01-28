@@ -6,6 +6,7 @@
 #include "PhysVehicle3D.h"
 #include "PhysBody3D.h"
 #include "ModuleSceneIntro.h"
+#include <iostream>
 
 ModulePlayer::ModulePlayer(Application* app, bool start_enabled) : Module(app, start_enabled), vehicle(NULL)
 {
@@ -220,6 +221,14 @@ update_status ModulePlayer::Update(float dt)
 		App->physics->SetGravity(gravity);
 	}
 
+	if (vehicle->vehicle->getRigidBody()->getCenterOfMassPosition().y() < 0)
+	{
+		vehicle->vehicle->getRigidBody()->clearForces();
+		vehicle->vehicle->getRigidBody()->setLinearVelocity({ 0,0,0 });
+		vehicle->vehicle->getRigidBody()->setAngularVelocity({ 0,0,0 });
+
+		vehicle->SetTransform(&last_checkpoint_matrix);
+	}
 
 
 
